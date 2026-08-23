@@ -10,13 +10,16 @@ export default function Footer() {
           
           {/* Company Info */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="inline-block relative w-32 h-16 md:w-40 md:h-20">
-              <Image
-                src="/images/logo.png"
-                alt="Najmat Raozan Technical Service Logo"
-                fill
-                className="object-contain object-left"
-              />
+            <Link href="/" className="inline-block relative w-48 h-24 md:w-56 md:h-28 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="absolute inset-0 m-3">
+                <Image
+                  src="/images/logo.png"
+                  alt="Najmat Raozan Technical Service Logo"
+                  fill
+                  sizes="(max-width: 768px) 192px, 224px"
+                  className="object-contain"
+                />
+              </div>
             </Link>
             <p className="text-brand-gray leading-relaxed">
               Premium rolling shutter and sunshade installation, repair, and maintenance across all areas of Dubai, UAE. Fast, reliable, and professional service.

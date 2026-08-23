@@ -62,6 +62,7 @@ export default function Header() {
                   src="/images/logo.png"
                   alt="Najmat Raozan Technical Service Logo"
                   fill
+                  sizes="(max-width: 768px) 80px, 112px"
                   className="object-contain object-left"
                   priority
                 />

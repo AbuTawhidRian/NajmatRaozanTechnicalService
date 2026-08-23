@@ -4,24 +4,54 @@ import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
+const WHATSAPP_NUMBER = "971565882185";
+
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    service: "",
+    location: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate network request
+
+    const text = [
+      `*Hello Najmat Raozan Technical Service!*`,
+      `I'd like a request a free quotation.`,
+      ``,
+
+      `---------------------------`,
+
+      `*Name:*        ${formData.name}`,
+      `*Phone:*       ${formData.phone}`,
+      `*Service:*     ${formData.service}`,
+      `*Area:*          ${formData.location}`,
+      formData.message ? `*Message:*   ${formData.message}` : null,
+      ``,
+    ].filter(Boolean).join("\n");
+
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      
-      // Reset form success state after 5 seconds
+      window.open(waUrl, "_blank");
+
       setTimeout(() => {
         setIsSubmitted(false);
+        setFormData({ name: "", phone: "", service: "", location: "", message: "" });
       }, 5000);
-    }, 1500);
+    }, 800);
   };
 
   return (
@@ -114,6 +144,8 @@ export default function ContactForm() {
                       type="text" 
                       id="name" 
                       required
+                      value={formData.name}
+                      onChange={handleChange}
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
                       placeholder="John Doe"
                     />
@@ -124,6 +156,8 @@ export default function ContactForm() {
                       type="tel" 
                       id="phone" 
                       required
+                      value={formData.phone}
+                      onChange={handleChange}
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
                       placeholder="+971 56 588 2185"
                     />
@@ -136,15 +170,17 @@ export default function ContactForm() {
                     <select 
                       id="service" 
                       required
+                      value={formData.service}
+                      onChange={handleChange}
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50 appearance-none"
                     >
-                      <option value="" disabled selected>Select a service</option>
-                      <option value="repair">Rolling Shutter Repair</option>
-                      <option value="install">Rolling Shutter Installation</option>
-                      <option value="automatic">Automatic Shutter Upgrade</option>
-                      <option value="sunshade">Sunshade / Car Parking</option>
-                      <option value="curtains">Outdoor Curtains</option>
-                      <option value="other">Other</option>
+                      <option value="" disabled>Select a service</option>
+                      <option value="Rolling Shutter Repair">Rolling Shutter Repair</option>
+                      <option value="Rolling Shutter Installation">Rolling Shutter Installation</option>
+                      <option value="Automatic Shutter Upgrade">Automatic Shutter Upgrade</option>
+                      <option value="Sunshade / Car Parking">Sunshade / Car Parking</option>
+                      <option value="Outdoor Curtains">Outdoor Curtains</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
                   <div className="space-y-2">
@@ -153,6 +189,8 @@ export default function ContactForm() {
                       type="text" 
                       id="location" 
                       required
+                      value={formData.location}
+                      onChange={handleChange}
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
                       placeholder="e.g. Al Quoz, Jumeirah..."
                     />
@@ -164,6 +202,8 @@ export default function ContactForm() {
                   <textarea 
                     id="message" 
                     rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50 resize-none"
                     placeholder="Briefly describe your requirements or the issue with your shutter..."
                   ></textarea>
