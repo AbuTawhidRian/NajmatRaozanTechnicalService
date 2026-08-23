@@ -49,10 +49,9 @@ export default function ShutterLoader() {
           background: "linear-gradient(90deg, #06131e 0%, #0d2235 30%, #122840 60%, #050f1a 100%)",
           boxShadow: "4px 0 12px rgba(0,0,0,0.5)",
         }}>
-          {/* Metal noise texture on rail */}
           <div className="noise-overlay" />
           {[...Array(14)].map((_, i) => (
-            <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0a1c2e", margin: "0 auto", marginTop: i === 0 ? "200px" : "30px", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.8)" }} />
+            <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0a1c2e", margin: "0 auto", marginTop: i === 0 ? "260px" : "30px", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.8)" }} />
           ))}
         </div>
         <div style={{ position: "absolute", top: 0, bottom: 0, left: "18px", width: "4px", zIndex: 10001, background: "linear-gradient(90deg, #020810, #0a1c2e, #020810)" }} />
@@ -66,59 +65,71 @@ export default function ShutterLoader() {
         }}>
           <div className="noise-overlay" />
           {[...Array(14)].map((_, i) => (
-            <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0a1c2e", margin: "0 auto", marginTop: i === 0 ? "200px" : "30px", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.8)" }} />
+            <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0a1c2e", margin: "0 auto", marginTop: i === 0 ? "260px" : "30px", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.8)" }} />
           ))}
         </div>
         <div style={{ position: "absolute", top: 0, bottom: 0, right: "18px", width: "4px", zIndex: 10001, background: "linear-gradient(90deg, #020810, #0a1c2e, #020810)" }} />
 
-        {/* ── SHOP BANNER / FASCIA BOARD ── */}
+        {/* ── BIG SHOP BANNER / FASCIA BOARD ── */}
         <div style={{
           position: "absolute",
           top: 0, left: "22px", right: "22px",
-          height: "160px",
+          height: "220px",
           zIndex: 10003,
           background: "linear-gradient(180deg, #0A2540 0%, #0d2d4e 60%, #0A2540 100%)",
           borderBottom: "4px solid #E59819",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "12px",
           boxShadow: "0 6px 30px rgba(0,0,0,0.7)",
         }}>
           <div className="noise-overlay" style={{ opacity: 0.02 }} />
-          <div style={{ display: "flex", alignItems: "center", gap: "20px", position: "relative", zIndex: 2 }}>
+          
+          <div className="banner-content" style={{ display: "flex", alignItems: "center", gap: "30px", position: "relative", zIndex: 2, padding: "0 20px" }}>
+            {/* Logo on Left */}
             <div style={{
-              background: "white", borderRadius: "12px", width: "90px", height: "80px",
+              background: "white", borderRadius: "16px", width: "130px", height: "110px",
               position: "relative", flexShrink: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
             }}>
-              <Image src="/images/logo.png" alt="Najmat Raozan" fill sizes="90px" style={{ objectFit: "contain", padding: "8px" }} priority />
+              <Image src="/images/logo.png" alt="Najmat Raozan" fill sizes="130px" style={{ objectFit: "contain", padding: "12px" }} priority />
             </div>
-            <div>
-              <p style={{ color: "#E59819", fontSize: "12px", fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase", margin: 0, marginBottom: "4px" }}>
-                Najmat Raozan
-              </p>
-              <p style={{ color: "white", fontSize: "26px", fontWeight: 900, letterSpacing: "0.02em", margin: 0, lineHeight: 1.1 }}>
-                Technical Service
-              </p>
-              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", fontWeight: 500, letterSpacing: "0.12em", margin: 0, marginTop: "4px", textTransform: "uppercase" }}>
-                Rolling Shutter &amp; Sunshade · Dubai
-              </p>
+
+            {/* Info on Right */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div>
+                <p className="banner-title" style={{ color: "white", fontSize: "40px", fontWeight: 900, letterSpacing: "0.05em", textTransform: "uppercase", margin: 0, lineHeight: 1.1 }}>
+                  NAJMAT RAOZAN
+                </p>
+                <p style={{ color: "#E59819", fontSize: "16px", fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase", margin: 0, marginTop: "4px" }}>
+                  Technical Service
+                </p>
+              </div>
+
+              {/* Contact Info (Below Name) */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px", color: "rgba(255,255,255,0.8)", fontSize: "14px", fontWeight: 500, letterSpacing: "0.02em" }}>
+                <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span>📍</span> 78G5+8VG - 18th St - Al Murar, Dubai
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+                  <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span>📞</span> +971 56 588 2185
+                  </p>
+                  <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span>✉️</span> info@najmatraozan.com
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div style={{ width: "180px", height: "2px", background: "rgba(255,255,255,0.1)", borderRadius: "999px", overflow: "hidden", opacity: isOpening ? 0 : 1, transition: "opacity 0.3s ease", position: "relative", zIndex: 2 }}>
-            <div style={{ height: "100%", background: "#E59819", animation: "sl-bar 0.9s ease-out forwards", transformOrigin: "left" }} />
           </div>
         </div>
 
-        {/* ── SHUTTER CONTAINER (Fixed, Overflow Hidden) ── */}
+        {/* ── SHUTTER CONTAINER (Starts at 220px now) ── */}
         <div style={{
           position: "absolute",
-          top: "160px", left: "22px", right: "22px", bottom: 0,
+          top: "220px", left: "22px", right: "22px", bottom: 0,
           overflow: "hidden"
         }}>
           
-          {/* THE MOVING SLATS */}
           <div
             style={{
               position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
@@ -133,25 +144,23 @@ export default function ShutterLoader() {
             {/* Slats */}
             <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {[...Array(slatCount)].map((_, i) => (
-                  <div key={i} style={{
-                    flex: 1, position: "relative",
-                    background: `linear-gradient(180deg, #8fa8be 0%, #7090a8 8%, #7a9ab4 28%, #6888a0 50%, #5c7a92 68%, #4e6a82 85%, #3e5a72 100%)`,
-                    borderTop: "1px solid rgba(255,255,255,0.15)",
-                    borderBottom: "1px solid rgba(0,0,0,0.35)",
-                  }}>
-                    <div className="noise-overlay" />
-
-                    <div style={{ position: "absolute", top: "5px", left: 0, right: 0, height: "1px", background: "rgba(255,255,255,0.25)" }} />
-                    <div style={{ position: "absolute", top: "13px", left: 0, right: 0, height: "1px", background: "rgba(255,255,255,0.08)" }} />
-                    {i % 3 === 0 && (
-                      <>
-                        <div style={{ position: "absolute", top: "50%", left: "24px", transform: "translateY(-50%)", width: "5px", height: "5px", borderRadius: "50%", background: "#2a4a5e", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.7)" }} />
-                        <div style={{ position: "absolute", top: "50%", right: "24px", transform: "translateY(-50%)", width: "5px", height: "5px", borderRadius: "50%", background: "#2a4a5e", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.7)" }} />
-                      </>
-                    )}
-                  </div>
-                )
-              )}
+                <div key={i} style={{
+                  flex: 1, position: "relative",
+                  background: `linear-gradient(180deg, #8fa8be 0%, #7090a8 8%, #7a9ab4 28%, #6888a0 50%, #5c7a92 68%, #4e6a82 85%, #3e5a72 100%)`,
+                  borderTop: "1px solid rgba(255,255,255,0.15)",
+                  borderBottom: "1px solid rgba(0,0,0,0.35)",
+                }}>
+                  <div className="noise-overlay" />
+                  <div style={{ position: "absolute", top: "5px", left: 0, right: 0, height: "1px", background: "rgba(255,255,255,0.25)" }} />
+                  <div style={{ position: "absolute", top: "13px", left: 0, right: 0, height: "1px", background: "rgba(255,255,255,0.08)" }} />
+                  {i % 3 === 0 && (
+                    <>
+                      <div style={{ position: "absolute", top: "50%", left: "24px", transform: "translateY(-50%)", width: "5px", height: "5px", borderRadius: "50%", background: "#2a4a5e", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.7)" }} />
+                      <div style={{ position: "absolute", top: "50%", right: "24px", transform: "translateY(-50%)", width: "5px", height: "5px", borderRadius: "50%", background: "#2a4a5e", boxShadow: "inset 0 1px 1px rgba(0,0,0,0.7)" }} />
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
 
             {/* Gold bottom bar with Lock & Handles */}
@@ -163,11 +172,7 @@ export default function ShutterLoader() {
               position: "relative"
             }}>
               <div className="noise-overlay" style={{ opacity: 0.1 }} />
-              
-              {/* Left Handle */}
               <div style={{ position: "absolute", left: "calc(50% - 70px)", width: "35px", height: "8px", background: "linear-gradient(180deg, #555, #222)", borderRadius: "4px", boxShadow: "0 2px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2)" }} />
-              
-              {/* Center Lock */}
               <div style={{
                 width: "48px", height: "18px",
                 background: "linear-gradient(180deg, #444, #111)",
@@ -177,13 +182,10 @@ export default function ShutterLoader() {
               }}>
                 <div style={{ width: "4px", height: "10px", background: "#000", borderRadius: "2px", boxShadow: "inset 0 1px 2px rgba(0,0,0,1)" }} />
               </div>
-
-              {/* Right Handle */}
               <div style={{ position: "absolute", right: "calc(50% - 70px)", width: "35px", height: "8px", background: "linear-gradient(180deg, #555, #222)", borderRadius: "4px", boxShadow: "0 2px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2)" }} />
             </div>
           </div>
 
-          {/* ── 3D ROLL EFFECT (Inner shadow simulating the curve into the drum) ── */}
           <div style={{
             position: "absolute", top: 0, left: 0, right: 0, height: "45px",
             background: "linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
@@ -195,7 +197,7 @@ export default function ShutterLoader() {
         <div style={{
           position: "absolute",
           left: "22px", right: "22px", height: "80px",
-          top: "160px",
+          top: "220px",
           zIndex: 10000, pointerEvents: "none",
           background: "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 40%, transparent 100%)",
           willChange: "transform",
@@ -229,14 +231,33 @@ export default function ShutterLoader() {
           100% { transform: translate3d(0, -100%, 0); }
         }
         @keyframes shutter-shadow {
-          0% { transform: translate3d(0, calc(100vh - 160px), 0); }
-          3% { transform: translate3d(0, calc(100vh - 164px), 0); }
-          6% { transform: translate3d(0, calc(100vh - 158px), 0); }
-          9% { transform: translate3d(0, calc(100vh - 161px), 0); }
-          13% { transform: translate3d(0, calc(100vh - 160px), 0); }
+          0% { transform: translate3d(0, calc(100vh - 220px), 0); }
+          3% { transform: translate3d(0, calc(100vh - 224px), 0); }
+          6% { transform: translate3d(0, calc(100vh - 218px), 0); }
+          9% { transform: translate3d(0, calc(100vh - 221px), 0); }
+          13% { transform: translate3d(0, calc(100vh - 220px), 0); }
           85% { transform: translate3d(0, -80px, 0); }
           92% { transform: translate3d(0, -60px, 0); }
           100% { transform: translate3d(0, -80px, 0); }
+        }
+        
+        /* Mobile responsiveness for banner */
+        @media (max-width: 640px) {
+          .banner-content {
+            flex-direction: column !important;
+            text-align: center;
+            gap: 16px !important;
+          }
+          .banner-title {
+            font-size: 24px !important;
+          }
+          .banner-content > div:last-child {
+            align-items: center;
+          }
+          .banner-content > div:last-child > div:last-child {
+            align-items: center;
+            justify-content: center;
+          }
         }
       `}</style>
     </>
