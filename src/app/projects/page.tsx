@@ -1,0 +1,16 @@
+import ProjectGallery from "@/components/ProjectGallery";
+import CTASection from "@/components/CTASection";
+
+export const metadata = {
+  title: "Our Projects | Dubai Shutter",
+  description: "View our portfolio of rolling shutter and sunshade installations in Dubai.",
+};
+
+export default function ProjectsPage() {
+  return (
+    <div className="pt-20">
+      <ProjectGallery />
+      <CTASection />
+    </div>
+  );
+}
