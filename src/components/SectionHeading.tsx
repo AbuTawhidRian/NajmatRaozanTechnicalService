@@ -1,18 +1,25 @@
 interface SectionHeadingProps {
   title: string;
   heading: string;
+  subtitle?: string;
   centered?: boolean;
 }
 
-export default function SectionHeading({ title, heading, centered = false }: SectionHeadingProps) {
+export default function SectionHeading({ title, heading, subtitle, centered = false }: SectionHeadingProps) {
   return (
     <div className={`flex flex-col ${centered ? 'items-center text-center' : 'items-start text-left'}`}>
-      <span className="text-brand-accent font-bold tracking-widest uppercase text-sm mb-3">
+      <span className="text-[#f59e0b] font-bold tracking-[0.2em] uppercase text-[0.65rem] mb-3">
         {title}
       </span>
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary leading-tight max-w-3xl">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-primary leading-tight max-w-3xl tracking-tight">
         {heading}
       </h2>
+      <div className={`w-12 h-0.5 bg-brand-accent/60 mt-6 mb-6 ${centered ? 'mx-auto' : ''}`} />
+      {subtitle && (
+        <p className="text-gray-500 max-w-2xl leading-relaxed">
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 }

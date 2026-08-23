@@ -49,7 +49,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
 
         <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex flex-col gap-4">
           <a
-            href="https://wa.me/971501234567"
+            href="https://wa.me/971503463150"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
@@ -58,7 +58,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
             <span>WhatsApp Us</span>
           </a>
           <a
-            href="tel:+971501234567"
+            href="tel:+971503463150"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-colors"
           >
             <Phone className="w-5 h-5 text-brand-accent" />

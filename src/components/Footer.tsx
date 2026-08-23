@@ -68,20 +68,20 @@ export default function Footer() {
             <h3 className="text-lg font-bold text-white uppercase tracking-wider">Contact Us</h3>
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="tel:+971501234567" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
+                <a href="tel:+971503463150" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
                   <Phone className="w-5 h-5 text-brand-accent mt-0.5" />
                   <div className="flex flex-col">
                     <span className="font-medium text-white">Phone</span>
-                    <span>+971 50 123 4567</span>
+                    <span>+971 50 346 3150</span>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/971501234567" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-brand-gray hover:text-green-500 transition-colors">
+                <a href="https://wa.me/971503463150" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-brand-gray hover:text-green-500 transition-colors">
                   <MessageCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div className="flex flex-col">
                     <span className="font-medium text-white">WhatsApp</span>
-                    <span>+971 50 123 4567</span>
+                    <span>+971 50 346 3150</span>
                   </div>
                 </a>
               </li>

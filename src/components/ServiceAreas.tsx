@@ -74,7 +74,7 @@ export default function ServiceAreas() {
                 <p className="text-gray-400 text-sm">Contact us to confirm availability in your location.</p>
               </div>
               <a 
-                href="https://wa.me/971501234567" 
+                href="https://wa.me/971503463150" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="shrink-0 px-6 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white rounded-lg font-bold transition-colors whitespace-nowrap"

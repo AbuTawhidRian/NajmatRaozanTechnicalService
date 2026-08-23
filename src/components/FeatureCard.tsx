@@ -1,31 +1,37 @@
-import { CheckCircle } from "lucide-react";
+import { Users, Clock, ShieldCheck, Ruler, ClipboardList, Map } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 export default function WhyChooseUs() {
   const features = [
     {
       title: "Experienced Technicians",
-      description: "Our team consists of highly trained professionals with years of experience in rolling shutter and sunshade installation.",
+      description: "A trained in-house team, not subcontractors, on every job.",
+      icon: <Users className="w-4 h-4 text-gray-800" />,
     },
     {
-      title: "Fast Response Time",
-      description: "We understand emergencies. Our team is ready to respond quickly to your repair needs across all areas of Dubai.",
+      title: "Fast Response",
+      description: "Most call-outs attended the same day, emergencies within hours.",
+      icon: <Clock className="w-4 h-4 text-gray-800" />,
     },
     {
       title: "Quality Materials",
-      description: "We use only premium, durable materials designed to withstand Dubai's harsh climate and heavy usage.",
+      description: "Galvanised slats, branded motors and UV-stable fabrics only.",
+      icon: <ShieldCheck className="w-4 h-4 text-gray-800" />,
     },
     {
       title: "Professional Installation",
-      description: "Precision installation ensures your shutters and sunshades operate smoothly and last longer.",
+      description: "Clean fitting, aligned guides and a tested finish before we leave.",
+      icon: <Ruler className="w-4 h-4 text-gray-800" />,
     },
     {
       title: "Transparent Pricing",
-      description: "No hidden fees. We provide clear, upfront quotations before starting any work.",
+      description: "Written quotation after the site visit. No surprise charges.",
+      icon: <ClipboardList className="w-4 h-4 text-gray-800" />,
     },
     {
       title: "Dubai-Wide Coverage",
-      description: "From Deira to Dubai Marina, we serve all residential and commercial areas across Dubai.",
+      description: "From Deira to Dubai Marina, our vans cover the whole city.",
+      icon: <Map className="w-4 h-4 text-gray-800" />,
     },
   ];
 
@@ -33,24 +39,25 @@ export default function WhyChooseUs() {
     <section className="py-24 bg-brand-light">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeading 
-          title="WHY CHOOSE US" 
-          heading="The Dubai Shutter Advantage" 
+          title="THE DIFFERENCE" 
+          heading="Why Choose Us?" 
+          subtitle="Ten years of shutter and shading work in Dubai, done by our own technicians with materials that survive the summer."
           centered={true}
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className="bg-white p-8 rounded-2xl premium-shadow hover:premium-shadow-hover transition-all duration-300 transform hover:-translate-y-1 border border-gray-50"
+              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col"
             >
-              <div className="w-12 h-12 bg-brand-primary/5 rounded-xl flex items-center justify-center mb-6">
-                <CheckCircle className="w-6 h-6 text-brand-accent" />
+              <div className="w-10 h-10 bg-[#faecc9] rounded-md flex items-center justify-center mb-6">
+                {feature.icon}
               </div>
-              <h3 className="text-xl font-bold text-brand-primary mb-3">
+              <h3 className="text-[1.1rem] font-bold text-gray-900 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-brand-gray leading-relaxed">
+              <p className="text-gray-500 text-sm leading-relaxed">
                 {feature.description}
               </p>
             </div>

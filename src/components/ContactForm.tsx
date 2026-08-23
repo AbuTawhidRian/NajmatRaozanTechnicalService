@@ -46,8 +46,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Phone</h4>
-                  <a href="tel:+971501234567" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
-                    +971 50 123 4567
+                  <a href="tel:+971503463150" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                    +971 50 346 3150
                   </a>
                 </div>
               </div>
@@ -58,8 +58,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">WhatsApp</h4>
-                  <a href="https://wa.me/971501234567" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
-                    +971 50 123 4567
+                  <a href="https://wa.me/971503463150" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
+                    +971 50 346 3150
                   </a>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function ContactForm() {
                       id="phone" 
                       required
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
-                      placeholder="+971 50 123 4567"
+                      placeholder="+971 50 346 3150"
                     />
                   </div>
                 </div>

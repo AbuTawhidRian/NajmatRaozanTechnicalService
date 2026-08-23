@@ -73,7 +73,7 @@ export default function BeforeAfter() {
             {/* After Image (Background) */}
             <div className="absolute inset-0 w-full h-full">
               <Image
-                src="https://images.unsplash.com/photo-1541882143431-15ebff025b90?q=80&w=2070&auto=format&fit=crop"
+                src="/images/after-shutter.jpg"
                 alt="After Installation"
                 fill
                 className="object-cover"
@@ -90,7 +90,7 @@ export default function BeforeAfter() {
               style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1517581177682-a085bc7fcb10?q=80&w=2070&auto=format&fit=crop"
+                src="/images/before-shutter.jpg"
                 alt="Before Installation"
                 fill
                 className="object-cover filter grayscale sepia-[0.3]"
