@@ -52,6 +52,7 @@ export default function BeforeAfter() {
           title="SEE THE DIFFERENCE" 
           heading="Professional Installation & Replacement" 
           centered={true}
+          lightText={true}
         />
         <div className="text-center text-gray-300 mt-4 mb-16 max-w-2xl mx-auto">
           Slide to see how our expert repair and installation services completely transform old, damaged shutters into modern, secure systems.
