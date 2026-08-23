@@ -4,7 +4,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const title = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   return {
-    title: `${title} | Dubai Shutter`,
+    title: `${title} | Najmat Raozan Technical Service`,
   };
 }
 
@@ -13,8 +13,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const title = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
   return (
-    <div className="pt-20">
-      <div className="bg-brand-primary/5 py-24">
+    <div className="pt-16">
+      <div className="bg-brand-primary/5 py-12 md:py-16">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-primary mb-6">{title}</h1>
           <p className="text-lg text-brand-gray max-w-2xl mx-auto">

@@ -19,62 +19,62 @@ export default function ProjectGallery() {
   const projects = [
     {
       id: 1,
-      title: "Automatic Shop Shutter",
-      location: "Al Quoz, Dubai",
-      category: "ROLLING SHUTTER",
+      title: "Commercial Shutter Installation",
+      location: "Business Bay, Dubai",
+      category: "Installation",
       type: "COMMERCIAL",
       subtitle: "AUTOMATIC SHUTTER SUPPLY & INSTALLATION",
-      imageUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop",
+      imageUrl: "https://overheaddoor-production-assets.azureedge.net/assets/images/default-source/product-images/commercial/rolling-shutter/allura-shutter-653-powder-coat.jpg?sfvrsn=5eea7e43_1",
       href: "/projects/automatic-shop-shutter"
     },
     {
       id: 2,
-      title: "Villa Terrace Sunshade",
-      location: "Jumeirah, Dubai",
-      category: "SUNSHADE",
+      title: "Villa Sunshade System",
+      location: "Palm Jumeirah",
+      category: "Sunshade",
       type: "VILLA",
       subtitle: "RETRACTABLE SUNSHADE INSTALLATION",
-      imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRop3j5ILrXarlU1RFWi6uGWN_qS-Z6SAN46CmrW-W2a6H7QJ6oCAQKGpFu&s=10",
       href: "/projects/luxury-villa-sunshade"
     },
     {
       id: 3,
-      title: "Warehouse Loading Bay Shutters",
-      location: "Al Qusais, Dubai",
-      category: "COMMERCIAL",
+      title: "Warehouse Loading Bay",
+      location: "Jebel Ali Free Zone",
+      category: "Installation",
       type: "COMMERCIAL",
       subtitle: "HEAVY-DUTY SHUTTER INSTALLATION",
-      imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp0t2bnHipwJrxL6sQ3WxWg-CC9VBprWhHtnNWu9_aRcT6ceT1oWCmtmHF&s=10",
       href: "/projects/warehouse-security-shutter"
     },
     {
       id: 4,
-      title: "Balcony Outdoor Curtains",
-      location: "JVC, Dubai",
-      category: "OUTDOOR CURTAIN",
+      title: "Restaurant PVC Curtains",
+      location: "Dubai Marina",
+      category: "Curtains",
       type: "VILLA",
       subtitle: "CLEAR PVC CURTAIN INSTALLATION",
-      imageUrl: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=2070&auto=format&fit=crop",
+      imageUrl: "https://shutters4u.com.au/wp-content/uploads/2019/07/s4umanual-roller-shutter-product.png",
       href: "/projects/patio-outdoor-curtains"
     },
     {
       id: 5,
-      title: "Villa Garage Shutter",
-      location: "Al Barsha, Dubai",
-      category: "VILLA",
+      title: "Shopfront Security Shutter",
+      location: "Deira",
+      category: "Repair",
       type: "VILLA",
       subtitle: "GARAGE SHUTTER REPLACEMENT",
-      imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTosqTs8iPEF7qg7b857NKfepb5MH7z6smnIKKz-wE_JnN0m_1vB41RQU0&s=10",
       href: "/projects/garage-door"
     },
     {
       id: 6,
-      title: "Restaurant Shutter Emergency Repair",
-      location: "Deira, Dubai",
-      category: "ROLLING SHUTTER",
+      title: "Automatic Parking Shutter",
+      location: "Al Barsha",
+      category: "Repair",
       type: "COMMERCIAL",
       subtitle: "EMERGENCY REPAIR",
-      imageUrl: "https://images.unsplash.com/photo-1590674899484-13da0d1b58f5?q=80&w=2070&auto=format&fit=crop",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOx9r4qX_f0UYVw_bfqRKCXIbWgCEUECTIU8r2E2azTaGgMVlCvbuLvPA&s=10",
       href: "/projects/commercial-car-parking"
     }
   ];
@@ -88,7 +88,7 @@ export default function ProjectGallery() {
   });
 
   return (
-    <section className="py-24 bg-brand-light">
+    <section className="py-12 md:py-16 bg-brand-light">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeading 
           title="PORTFOLIO" 

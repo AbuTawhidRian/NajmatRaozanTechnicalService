@@ -18,14 +18,14 @@ export default function EmergencyBanner() {
 
           <div className="md:w-2/5 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <a 
-              href="tel:+971503463150" 
+              href="tel:+971565882185" 
               className="flex-1 px-6 py-4 bg-white text-brand-primary rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors shadow-lg"
             >
               <Phone className="w-5 h-5" />
               Call Now
             </a>
             <a 
-              href="https://wa.me/971503463150" 
+              href="https://wa.me/971565882185" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex-1 px-6 py-4 bg-green-500 text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-green-600 transition-colors shadow-lg"

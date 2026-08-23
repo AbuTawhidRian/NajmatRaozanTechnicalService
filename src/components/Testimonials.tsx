@@ -46,7 +46,7 @@ export default function Testimonials() {
   const prev = () => setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
 
   return (
-    <section className="py-24 bg-brand-light relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-brand-light relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <SectionHeading 

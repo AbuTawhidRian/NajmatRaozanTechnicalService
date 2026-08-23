@@ -35,7 +35,7 @@ export default function ProcessSteps() {
   ];
 
   return (
-    <section className="py-24 bg-[#111827] relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-[#111827] relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         
         {/* We use a custom header here to ensure white text on dark bg since SectionHeading assumes light bg */}

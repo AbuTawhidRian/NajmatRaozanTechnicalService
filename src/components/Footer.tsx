@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle, Mail, MapPin, ChevronRight } from "lucide-react";
 
 export default function Footer() {
@@ -9,18 +10,13 @@ export default function Footer() {
           
           {/* Company Info */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-brand-primary font-bold text-xl">
-                RS
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-xl leading-tight text-white">
-                  Dubai Shutter
-                </span>
-                <span className="text-xs text-brand-gray font-medium">
-                  & Sunshade Repair
-                </span>
-              </div>
+            <Link href="/" className="inline-block relative w-32 h-16 md:w-40 md:h-20">
+              <Image
+                src="/images/logo.png"
+                alt="Najmat Raozan Technical Service Logo"
+                fill
+                className="object-contain object-left"
+              />
             </Link>
             <p className="text-brand-gray leading-relaxed">
               Premium rolling shutter and sunshade installation, repair, and maintenance across all areas of Dubai, UAE. Fast, reliable, and professional service.
@@ -68,29 +64,29 @@ export default function Footer() {
             <h3 className="text-lg font-bold text-white uppercase tracking-wider">Contact Us</h3>
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="tel:+971503463150" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
+                <a href="tel:+971565882185" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
                   <Phone className="w-5 h-5 text-brand-accent mt-0.5" />
                   <div className="flex flex-col">
                     <span className="font-medium text-white">Phone</span>
-                    <span>+971 50 346 3150</span>
+                    <span>+971 56 588 2185</span>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/971503463150" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-brand-gray hover:text-green-500 transition-colors">
+                <a href="https://wa.me/971565882185" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-brand-gray hover:text-green-500 transition-colors">
                   <MessageCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div className="flex flex-col">
                     <span className="font-medium text-white">WhatsApp</span>
-                    <span>+971 50 346 3150</span>
+                    <span>+971 56 588 2185</span>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@dubaishutter.com" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
+                <a href="mailto:info@najmatraozan.com" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors">
                   <Mail className="w-5 h-5 text-brand-accent mt-0.5" />
                   <div className="flex flex-col">
                     <span className="font-medium text-white">Email</span>
-                    <span>info@dubaishutter.com</span>
+                    <span>info@najmatraozan.com</span>
                   </div>
                 </a>
               </li>
@@ -98,7 +94,7 @@ export default function Footer() {
                 <MapPin className="w-5 h-5 text-brand-accent mt-0.5" />
                 <div className="flex flex-col">
                   <span className="font-medium text-white">Location</span>
-                  <span>Al Quoz Industrial Area, Dubai, UAE</span>
+                  <span>78G5+8VG - 18th St - Al Murar, Dubai</span>
                 </div>
               </li>
             </ul>
@@ -108,7 +104,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-brand-gray text-sm">
-          <p>© {new Date().getFullYear()} Dubai Shutter & Sunshade Repair. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Najmat Raozan Technical Service & Sunshade Repair. All Rights Reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-brand-accent transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-brand-accent transition-colors">Terms & Conditions</Link>

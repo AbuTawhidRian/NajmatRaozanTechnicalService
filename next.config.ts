@@ -8,6 +8,26 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "overheaddoor-production-assets.azureedge.net",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "shutters4u.com.au",
+      },
+      {
+        protocol: "https",
+        hostname: "vijayshutterenterprises.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i0.wp.com",
+      },
     ],
   },
 };

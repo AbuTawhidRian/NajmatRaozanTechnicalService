@@ -3,12 +3,12 @@ import { ArrowRight, MessageCircle, ShieldCheck, Clock, MapPin, Wrench, Phone, C
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-20">
+    <section className="relative min-h-[90vh] flex items-center pt-16">
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: 'url("/images/hero-shutter.jpg")',
+          backgroundImage: 'url("https://overheaddoor-production-assets.azureedge.net/assets/images/default-source/product-images/commercial/rolling-shutter/allura-shutter-653-powder-coat.jpg?sfvrsn=5eea7e43_1")',
         }}
       >
         <div className="absolute inset-0 bg-brand-primary/80 mix-blend-multiply" />
@@ -44,7 +44,7 @@ export default function Hero() {
             </Link>
             
             <a 
-              href="https://wa.me/971503463150" 
+              href="https://wa.me/971565882185" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/5 text-white border border-gray-400 hover:border-white rounded font-bold text-lg flex items-center justify-center gap-2 transition-all"
@@ -104,12 +104,12 @@ export default function Hero() {
             </div>
 
             <div className="space-y-3">
-              <a href="tel:+971503463150" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-lg bg-[#1a202c] hover:bg-black text-white font-bold transition-colors">
+              <a href="tel:+971565882185" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-lg bg-[#1a202c] hover:bg-black text-white font-bold transition-colors">
                 <Phone className="w-4 h-4" />
-                +971 50 346 3150
+                +971 56 588 2185
               </a>
 
-              <a href="https://wa.me/971503463150" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-lg bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold transition-colors">
+              <a href="https://wa.me/971565882185" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-lg bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold transition-colors">
                 <MessageCircle className="w-4 h-4" />
                 Chat on WhatsApp
               </a>

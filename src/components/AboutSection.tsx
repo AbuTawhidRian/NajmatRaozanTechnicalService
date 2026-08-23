@@ -12,17 +12,17 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-12 md:py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           
           {/* Left: Images */}
           <div className="lg:w-1/2 relative w-full">
             <div className="relative aspect-[4/5] sm:aspect-[4/3] lg:aspect-square rounded-[2.5rem] overflow-hidden premium-shadow max-w-lg mx-auto lg:mr-auto lg:ml-0">
-              <Image
-                src="https://images.unsplash.com/photo-1504307651254-35680f356f58?q=80&w=2070&auto=format&fit=crop"
-                alt="Professional Technicians"
-                fill
+              <Image 
+                src="https://vijayshutterenterprises.com/wp-content/uploads/2026/01/automatic-shutter-control-system-1.jpg" 
+                alt="Expert Shutter Repair Team" 
+                fill 
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-brand-primary/10" />
@@ -46,7 +46,7 @@ export default function AboutSection() {
             
             <div className="mt-8 space-y-6 text-brand-gray text-lg leading-relaxed">
               <p>
-                Dubai Shutter is a premier installation and repair company serving residential, commercial, and industrial clients across Dubai. We specialize in providing high-quality rolling shutters, automatic doors, sunshades, and outdoor curtains.
+                Najmat Raozan Technical Service is a premier installation and repair company serving residential, commercial, and industrial clients across Dubai. We specialize in providing high-quality rolling shutters, automatic doors, sunshades, and outdoor curtains.
               </p>
               <p>
                 With over a decade of experience, our professional team is equipped to handle everything from emergency motor repairs to large-scale warehouse shutter installations. We take pride in our fast response times, quality workmanship, and customer-focused approach.

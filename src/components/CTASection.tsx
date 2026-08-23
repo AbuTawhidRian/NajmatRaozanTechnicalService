@@ -3,13 +3,13 @@ import { Phone, MessageCircle, MapPin } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="py-24 bg-brand-light overflow-hidden relative z-10">
+    <section className="py-12 md:py-16 bg-brand-light overflow-hidden relative z-10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="bg-brand-primary rounded-2xl overflow-hidden flex flex-col lg:flex-row relative">
           {/* Left Image */}
           <div className="lg:w-[45%] relative min-h-[300px] lg:min-h-full">
             <Image
-              src="/images/technician-repair.jpg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2z4TZPQIrssREWXr895jxdxeGhPiNFX77MtKOuXFuOozgESQgCSJsySoD&s=10"
               alt="Rolling Shutter Repair Technician"
               fill
               className="object-cover"
@@ -34,14 +34,14 @@ export default function CTASection() {
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a 
-                href="tel:+971503463150" 
+                href="tel:+971565882185" 
                 className="px-6 py-3 bg-brand-accent hover:bg-brand-accent-hover text-brand-primary rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 Call Now
               </a>
               <a 
-                href="https://wa.me/971503463150" 
+                href="https://wa.me/971565882185" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-transparent hover:bg-white/5 border border-gray-700 text-white rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors"

@@ -46,7 +46,7 @@ export default function BeforeAfter() {
   }, [isDragging]);
 
   return (
-    <section className="py-24 bg-brand-primary text-white overflow-hidden">
+    <section className="py-12 md:py-16 bg-brand-primary text-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeading 
           title="SEE THE DIFFERENCE" 
@@ -73,7 +73,7 @@ export default function BeforeAfter() {
             {/* After Image (Background) */}
             <div className="absolute inset-0 w-full h-full">
               <Image
-                src="/images/after-shutter.jpg"
+                src="/images/real-after.jpg"
                 alt="After Installation"
                 fill
                 className="object-cover"
@@ -90,10 +90,10 @@ export default function BeforeAfter() {
               style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
             >
               <Image
-                src="/images/before-shutter.jpg"
+                src="/images/real-before.jpg"
                 alt="Before Installation"
                 fill
-                className="object-cover filter grayscale sepia-[0.3]"
+                className="object-cover"
                 draggable={false}
               />
               <div className="absolute inset-0 bg-black/30" />

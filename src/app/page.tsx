@@ -8,7 +8,6 @@ import ProjectGallery from "@/components/ProjectGallery";
 import BeforeAfter from "@/components/BeforeAfter";
 import ServiceAreas from "@/components/ServiceAreas";
 import AboutSection from "@/components/AboutSection";
-import Testimonials from "@/components/Testimonials";
 import EmergencyBanner from "@/components/EmergencyBanner";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
@@ -26,9 +25,7 @@ export default function Home() {
       <ProjectGallery />
       <BeforeAfter />
       <ServiceAreas />
-      <AboutSection />
-      <Testimonials />
-      <EmergencyBanner />
+      <AboutSection />      <EmergencyBanner />
       <FAQ />
       <ContactForm />
       <MapSection />

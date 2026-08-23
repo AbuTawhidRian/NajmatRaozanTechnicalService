@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { X, Phone, MessageCircle } from "lucide-react";
 
 interface MobileMenuProps {
@@ -10,6 +11,8 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
+  const pathname = usePathname();
+
   if (!isOpen) return null;
 
   return (
@@ -34,22 +37,27 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
         </div>
 
         <nav className="flex-1 overflow-y-auto py-6 px-6 flex flex-col gap-6">
-          {links.map((link) => (
+          {links.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href));
+            return (
             <Link
               key={link.name}
               href={link.href}
               onClick={onClose}
-              className="text-xl font-medium text-brand-primary hover:text-brand-accent transition-colors flex items-center justify-between group"
+              className={`text-xl font-medium flex items-center justify-between group transition-colors ${
+                isActive ? "text-brand-accent" : "text-brand-primary hover:text-brand-accent"
+              }`}
             >
               {link.name}
-              <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              <span className={`transition-opacity ${isActive ? "opacity-100 text-brand-accent" : "opacity-0 group-hover:opacity-100 text-brand-accent"}`}>→</span>
             </Link>
-          ))}
+            );
+          })}
         </nav>
 
         <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex flex-col gap-4">
           <a
-            href="https://wa.me/971503463150"
+            href="https://wa.me/971565882185"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
@@ -58,7 +66,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
             <span>WhatsApp Us</span>
           </a>
           <a
-            href="tel:+971503463150"
+            href="tel:+971565882185"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-colors"
           >
             <Phone className="w-5 h-5 text-brand-accent" />

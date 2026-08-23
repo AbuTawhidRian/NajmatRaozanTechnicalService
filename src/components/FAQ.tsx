@@ -43,7 +43,7 @@ export default function FAQ() {
   ];
 
   return (
-    <section className="py-24 bg-brand-light relative">
+    <section className="py-12 md:py-16 bg-brand-light relative">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeading 
           title="FAQ" 

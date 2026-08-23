@@ -25,7 +25,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-16">
           
@@ -46,8 +46,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Phone</h4>
-                  <a href="tel:+971503463150" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
-                    +971 50 346 3150
+                  <a href="tel:+971565882185" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                    +971 56 588 2185
                   </a>
                 </div>
               </div>
@@ -58,8 +58,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">WhatsApp</h4>
-                  <a href="https://wa.me/971503463150" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
-                    +971 50 346 3150
+                  <a href="https://wa.me/971565882185" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
+                    +971 56 588 2185
                   </a>
                 </div>
               </div>
@@ -70,8 +70,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Email</h4>
-                  <a href="mailto:info@dubaishutter.com" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
-                    info@dubaishutter.com
+                  <a href="mailto:info@najmatraozan.com" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                    info@najmatraozan.com
                   </a>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function ContactForm() {
                       id="phone" 
                       required
                       className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
-                      placeholder="+971 50 346 3150"
+                      placeholder="+971 56 588 2185"
                     />
                   </div>
                 </div>

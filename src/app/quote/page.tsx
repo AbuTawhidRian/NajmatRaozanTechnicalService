@@ -1,13 +1,13 @@
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "Get a Free Quote | Dubai Shutter",
+  title: "Get a Free Quote | Najmat Raozan Technical Service",
   description: "Request a free quotation for your rolling shutter or sunshade project.",
 };
 
 export default function QuotePage() {
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <div className="bg-brand-primary/5 py-16">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-brand-primary mb-6">Get a Free Quotation</h1>
