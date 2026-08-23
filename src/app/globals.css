@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #0A2540; /* Deep premium navy blue */
-  --color-brand-secondary: #173A5E; /* Slate blue */
-  --color-brand-accent: #E59819; /* Rich golden yellow */
+  --color-brand-primary: #0A2540;
+  --color-brand-secondary: #173A5E;
+  --color-brand-accent: #E59819;
   --color-brand-accent-hover: #C78210;
-  --color-brand-light: #F8FAFC; /* Crisp, cool off-white */
+  --color-brand-light: #F8FAFC;
   --color-brand-gray: #64748B;
   --color-brand-white: #ffffff;
   
@@ -16,10 +16,19 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     @apply antialiased overflow-x-hidden;
+  }
+
+  ::selection {
+    background: #E59819;
+    color: #0A2540;
   }
 }
 
@@ -39,4 +48,66 @@
   .premium-shadow-hover {
     @apply hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] transition-shadow duration-300;
   }
+
+  /* Dot grid pattern for section backgrounds */
+  .dot-pattern {
+    background-image: radial-gradient(circle, #0A254012 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Fade up animation — apply with animation-delay via style prop */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .fade-up-delay-1 { animation-delay: 0.1s; }
+  .fade-up-delay-2 { animation-delay: 0.2s; }
+  .fade-up-delay-3 { animation-delay: 0.3s; }
+  .fade-up-delay-4 { animation-delay: 0.4s; }
+  .fade-up-delay-5 { animation-delay: 0.5s; }
+  .fade-up-delay-6 { animation-delay: 0.6s; }
+  .fade-up-delay-7 { animation-delay: 0.7s; }
+  .fade-up-delay-8 { animation-delay: 0.8s; }
+
+  /* Gold shimmer scan line effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(229,152,25,0.12) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: none;
+  }
+  .shimmer:hover::after {
+    transform: translateX(100%);
+    transition: transform 0.6s ease;
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.6); }
+}
+
+@keyframes shimmer-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }

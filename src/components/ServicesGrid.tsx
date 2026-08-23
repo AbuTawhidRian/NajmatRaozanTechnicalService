@@ -63,18 +63,20 @@ export default function ServicesGrid() {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-white relative z-10">
+    <section className="py-16 md:py-24 bg-white relative z-10 dot-pattern">
       <div className="container mx-auto px-4 md:px-6">
-        <SectionHeading 
-          title="OUR SERVICES" 
-          heading="Complete Rolling Shutter & Sunshade Solutions" 
-          subtitle="One team for installation, repair, motorisation and shading - for shops, villas, garages and warehouses across Dubai."
-          centered={true}
-        />
+        <div className="fade-up">
+          <SectionHeading 
+            title="Our Services" 
+            heading="Complete Rolling Shutter & Sunshade Solutions" 
+            subtitle="One team for installation, repair, motorisation and shading — for shops, villas, garages and warehouses across Dubai."
+            centered={true}
+          />
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
           {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
+            <ServiceCard key={index} {...service} index={index} />
           ))}
         </div>
       </div>
