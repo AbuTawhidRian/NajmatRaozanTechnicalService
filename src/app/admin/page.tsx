@@ -10,6 +10,11 @@ export default async function AdminDashboard() {
   const pendingRequests = await prisma.quoteRequest.count({ where: { status: 'PENDING' } });
   const completedRequests = await prisma.quoteRequest.count({ where: { status: 'COMPLETED' } });
 
+  const recentRequests = await prisma.quoteRequest.findMany({
+    take: 5,
+    orderBy: { createdAt: 'desc' },
+  });
+
   const stats = [
     {
       label: "Total Service Requests",
@@ -88,20 +93,41 @@ export default async function AdminDashboard() {
           <p className="text-slate-300 text-sm mt-2 max-w-md">
             This is your central hub for managing service requests, contact settings, and business operations.
           </p>
-          <a
-            href="/admin/settings"
-            className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 bg-[#E59819] hover:bg-[#C78210] text-white text-sm font-semibold rounded-lg transition-colors"
-          >
-            Go to Settings
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          <div className="flex flex-wrap items-center gap-3 mt-5">
+            <a
+              href="/admin/requests"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#E59819] hover:bg-[#C78210] text-white text-sm font-semibold rounded-lg transition-colors"
+            >
+              View Requests
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="/admin/settings"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-sm font-semibold rounded-lg transition-colors backdrop-blur-sm"
+            >
+              Go to Settings
+            </a>
+          </div>
         </div>
       </div>
 
       {/* Quick links */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
         <h3 className="text-sm font-semibold text-slate-700 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <a
+            href="/admin/requests"
+            className="flex items-center gap-3 p-4 rounded-xl border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/50 transition-all group"
+          >
+            <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+              <ClipboardList className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-800">View Requests</p>
+              <p className="text-xs text-slate-400">Manage customer quotes</p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 ml-auto transition-colors" />
+          </a>
           <a
             href="/admin/settings"
             className="flex items-center gap-3 p-4 rounded-xl border border-slate-100 hover:border-[#E59819]/40 hover:bg-amber-50/50 transition-all group"
@@ -130,6 +156,39 @@ export default async function AdminDashboard() {
             <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 ml-auto transition-colors" />
           </a>
         </div>
+      </div>
+
+      {/* Recent Requests */}
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-semibold text-slate-700">Recent Customer Requests</h3>
+          <a href="/admin/requests" className="text-sm text-blue-600 font-medium hover:underline">View all</a>
+        </div>
+        
+        {recentRequests.length === 0 ? (
+          <p className="text-sm text-slate-500 py-4 text-center bg-slate-50 rounded-xl">No requests yet.</p>
+        ) : (
+          <div className="divide-y divide-slate-100">
+            {recentRequests.map((req) => (
+              <div key={req.id} className="py-4 flex items-center justify-between first:pt-0 last:pb-0">
+                <div>
+                  <p className="text-sm font-bold text-slate-800">{req.name}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{req.service} • {req.location}</p>
+                </div>
+                <div className="text-right">
+                  <span className={`inline-flex px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                    req.status === 'PENDING' ? 'bg-amber-50 text-amber-700' :
+                    req.status === 'COMPLETED' ? 'bg-emerald-50 text-emerald-700' :
+                    'bg-blue-50 text-blue-700'
+                  }`}>
+                    {req.status}
+                  </span>
+                  <p className="text-xs text-slate-400 mt-1">{req.createdAt.toLocaleDateString()}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
