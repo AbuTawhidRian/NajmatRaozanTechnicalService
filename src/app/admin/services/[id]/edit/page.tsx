@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft, Save } from "lucide-react";
 import ImageUploader from "../../ImageUploader";
+import MultiImageUploader from "../../MultiImageUploader";
 import RichTextEditor from "@/components/RichTextEditor";
 
 export const metadata = { title: "Edit Service | Admin" };
@@ -15,10 +16,11 @@ async function updateService(formData: FormData) {
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
   const slug = formData.get("slug") as string;
+  const gallery = formData.getAll("gallery") as string[];
 
   await prisma.service.update({
     where: { id },
-    data: { title, description, imageUrl, slug },
+    data: { title, description, imageUrl, slug, gallery },
   });
   revalidatePath("/admin/services");
   revalidatePath("/services");
@@ -81,8 +83,11 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
               <RichTextEditor name="description" defaultValue={service.description} />
             </div>
 
-          {/* Image */}
+          {/* Main Image */}
           <ImageUploader name="imageUrl" defaultUrl={service.imageUrl} label="Card Image" />
+
+          {/* Gallery Images */}
+          <MultiImageUploader name="gallery" defaultUrls={service.gallery} label="Service Gallery Images" />
 
           {/* Footer */}
           <div className="pt-2 flex items-center justify-between border-t border-slate-100">

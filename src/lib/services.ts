@@ -8,6 +8,7 @@ export type ServiceRow = {
   slug: string;
   order: number;
   isActive: boolean;
+  gallery: string[];
 };
 
 /** Fetch all active services ordered for the public frontend */

@@ -115,6 +115,29 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   dangerouslySetInnerHTML={{ __html: service.description }}
                 />
               </div>
+
+              {/* Gallery */}
+              {service.gallery && service.gallery.length > 0 && (
+                <div className="px-8 pb-8">
+                  <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
+                    Project Gallery
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {service.gallery.map((img, i) => (
+                      <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                        <Image 
+                          src={img} 
+                          alt={`${service.title} project image ${i + 1}`} 
+                          fill 
+                          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                          sizes="(max-width: 768px) 50vw, 33vw" 
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

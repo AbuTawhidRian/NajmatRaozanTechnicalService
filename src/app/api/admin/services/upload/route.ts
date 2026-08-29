@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { auth } from '@/auth';
+import { existsSync } from 'fs';
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -10,26 +11,44 @@ export async function POST(req: NextRequest) {
   }
 
   const formData = await req.formData();
-  const file = formData.get('file') as File | null;
+  const files = formData.getAll('file') as File[];
 
-  if (!file) {
-    return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+  if (!files || files.length === 0) {
+    return NextResponse.json({ error: 'No files provided' }, { status: 400 });
   }
 
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-  if (!allowedTypes.includes(file.type)) {
-    return NextResponse.json({ error: 'Only JPEG, PNG, and WebP images are allowed' }, { status: 400 });
+  const uploadedUrls: string[] = [];
+
+  const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'services');
+  if (!existsSync(uploadDir)) {
+    await mkdir(uploadDir, { recursive: true });
   }
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+  for (const file of files) {
+    if (!allowedTypes.includes(file.type)) {
+      continue; // Skip invalid files
+    }
 
-  // Sanitise filename
-  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const uploadPath = path.join(process.cwd(), 'public', 'uploads', 'services', safeName);
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-  await writeFile(uploadPath, buffer);
+    // Sanitise filename
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+    const safeName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const uploadPath = path.join(uploadDir, safeName);
 
-  return NextResponse.json({ url: `/uploads/services/${safeName}` });
+    await writeFile(uploadPath, buffer);
+    uploadedUrls.push(`/uploads/services/${safeName}`);
+  }
+
+  if (uploadedUrls.length === 0) {
+    return NextResponse.json({ error: 'No valid images uploaded' }, { status: 400 });
+  }
+
+  // Support both single file response and multiple files response for backward compatibility
+  return NextResponse.json({ 
+    url: uploadedUrls[0], 
+    urls: uploadedUrls 
+  });
 }

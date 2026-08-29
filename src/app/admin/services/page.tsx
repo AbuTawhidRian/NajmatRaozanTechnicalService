@@ -15,6 +15,7 @@ import {
   GripVertical,
 } from "lucide-react";
 import ImageUploader from "./ImageUploader";
+import MultiImageUploader from "./MultiImageUploader";
 import DeleteServiceForm from "./DeleteServiceForm";
 import RichTextEditor from "@/components/RichTextEditor";
 
@@ -29,12 +30,13 @@ async function createService(formData: FormData) {
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
   const slug = formData.get("slug") as string;
+  const gallery = formData.getAll("gallery") as string[];
 
   const last = await prisma.service.findFirst({ orderBy: { order: "desc" } });
   const order = (last?.order ?? 0) + 1;
 
   await prisma.service.create({
-    data: { title, description, imageUrl, slug, order, isActive: true },
+    data: { title, description, imageUrl, slug, order, isActive: true, gallery },
   });
   revalidatePath("/admin/services");
   revalidatePath("/services");
@@ -223,8 +225,11 @@ export default async function ServicesAdminPage() {
               <RichTextEditor name="description" />
             </div>
 
-            {/* Image */}
+            {/* Main Image */}
             <ImageUploader name="imageUrl" label="Card Image" />
+
+            {/* Gallery Images */}
+            <MultiImageUploader name="gallery" label="Service Gallery Images" />
 
             <button
               type="submit"
