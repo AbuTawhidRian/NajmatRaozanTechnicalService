@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
+import imageCompression from "browser-image-compression";
 
 interface ImageUploaderProps {
   name: string;
@@ -25,6 +26,17 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
 
     setUploading(true);
 
+    let compressedFile: File | Blob = file;
+    try {
+      compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      });
+    } catch (err) {
+      console.error("Failed to compress image", err);
+    }
+
     // Delete previously uploaded image if it exists and is not the default
     if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
       try {
@@ -39,7 +51,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
     }
 
     const fd = new FormData();
-    fd.append("file", file);
+    fd.append("file", compressedFile, file.name);
     const res = await fetch("/api/admin/services/upload", { method: "POST", body: fd });
     const data = await res.json();
     setUploading(false);
@@ -87,7 +99,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
           {uploading ? (
             <div className="flex flex-col items-center gap-2">
               <Loader2 className="w-5 h-5 text-slate-400 animate-spin" />
-              <span className="text-xs text-slate-500">Uploading image...</span>
+              <span className="text-xs text-slate-500">Compressing & uploading...</span>
             </div>
           ) : (
             <>
