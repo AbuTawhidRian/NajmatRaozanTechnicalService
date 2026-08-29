@@ -5,10 +5,11 @@ import {
   Trash2,
   Phone,
   MapPin,
-  Clock,
-  CheckCircle2
+  CheckCircle2,
+  Mail
 } from "lucide-react";
 import { StatusForm } from "./status-form";
+import { RequestsClientControls } from "./requests-client-controls";
 
 export const metadata = { title: "Customer Requests | Admin" };
 
@@ -27,8 +28,30 @@ async function deleteRequest(formData: FormData) {
   revalidatePath("/admin/requests");
 }
 
-export default async function RequestsAdminPage() {
+export default async function RequestsAdminPage(
+  props: { searchParams?: Promise<{ query?: string; status?: any }> }
+) {
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || "";
+  const status = searchParams?.status || undefined;
+
+  const whereClause: any = {};
+  
+  if (status && status !== "ALL") {
+    whereClause.status = status;
+  }
+
+  if (query) {
+    whereClause.OR = [
+      { name: { contains: query, mode: "insensitive" } },
+      { phone: { contains: query, mode: "insensitive" } },
+      { email: { contains: query, mode: "insensitive" } },
+      { location: { contains: query, mode: "insensitive" } },
+    ];
+  }
+
   const requests = await prisma.quoteRequest.findMany({
+    where: whereClause,
     orderBy: { createdAt: 'desc' }
   });
 
@@ -46,6 +69,8 @@ export default async function RequestsAdminPage() {
           {requests.length} total
         </span>
       </div>
+
+      <RequestsClientControls requests={requests} />
 
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         {requests.length === 0 ? (
@@ -71,6 +96,11 @@ export default async function RequestsAdminPage() {
                         <a href={`tel:${req.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-1 text-sm text-blue-600 hover:underline font-medium">
                           <Phone className="w-3.5 h-3.5" /> {req.phone}
                         </a>
+                        {req.email && (
+                          <a href={`mailto:${req.email}`} className="flex items-center gap-1 text-sm text-blue-600 hover:underline font-medium">
+                            <Mail className="w-3.5 h-3.5" /> {req.email}
+                          </a>
+                        )}
                         <span className="flex items-center gap-1 text-sm text-slate-500">
                           <MapPin className="w-3.5 h-3.5" /> {req.location}
                         </span>

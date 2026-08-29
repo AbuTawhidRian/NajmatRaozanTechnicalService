@@ -4,6 +4,7 @@ import prisma from "./prisma";
 
 export async function createQuoteRequest(data: {
   name: string;
+  email?: string;
   phone: string;
   service: string;
   location: string;
@@ -20,6 +21,7 @@ export async function createQuoteRequest(data: {
       customer = await prisma.user.create({
         data: {
           name: data.name,
+          email: data.email || null,
           phone: data.phone,
           address: data.location,
           role: "CUSTOMER",
@@ -30,6 +32,7 @@ export async function createQuoteRequest(data: {
     const request = await prisma.quoteRequest.create({
       data: {
         name: data.name,
+        email: data.email || null,
         phone: data.phone,
         service: data.service,
         location: data.location,

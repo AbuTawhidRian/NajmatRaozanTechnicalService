@@ -101,6 +101,7 @@ enum RequestStatus {
 model QuoteRequest {
   id          String   @id @default(cuid())
   name        String
+  email       String?
   phone       String
   service     String
   location    String

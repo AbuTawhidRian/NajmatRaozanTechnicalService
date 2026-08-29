@@ -1,16 +1,46 @@
 import prisma from "@/lib/prisma";
 import { Users, Mail, Phone, MapPin, ClipboardList } from "lucide-react";
+import { CustomersClientControls } from "./customers-client-controls";
 
 export const metadata = { title: "Customers | Admin" };
 
-export default async function CustomersAdminPage() {
+export default async function CustomersAdminPage(
+  props: { searchParams?: Promise<{ query?: string; filter?: string }> }
+) {
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || "";
+  const filter = searchParams?.filter || undefined;
+
+  const whereClause: any = { role: "CUSTOMER" };
+
+  if (query) {
+    whereClause.OR = [
+      { name: { contains: query, mode: "insensitive" } },
+      { email: { contains: query, mode: "insensitive" } },
+      { phone: { contains: query, mode: "insensitive" } },
+    ];
+  }
+
+  // Handle relation filter
+  let requestsFilter: any = {};
+  if (filter === "HAS_REQUESTS") {
+    requestsFilter = { some: {} };
+  } else if (filter === "NO_REQUESTS") {
+    requestsFilter = { none: {} };
+  }
+
+  if (Object.keys(requestsFilter).length > 0) {
+    whereClause.requests = requestsFilter;
+  }
+
   const customers = await prisma.user.findMany({
-    where: { role: "CUSTOMER" },
+    where: whereClause,
     include: {
       _count: {
         select: { requests: true },
       },
     },
+    orderBy: { id: 'desc' }
   });
 
   return (
@@ -27,6 +57,8 @@ export default async function CustomersAdminPage() {
           {customers.length} total
         </span>
       </div>
+
+      <CustomersClientControls customers={customers} />
 
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         {customers.length === 0 ? (

@@ -12,6 +12,7 @@ export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     service: "",
     location: "",
@@ -30,6 +31,7 @@ export default function ContactForm() {
       // 1. Save to database via server action
       await createQuoteRequest({
         name: formData.name,
+        email: formData.email,
         phone: formData.phone,
         service: formData.service,
         location: formData.location,
@@ -43,6 +45,7 @@ export default function ContactForm() {
         ``,
         `---------------------------`,
         `*Name:*        ${formData.name}`,
+        formData.email ? `*Email:*       ${formData.email}` : null,
         `*Phone:*       ${formData.phone}`,
         `*Service:*     ${formData.service}`,
         `*Area:*          ${formData.location}`,
@@ -60,7 +63,7 @@ export default function ContactForm() {
       
       setTimeout(() => {
         setIsSubmitted(false);
-        setFormData({ name: "", phone: "", service: "", location: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", service: "", location: "", message: "" });
       }, 5000);
     } catch (error) {
       console.error("Failed to submit form", error);
@@ -166,6 +169,20 @@ export default function ContactForm() {
                       placeholder="John Doe"
                     />
                   </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-bold text-brand-primary">Email Address</label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="phone" className="text-sm font-bold text-brand-primary">Phone Number *</label>
                     <input 
