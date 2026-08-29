@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
@@ -19,6 +19,25 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
   const [mode, setMode] = useState<"url" | "upload">("url");
   const fileRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleUnload = () => {
+      if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
+        fetch("/api/admin/services/upload", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: preview }),
+          keepalive: true
+        }).catch(() => {});
+      }
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+      handleUnload();
+    };
+  }, [preview, defaultUrl]);
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];

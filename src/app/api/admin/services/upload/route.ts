@@ -3,6 +3,7 @@ import { writeFile, mkdir, unlink } from 'fs/promises';
 import path from 'path';
 import { auth } from '@/auth';
 import { existsSync } from 'fs';
+import prisma from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -67,6 +68,20 @@ export async function DELETE(req: NextRequest) {
 
     const safePath = path.normalize(url).replace(/^(\.\.[\/\\])+/, '');
     const absolutePath = path.join(process.cwd(), "public", safePath);
+
+    // Check if the URL is used in the database
+    const inUse = await prisma.service.findFirst({
+      where: {
+        OR: [
+          { imageUrl: url },
+          { gallery: { has: url } }
+        ]
+      }
+    });
+
+    if (inUse) {
+      return NextResponse.json({ success: true, message: "URL is in use" });
+    }
 
     if (existsSync(absolutePath)) {
       await unlink(absolutePath);

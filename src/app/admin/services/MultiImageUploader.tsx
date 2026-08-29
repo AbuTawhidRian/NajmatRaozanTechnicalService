@@ -21,6 +21,29 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultUrls?.join(',')]);
 
+  useEffect(() => {
+    const handleUnload = () => {
+      // Find URLs uploaded in this session (not in defaultUrls)
+      const newlyUploaded = urls.filter((u) => !defaultUrls.includes(u));
+      newlyUploaded.forEach((url) => {
+        if (url.startsWith("/uploads/")) {
+          fetch("/api/admin/services/upload", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url }),
+            keepalive: true
+          }).catch(() => {});
+        }
+      });
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+      handleUnload();
+    };
+  }, [urls, defaultUrls]);
+
   async function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
