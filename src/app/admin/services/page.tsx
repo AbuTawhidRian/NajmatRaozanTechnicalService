@@ -17,6 +17,7 @@ import {
 import ImageUploader from "./ImageUploader";
 import MultiImageUploader from "./MultiImageUploader";
 import DeleteServiceForm from "./DeleteServiceForm";
+import ToggleServiceForm from "./ToggleServiceForm";
 import SubmitButton from "./SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
 import { deleteLocalFile, cleanupOrphanedFiles } from "@/lib/file";
@@ -176,13 +177,7 @@ export default async function ServicesAdminPage() {
                     </form>
 
                     {/* Toggle active */}
-                    <form action={toggleActive}>
-                      <input type="hidden" name="id" value={svc.id} />
-                      <input type="hidden" name="current" value={String(svc.isActive)} />
-                      <button type="submit" title={svc.isActive ? "Hide" : "Show"} className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors">
-                        {svc.isActive ? <ToggleRight className="w-4 h-4" /> : <ToggleLeft className="w-4 h-4" />}
-                      </button>
-                    </form>
+                    <ToggleServiceForm id={svc.id} title={svc.title} isActive={svc.isActive} action={toggleActive} />
 
                     {/* Edit */}
                     <Link

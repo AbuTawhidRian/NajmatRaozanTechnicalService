@@ -1,14 +1,19 @@
 import { auth } from "../../auth";
+import prisma from "@/lib/prisma";
 import { ClipboardList, Clock, CheckCircle2, TrendingUp, ArrowRight } from "lucide-react";
 
 export default async function AdminDashboard() {
   const session = await auth();
   const userName = session?.user?.name || "Admin";
 
+  const totalRequests = await prisma.quoteRequest.count();
+  const pendingRequests = await prisma.quoteRequest.count({ where: { status: 'PENDING' } });
+  const completedRequests = await prisma.quoteRequest.count({ where: { status: 'COMPLETED' } });
+
   const stats = [
     {
       label: "Total Service Requests",
-      value: "0",
+      value: String(totalRequests),
       icon: ClipboardList,
       color: "text-blue-600",
       bg: "bg-blue-50",
@@ -17,7 +22,7 @@ export default async function AdminDashboard() {
     },
     {
       label: "Pending Requests",
-      value: "0",
+      value: String(pendingRequests),
       icon: Clock,
       color: "text-amber-600",
       bg: "bg-amber-50",
@@ -26,7 +31,7 @@ export default async function AdminDashboard() {
     },
     {
       label: "Completed Jobs",
-      value: "0",
+      value: String(completedRequests),
       icon: CheckCircle2,
       color: "text-emerald-600",
       bg: "bg-emerald-50",

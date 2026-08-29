@@ -96,6 +96,22 @@ enum RequestStatus {
 }
 
 // ------------------------------------------------------
+// Quote Requests / Customer Leads
+// ------------------------------------------------------
+model QuoteRequest {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  service     String
+  location    String
+  message     String?  @db.Text
+  status      RequestStatus @default(PENDING)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ------------------------------------------------------
 // Application Settings Model
 // ------------------------------------------------------
 model SiteSettings {

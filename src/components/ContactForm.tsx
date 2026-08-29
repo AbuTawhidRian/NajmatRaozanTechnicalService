@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import { useSettings } from "./SettingsContext";
+import { createQuoteRequest } from "@/lib/quote";
 
 export default function ContactForm() {
   const settings = useSettings();
@@ -21,37 +22,52 @@ export default function ContactForm() {
     setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const text = [
-      `*Hello Najmat Raozan Technical Service!*`,
-      `I'd like a request a free quotation.`,
-      ``,
+    try {
+      // 1. Save to database via server action
+      await createQuoteRequest({
+        name: formData.name,
+        phone: formData.phone,
+        service: formData.service,
+        location: formData.location,
+        message: formData.message,
+      });
 
-      `---------------------------`,
+      // 2. Prepare WhatsApp message
+      const text = [
+        `*Hello Najmat Raozan Technical Service!*`,
+        `I'd like to request a free quotation.`,
+        ``,
+        `---------------------------`,
+        `*Name:*        ${formData.name}`,
+        `*Phone:*       ${formData.phone}`,
+        `*Service:*     ${formData.service}`,
+        `*Area:*          ${formData.location}`,
+        formData.message ? `*Message:*   ${formData.message}` : null,
+        ``,
+      ].filter(Boolean).join("\n");
 
-      `*Name:*        ${formData.name}`,
-      `*Phone:*       ${formData.phone}`,
-      `*Service:*     ${formData.service}`,
-      `*Area:*          ${formData.location}`,
-      formData.message ? `*Message:*   ${formData.message}` : null,
-      ``,
-    ].filter(Boolean).join("\n");
-
-    const waUrl = `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(text)}`;
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
+      const waUrl = `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(text)}`;
+      
+      // 3. Open WhatsApp
       window.open(waUrl, "_blank");
 
+      // 4. Show success state
+      setIsSubmitted(true);
+      
       setTimeout(() => {
         setIsSubmitted(false);
         setFormData({ name: "", phone: "", service: "", location: "", message: "" });
       }, 5000);
-    }, 800);
+    } catch (error) {
+      console.error("Failed to submit form", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

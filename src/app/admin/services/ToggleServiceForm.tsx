@@ -1,36 +1,39 @@
 "use client";
 
-import { Trash2, AlertTriangle, X } from "lucide-react";
+import { ToggleLeft, ToggleRight, Eye, EyeOff, X } from "lucide-react";
 import React, { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-interface DeleteServiceFormProps {
+interface ToggleServiceFormProps {
   id: string;
   title: string;
+  isActive: boolean;
   action: (payload: FormData) => Promise<void> | void;
 }
 
-function SubmitButton() {
+function SubmitButton({ isActive }: { isActive: boolean }) {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm disabled:opacity-50 inline-flex items-center gap-2"
+      className={`px-4 py-2 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm disabled:opacity-50 inline-flex items-center gap-2 ${
+        isActive ? "bg-amber-600 hover:bg-amber-700" : "bg-green-600 hover:bg-green-700"
+      }`}
     >
       {pending ? (
         <>
           <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          Deleting...
+          {isActive ? "Hiding..." : "Showing..."}
         </>
       ) : (
-        "Yes, Delete Service"
+        isActive ? "Yes, Hide Service" : "Yes, Show Service"
       )}
     </button>
   );
 }
 
-export default function DeleteServiceForm({ id, title, action }: DeleteServiceFormProps) {
+export default function ToggleServiceForm({ id, title, isActive, action }: ToggleServiceFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -38,11 +41,11 @@ export default function DeleteServiceForm({ id, title, action }: DeleteServiceFo
     <>
       <button
         type="button"
-        title="Delete"
+        title={isActive ? "Hide" : "Show"}
         onClick={() => setIsOpen(true)}
-        className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+        className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-colors"
       >
-        <Trash2 className="w-3.5 h-3.5" />
+        {isActive ? <ToggleRight className="w-4 h-4" /> : <ToggleLeft className="w-4 h-4" />}
       </button>
 
       {isOpen && (
@@ -51,14 +54,14 @@ export default function DeleteServiceForm({ id, title, action }: DeleteServiceFo
             <div className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${isActive ? 'bg-amber-100' : 'bg-green-100'}`}>
+                    {isActive ? <EyeOff className="w-5 h-5 text-amber-600" /> : <Eye className="w-5 h-5 text-green-600" />}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">Delete Service</h3>
+                    <h3 className="text-lg font-bold text-slate-900">{isActive ? "Hide Service" : "Show Service"}</h3>
                     <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-                      Are you sure you want to delete <strong className="text-slate-800">{title}</strong>? 
-                      This action cannot be undone and will permanently delete all associated images.
+                      Are you sure you want to {isActive ? "hide" : "show"} <strong className="text-slate-800">{title}</strong>? 
+                      {isActive ? " It will no longer be visible to customers on the public website." : " It will become visible to customers on the public website."}
                     </p>
                   </div>
                 </div>
@@ -88,7 +91,8 @@ export default function DeleteServiceForm({ id, title, action }: DeleteServiceFo
                 }}
               >
                 <input type="hidden" name="id" value={id} />
-                <SubmitButton />
+                <input type="hidden" name="current" value={String(isActive)} />
+                <SubmitButton isActive={isActive} />
               </form>
             </div>
           </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Save } from "lucide-react";
 import ImageUploader from "../../ImageUploader";
 import MultiImageUploader from "../../MultiImageUploader";
+import SubmitButton from "../../SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
 
 export const metadata = { title: "Edit Service | Admin" };
@@ -114,13 +115,12 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
             <Link href="/admin/services" className="text-sm text-slate-400 hover:text-slate-600 transition-colors">
               Cancel
             </Link>
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0A2540] hover:bg-[#173A5E] text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
-            >
-              <Save className="w-4 h-4" />
-              Save Changes
-            </button>
+            <SubmitButton 
+              label="Save Changes" 
+              loadingLabel="Saving Changes..." 
+              icon={<Save className="w-4 h-4" />} 
+              className=""
+            />
           </div>
         </form>
       </div>

@@ -7,12 +7,14 @@ interface SubmitButtonProps {
   label?: string;
   loadingLabel?: string;
   icon?: React.ReactNode;
+  className?: string;
 }
 
 export default function SubmitButton({ 
   label = "Add Service", 
   loadingLabel = "Saving...",
-  icon = <Plus className="w-4 h-4" />
+  icon = <Plus className="w-4 h-4" />,
+  className = "w-full"
 }: SubmitButtonProps) {
   const { pending } = useFormStatus();
 
@@ -20,7 +22,7 @@ export default function SubmitButton({
     <button
       type="submit"
       disabled={pending}
-      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0A2540] hover:bg-[#173A5E] text-white text-sm font-semibold rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+      className={`${className} inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0A2540] hover:bg-[#173A5E] text-white text-sm font-semibold rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed`}
     >
       {pending ? (
         <>
