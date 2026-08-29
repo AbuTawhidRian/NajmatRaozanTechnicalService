@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir, unlink } from 'fs/promises';
 import path from 'path';
 import { auth } from '@/auth';
 import { existsSync } from 'fs';
@@ -51,4 +51,29 @@ export async function POST(req: NextRequest) {
     url: uploadedUrls[0], 
     urls: uploadedUrls 
   });
+}
+
+export async function DELETE(req: NextRequest) {
+  const session = await auth();
+  if (!session || (session.user as any).role !== 'ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const { url } = await req.json();
+    if (!url || !url.startsWith('/uploads/services/')) {
+      return NextResponse.json({ error: 'Invalid URL' }, { status: 400 });
+    }
+
+    const safePath = path.normalize(url).replace(/^(\.\.[\/\\])+/, '');
+    const absolutePath = path.join(process.cwd(), "public", safePath);
+
+    if (existsSync(absolutePath)) {
+      await unlink(absolutePath);
+    }
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
+  }
 }

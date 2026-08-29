@@ -17,8 +17,9 @@ import {
 import ImageUploader from "./ImageUploader";
 import MultiImageUploader from "./MultiImageUploader";
 import DeleteServiceForm from "./DeleteServiceForm";
+import SubmitButton from "./SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
-
+import { deleteLocalFile, cleanupOrphanedFiles } from "@/lib/file";
 
 export const metadata = { title: "Manage Services | Admin" };
 
@@ -45,6 +46,22 @@ async function createService(formData: FormData) {
 async function deleteService(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
+  
+  // Find the service to get its image URLs
+  const service = await prisma.service.findUnique({ where: { id } });
+  if (service) {
+    // Delete main image
+    if (service.imageUrl) {
+      await deleteLocalFile(service.imageUrl);
+    }
+    // Delete gallery images
+    if (service.gallery && service.gallery.length > 0) {
+      for (const url of service.gallery) {
+        await deleteLocalFile(url);
+      }
+    }
+  }
+
   await prisma.service.delete({ where: { id } });
   revalidatePath("/admin/services");
   revalidatePath("/services");
@@ -79,6 +96,9 @@ async function moveService(formData: FormData) {
 // ─── Page ───────────────────────────────────────────────────────────────────────
 
 export default async function ServicesAdminPage() {
+  // Fire and forget orphan cleanup in the background
+  cleanupOrphanedFiles();
+
   const services = await getAllServices();
 
   return (
@@ -231,13 +251,7 @@ export default async function ServicesAdminPage() {
             {/* Gallery Images */}
             <MultiImageUploader name="gallery" label="Service Gallery Images" />
 
-            <button
-              type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0A2540] hover:bg-[#173A5E] text-white text-sm font-semibold rounded-lg transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              Add Service
-            </button>
+            <SubmitButton label="Add Service" loadingLabel="Adding Service..." />
           </form>
         </div>
       </div>

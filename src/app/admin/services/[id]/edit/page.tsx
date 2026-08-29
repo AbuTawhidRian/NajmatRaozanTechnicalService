@@ -9,6 +9,8 @@ import RichTextEditor from "@/components/RichTextEditor";
 
 export const metadata = { title: "Edit Service | Admin" };
 
+import { deleteLocalFile } from "@/lib/file";
+
 async function updateService(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
@@ -18,10 +20,28 @@ async function updateService(formData: FormData) {
   const slug = formData.get("slug") as string;
   const gallery = formData.getAll("gallery") as string[];
 
+  // Fetch the old service to see if any images were removed
+  const oldService = await prisma.service.findUnique({ where: { id } });
+
   await prisma.service.update({
     where: { id },
     data: { title, description, imageUrl, slug, gallery },
   });
+
+  // If update succeeded, delete orphaned files
+  if (oldService) {
+    if (oldService.imageUrl && oldService.imageUrl !== imageUrl) {
+      await deleteLocalFile(oldService.imageUrl);
+    }
+    if (oldService.gallery) {
+      for (const oldUrl of oldService.gallery) {
+        if (!gallery.includes(oldUrl)) {
+          await deleteLocalFile(oldUrl);
+        }
+      }
+    }
+  }
+
   revalidatePath("/admin/services");
   revalidatePath("/services");
   redirect("/admin/services");

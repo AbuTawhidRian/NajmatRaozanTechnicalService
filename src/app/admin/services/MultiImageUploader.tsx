@@ -60,8 +60,22 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
     }
   }
 
-  function removeUrl(indexToRemove: number) {
+  async function removeUrl(indexToRemove: number) {
+    const urlToRemove = urls[indexToRemove];
     setUrls((prev) => prev.filter((_, idx) => idx !== indexToRemove));
+
+    // Delete immediately if it was uploaded just now (not an existing saved image)
+    if (!defaultUrls.includes(urlToRemove)) {
+      try {
+        await fetch("/api/admin/services/upload", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: urlToRemove }),
+        });
+      } catch (err) {
+        console.error("Failed to delete orphaned image", err);
+      }
+    }
   }
 
   return (

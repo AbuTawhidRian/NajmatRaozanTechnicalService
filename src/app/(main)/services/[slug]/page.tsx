@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, MessageCircle, CheckCircle2, ArrowLeft, Clock, MapPin, ShieldCheck } from "lucide-react";
+import ImageGallery from "@/components/ImageGallery";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -123,19 +124,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     <div className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
                     Project Gallery
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {service.gallery.map((img, i) => (
-                      <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
-                        <Image 
-                          src={img} 
-                          alt={`${service.title} project image ${i + 1}`} 
-                          fill 
-                          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
-                          sizes="(max-width: 768px) 50vw, 33vw" 
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <ImageGallery images={service.gallery} title={service.title} />
                 </div>
               )}
             </div>

@@ -22,7 +22,22 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+
     setUploading(true);
+
+    // Delete previously uploaded image if it exists and is not the default
+    if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
+      try {
+        await fetch("/api/admin/services/upload", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: preview }),
+        });
+      } catch (err) {
+        console.error("Failed to delete previous image", err);
+      }
+    }
+
     const fd = new FormData();
     fd.append("file", file);
     const res = await fetch("/api/admin/services/upload", { method: "POST", body: fd });
@@ -70,7 +85,10 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
           className="relative flex flex-col items-center justify-center gap-2 w-full h-24 border-2 border-dashed border-slate-200 rounded-lg bg-slate-50 hover:border-[#E59819] hover:bg-amber-50/30 cursor-pointer transition-colors"
         >
           {uploading ? (
-            <Loader2 className="w-5 h-5 text-slate-400 animate-spin" />
+            <div className="flex flex-col items-center gap-2">
+              <Loader2 className="w-5 h-5 text-slate-400 animate-spin" />
+              <span className="text-xs text-slate-500">Uploading image...</span>
+            </div>
           ) : (
             <>
               <Upload className="w-5 h-5 text-slate-400" />
@@ -90,7 +108,21 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Service 
           <Image src={preview} alt="Preview" fill className="object-cover" unoptimized />
           <button
             type="button"
-            onClick={() => { setPreview(""); setUrlInput(""); }}
+            onClick={async () => {
+              if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
+                try {
+                  await fetch("/api/admin/services/upload", {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: preview }),
+                  });
+                } catch (err) {
+                  console.error("Failed to delete image", err);
+                }
+              }
+              setPreview("");
+              setUrlInput("");
+            }}
             className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 flex items-center justify-center hover:bg-black/80 transition-colors"
           >
             <X className="w-3.5 h-3.5 text-white" />
