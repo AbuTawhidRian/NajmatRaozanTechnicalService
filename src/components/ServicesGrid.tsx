@@ -1,82 +1,66 @@
-import { Settings, Wrench, Zap, Store, Warehouse, Sun, Tent } from "lucide-react";
+import { getActiveServices } from "@/lib/services";
 import ServiceCard from "./ServiceCard";
 import SectionHeading from "./SectionHeading";
+import {
+  Settings,
+  Wrench,
+  Zap,
+  Store,
+  Warehouse,
+  Sun,
+  Tent,
+  Layers,
+  type LucideIcon,
+} from "lucide-react";
 
-export default function ServicesGrid() {
-  const services = [
-    {
-      title: "Rolling Shutter Installation",
-      description: "New manual and automatic shutters measured, fabricated and fitted on site.",
-      icon: <Settings className="w-6 h-6" />,
-      imageUrl: "https://overheaddoor-production-assets.azureedge.net/assets/images/default-source/product-images/commercial/rolling-shutter/allura-shutter-653-powder-coat.jpg?sfvrsn=5eea7e43_1",
-      href: "/services/installation"
-    },
-    {
-      title: "Rolling Shutter Repair",
-      description: "Stuck, jammed or noisy shutter? Our team gets it moving the same day.",
-      icon: <Wrench className="w-6 h-6" />,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRop3j5ILrXarlU1RFWi6uGWN_qS-Z6SAN46CmrW-W2a6H7QJ6oCAQKGpFu&s=10",
-      href: "/services/repair"
-    },
-    {
-      title: "Automatic Rolling Shutter",
-      description: "Motorised shutters with remote, wall switch and safety stop.",
-      icon: <Zap className="w-6 h-6" />,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp0t2bnHipwJrxL6sQ3WxWg-CC9VBprWhHtnNWu9_aRcT6ceT1oWCmtmHF&s=10",
-      href: "/services/automatic"
-    },
-    {
-      title: "Motor Repair & Replacement",
-      description: "Motor not responding? We diagnose, rewind or replace it.",
-      icon: <Settings className="w-6 h-6" />,
-      imageUrl: "https://shutters4u.com.au/wp-content/uploads/2019/07/s4umanual-roller-shutter-product.png",
-      href: "/services/motor-repair"
-    },
-    {
-      title: "Shop & Garage Shutter",
-      description: "Secure shopfront and villa garage shutters built to daily use.",
-      icon: <Store className="w-6 h-6" />,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTosqTs8iPEF7qg7b857NKfepb5MH7z6smnIKKz-wE_JnN0m_1vB41RQU0&s=10",
-      href: "/services/shop-garage"
-    },
-    {
-      title: "Warehouse Shutter",
-      description: "Heavy-duty industrial shutters for large openings and loading bays.",
-      icon: <Warehouse className="w-6 h-6" />,
-      imageUrl: "https://vijayshutterenterprises.com/wp-content/uploads/2026/01/automatic-shutter-control-system-1.jpg",
-      href: "/services/warehouse"
-    },
-    {
-      title: "Sunshade Installation",
-      description: "Fixed and retractable sunshades for villas, cafes and terraces.",
-      icon: <Sun className="w-6 h-6" />,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOx9r4qX_f0UYVw_bfqRKCXIbWgCEUECTIU8r2E2azTaGgMVlCvbuLvPA&s=10",
-      href: "/services/sunshade"
-    },
-    {
-      title: "Outdoor Curtains",
-      description: "Weatherproof PVC and mesh curtains for balconies and majlis areas.",
-      icon: <Tent className="w-6 h-6" />,
-      imageUrl: "https://i0.wp.com/www.bmpdoors.com/opt/content/media/2018/03/shutter-doors-2.jpg?fit=800%2C600&ssl=1",
-      href: "/services/outdoor-curtains"
-    },
-  ];
+// Map slug → icon so icons don't need to be stored in the DB
+const slugIconMap: Record<string, LucideIcon> = {
+  installation: Settings,
+  repair: Wrench,
+  automatic: Zap,
+  "motor-repair": Settings,
+  "shop-garage": Store,
+  warehouse: Warehouse,
+  sunshade: Sun,
+  "outdoor-curtains": Tent,
+};
+
+function getIcon(slug: string): React.ReactNode {
+  const Icon = slugIconMap[slug] ?? Layers;
+  return <Icon className="w-6 h-6" />;
+}
+
+interface ServicesGridProps {
+  limit?: number;
+  latest?: boolean;
+}
+
+export default async function ServicesGrid({ limit, latest }: ServicesGridProps = {}) {
+  const services = await getActiveServices(limit, latest);
 
   return (
     <section className="py-16 md:py-24 bg-white relative z-10 dot-pattern">
       <div className="container mx-auto px-4 md:px-6">
         <div className="fade-up">
-          <SectionHeading 
-            title="Our Services" 
-            heading="Complete Rolling Shutter & Sunshade Solutions" 
+          <SectionHeading
+            title="Our Services"
+            heading="Complete Rolling Shutter & Sunshade Solutions"
             subtitle="One team for installation, repair, motorisation and shading — for shops, villas, garages and warehouses across Dubai."
             centered={true}
           />
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
           {services.map((service, index) => (
-            <ServiceCard key={index} {...service} index={index} />
+            <ServiceCard
+              key={service.id}
+              title={service.title}
+              description={service.description}
+              imageUrl={service.imageUrl}
+              href={`/services/${service.slug}`}
+              icon={getIcon(service.slug)}
+              index={index}
+            />
           ))}
         </div>
       </div>

@@ -6,11 +6,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MessageCircle, Clock, Mail } from "lucide-react";
 import MobileMenu from "./MobileMenu";
+import { useSettings } from "./SettingsContext";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const settings = useSettings();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +43,9 @@ export default function Header() {
               <span>Open daily 8:00 - 22:00 - 24/7 emergency</span>
             </div>
             <div className="flex items-center gap-4 font-medium">
-              <a href="mailto:info@najmatraozan.com" className="hover:text-white transition-colors">info@najmatraozan.com</a>
+              <a href={`mailto:${settings.email}`} className="hover:text-white transition-colors">{settings.email}</a>
               <span className="text-gray-600">|</span>
-              <a href="tel:+971565882185" className="text-brand-accent hover:text-brand-accent-hover transition-colors">+971 56 588 2185</a>
+              <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="text-brand-accent hover:text-brand-accent-hover transition-colors">{settings.phone}</a>
             </div>
           </div>
         </div>
@@ -92,7 +94,7 @@ export default function Header() {
             {/* CTAs */}
             <div className="hidden lg:flex items-center gap-3">
               <a
-                href="https://wa.me/971565882185"
+                href={`https://wa.me/${settings.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#25D366] hover:bg-[#1ebd5a] text-white px-4 py-2.5 rounded font-bold transition-colors flex items-center gap-2 text-sm shadow-sm"
@@ -101,7 +103,7 @@ export default function Header() {
                 <span>WhatsApp</span>
               </a>
               <a
-                href="tel:+971565882185"
+                href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
                 className="bg-brand-primary hover:bg-brand-secondary text-white px-4 py-2.5 rounded font-bold transition-colors flex items-center gap-2 text-sm shadow-sm"
               >
                 <Phone className="w-4 h-4" />

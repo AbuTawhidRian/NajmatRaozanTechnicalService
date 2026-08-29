@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------------
+// NextAuth.js Models
+// ------------------------------------------------------
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  role          UserRole  @default(CUSTOMER)
+  
+  // Custom fields for the application
+  phone         String?
+  address       String?
+  
+  accounts      Account[]
+  sessions      Session[]
+  
+  // Relations to business logic
+  requests      ServiceRequest[] @relation("CustomerRequests")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
+// ------------------------------------------------------
+// Business Logic Models
+// ------------------------------------------------------
+
+// Represents a repair job or service request
+model ServiceRequest {
+  id          String   @id @default(cuid())
+  
+  customerId  String
+  customer    User     @relation("CustomerRequests", fields: [customerId], references: [id])
+  
+  service     String   // The specific service requested
+  issue       String   // Description of the shutter problem
+  status      RequestStatus @default(PENDING)
+  scheduledAt DateTime?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum RequestStatus {
+  PENDING
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// ------------------------------------------------------
+// Application Settings Model
+// ------------------------------------------------------
+model SiteSettings {
+  id        String   @id @default(cuid()) // Will just use a single row for global settings
+  
+  phone     String   @default("+971 56 588 2185")
+  whatsapp  String   @default("971565882185")
+  email     String   @default("info@najmatraozan.com")
+  location  String   @default("Al Quoz Industrial Area, Dubai, UAE")
+  mapLink   String   @default("https://maps.app.goo.gl/") // The pasted Google Maps link
+
+  updatedAt DateTime @updatedAt
+}
+
+// ------------------------------------------------------
+// Services Model (admin-managed)
+// ------------------------------------------------------
+model Service {
+  id          String   @id @default(cuid())
+
+  title       String
+  description String
+  imageUrl    String
+  slug        String   @unique // URL slug, also used for icon mapping
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+

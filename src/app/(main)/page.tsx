@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <Hero />
       <TrustStats />
-      <ServicesGrid />
+      <ServicesGrid limit={8} latest={true} />
       <CTASection />
       <WhyChooseUs />
       <ProcessSteps />

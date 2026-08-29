@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle, ShieldCheck, Clock, MapPin, Phone, CheckCircle2, ChevronDown } from "lucide-react";
+import { getSiteSettings } from "@/lib/settings";
 
-export default function Hero() {
+export default async function Hero() {
+  const settings = await getSiteSettings();
   return (
     <section className="relative min-h-[92vh] flex items-center pt-16 overflow-hidden">
       {/* Background Image with rich layered overlay */}
@@ -60,7 +62,7 @@ export default function Hero() {
             </Link>
             
             <a 
-              href="https://wa.me/971565882185" 
+              href={`https://wa.me/${settings.whatsapp}`}
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 hover:border-white/40 rounded-lg font-bold text-lg flex items-center justify-center gap-2 transition-all"
@@ -115,11 +117,11 @@ export default function Hero() {
             </div>
 
             <div className="space-y-3">
-              <a href="tel:+971565882185" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+              <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-brand-primary hover:bg-brand-secondary text-white font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg">
                 <Phone className="w-4 h-4" />
-                +971 56 588 2185
+                {settings.phone}
               </a>
-              <a href="https://wa.me/971565882185" className="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+              <a href={`https://wa.me/${settings.whatsapp}`} className="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg">
                 <MessageCircle className="w-4 h-4" />
                 Chat on WhatsApp
               </a>

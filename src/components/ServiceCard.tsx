@@ -46,12 +46,12 @@ export default function ServiceCard({ title, description, icon, imageUrl, href, 
         {/* Gold slide-in accent bar */}
         <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-brand-accent to-yellow-300 transition-all duration-500 mb-3 rounded-full" />
 
-        <h3 className="text-base font-bold text-white mb-1.5 tracking-tight leading-snug">
-          {title}
-        </h3>
-        <p className="text-gray-300 text-xs leading-relaxed line-clamp-2 mb-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
-          {description}
-        </p>
+      <h3 className="text-base font-bold text-white mb-1.5 tracking-tight leading-snug">
+        {title}
+      </h3>
+      <p className="text-gray-300 text-xs leading-relaxed line-clamp-2 mb-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+        {description.replace(/<\/(p|li|h[1-6]|br|div)>/gi, ' ').replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim()}
+      </p>
         <div className="inline-flex items-center gap-1.5 text-[0.65rem] font-bold text-brand-accent tracking-widest uppercase">
           Learn More
           <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X, Phone, MessageCircle } from "lucide-react";
+import { useSettings } from "./SettingsContext";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
   const pathname = usePathname();
+  const settings = useSettings();
 
   if (!isOpen) return null;
 
@@ -57,7 +59,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
 
         <div className="p-6 border-t border-gray-100 bg-gray-50/50 flex flex-col gap-4">
           <a
-            href="https://wa.me/971565882185"
+            href={`https://wa.me/${settings.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
@@ -66,7 +68,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
             <span>WhatsApp Us</span>
           </a>
           <a
-            href="tel:+971565882185"
+            href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg font-semibold bg-brand-primary text-white hover:bg-brand-secondary transition-colors"
           >
             <Phone className="w-5 h-5 text-brand-accent" />

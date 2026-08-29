@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, MessageCircle, Mail, MapPin, ChevronRight, ArrowUp } from "lucide-react";
+import { useSettings } from "./SettingsContext";
 
 export default function Footer() {
+  const settings = useSettings();
   return (
     <footer className="bg-brand-primary text-brand-light pt-16 pb-24 md:pb-8 relative overflow-hidden">
       {/* Top gold border */}
@@ -34,13 +36,13 @@ export default function Footer() {
             </p>
             {/* Social-style contact pills */}
             <div className="flex gap-3">
-              <a href="tel:+971565882185" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent/40 flex items-center justify-center transition-all" title="Call us">
+              <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent/40 flex items-center justify-center transition-all" title="Call us">
                 <Phone className="w-4 h-4 text-brand-accent" />
               </a>
-              <a href="https://wa.me/971565882185" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-500/20 border border-white/10 hover:border-green-500/40 flex items-center justify-center transition-all" title="WhatsApp">
+              <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-500/20 border border-white/10 hover:border-green-500/40 flex items-center justify-center transition-all" title="WhatsApp">
                 <MessageCircle className="w-4 h-4 text-green-400" />
               </a>
-              <a href="mailto:info@najmatraozan.com" className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent/40 flex items-center justify-center transition-all" title="Email">
+              <a href={`mailto:${settings.email}`} className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent/40 flex items-center justify-center transition-all" title="Email">
                 <Mail className="w-4 h-4 text-brand-accent" />
               </a>
             </div>
@@ -55,7 +57,8 @@ export default function Footer() {
                 { name: "About Us", href: "/about" },
                 { name: "Services", href: "/services" },
                 { name: "Projects", href: "/projects" },
-                { name: "Contact", href: "/contact" }
+                { name: "Contact", href: "/contact" },
+                { name: "Admin Login", href: "/login" }
               ].map((item) => (
                 <li key={item.name}>
                   <Link href={item.href} className="text-brand-gray hover:text-brand-accent transition-colors flex items-center gap-2 group text-sm">
@@ -93,24 +96,24 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-white uppercase tracking-[0.18em] border-b border-white/10 pb-3">Contact Us</h3>
             <ul className="flex flex-col gap-4">
               <li>
-                <a href="tel:+971565882185" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors group">
+                <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors group">
                   <div className="w-8 h-8 rounded-lg bg-brand-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-accent/20 transition-colors">
                     <Phone className="w-4 h-4 text-brand-accent" />
                   </div>
                   <div className="flex flex-col text-sm">
                     <span className="font-semibold text-white/80 text-xs uppercase tracking-wider mb-0.5">Phone</span>
-                    <span>+971 56 588 2185</span>
+                    <span>{settings.phone}</span>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@najmatraozan.com" className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors group">
+                <a href={`mailto:${settings.email}`} className="flex items-start gap-3 text-brand-gray hover:text-brand-accent transition-colors group">
                   <div className="w-8 h-8 rounded-lg bg-brand-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-accent/20 transition-colors">
                     <Mail className="w-4 h-4 text-brand-accent" />
                   </div>
                   <div className="flex flex-col text-sm">
                     <span className="font-semibold text-white/80 text-xs uppercase tracking-wider mb-0.5">Email</span>
-                    <span>info@najmatraozan.com</span>
+                    <span>{settings.email}</span>
                   </div>
                 </a>
               </li>
@@ -120,7 +123,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col text-sm">
                   <span className="font-semibold text-white/80 text-xs uppercase tracking-wider mb-0.5">Location</span>
-                  <span>78G5+8VG - 18th St - Al Murar, Dubai</span>
+                  <span>{settings.location}</span>
                 </div>
               </li>
             </ul>

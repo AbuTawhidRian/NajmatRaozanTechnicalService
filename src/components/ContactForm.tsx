@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 import SectionHeading from "./SectionHeading";
-
-const WHATSAPP_NUMBER = "971565882185";
+import { useSettings } from "./SettingsContext";
 
 export default function ContactForm() {
+  const settings = useSettings();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ export default function ContactForm() {
       ``,
     ].filter(Boolean).join("\n");
 
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const waUrl = `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(text)}`;
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -76,8 +76,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Phone</h4>
-                  <a href="tel:+971565882185" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
-                    +971 56 588 2185
+                  <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                    {settings.phone}
                   </a>
                 </div>
               </div>
@@ -88,8 +88,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">WhatsApp</h4>
-                  <a href="https://wa.me/971565882185" target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
-                    +971 56 588 2185
+                  <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
+                    {settings.phone}
                   </a>
                 </div>
               </div>
@@ -100,8 +100,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Email</h4>
-                  <a href="mailto:info@najmatraozan.com" className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
-                    info@najmatraozan.com
+                  <a href={`mailto:${settings.email}`} className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                    {settings.email}
                   </a>
                 </div>
               </div>
@@ -112,8 +112,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h4 className="text-brand-primary font-bold text-lg mb-1">Location</h4>
-                  <p className="text-brand-gray font-medium text-lg">
-                    Al Quoz Industrial Area<br />Dubai, UAE
+                  <p className="text-brand-gray font-medium text-lg whitespace-pre-line">
+                    {settings.location}
                   </p>
                 </div>
               </div>
