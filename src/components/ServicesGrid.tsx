@@ -36,7 +36,12 @@ interface ServicesGridProps {
 }
 
 export default async function ServicesGrid({ limit, latest }: ServicesGridProps = {}) {
-  const services = await getActiveServices(limit, latest);
+  let services: any[] = [];
+  try {
+    services = await getActiveServices(limit, latest);
+  } catch (error) {
+    console.error("Failed to fetch services during build:", error);
+  }
 
   return (
     <section className="py-16 md:py-24 bg-white relative z-10 dot-pattern">
