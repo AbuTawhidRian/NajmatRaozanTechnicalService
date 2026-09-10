@@ -41,6 +41,7 @@ jobs:
             # Rebuild the Docker container and start it
             # The --build flag ensures the new code is built into the image
             # The -d flag runs it in detached mode
+            docker rm -f rolling-shutter-web || true
             docker-compose up -d --build
             
             # Run Prisma database migrations to update the NajmatRaozanTechnicalService database
