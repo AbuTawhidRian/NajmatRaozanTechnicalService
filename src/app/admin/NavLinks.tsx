@@ -8,7 +8,7 @@ const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/requests", label: "Requests", icon: ClipboardList, exact: false },
   { href: "/admin/customers", label: "Customers", icon: Users, exact: false },
-  { href: "/admin/services", label: "Services", icon: Layers, exact: false },
+  { href: "/admin/services", label: "Projects", icon: Layers, exact: false },
   { href: "/admin/settings", label: "Settings", icon: Settings, exact: false },
 ];
 

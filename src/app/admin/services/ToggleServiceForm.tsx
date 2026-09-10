@@ -27,7 +27,7 @@ function SubmitButton({ isActive }: { isActive: boolean }) {
           {isActive ? "Hiding..." : "Showing..."}
         </>
       ) : (
-        isActive ? "Yes, Hide Service" : "Yes, Show Service"
+        isActive ? "Yes, Hide Project" : "Yes, Show Project"
       )}
     </button>
   );
@@ -58,7 +58,7 @@ export default function ToggleServiceForm({ id, title, isActive, action }: Toggl
                     {isActive ? <EyeOff className="w-5 h-5 text-amber-600" /> : <Eye className="w-5 h-5 text-green-600" />}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">{isActive ? "Hide Service" : "Show Service"}</h3>
+                    <h3 className="text-lg font-bold text-slate-900">{isActive ? "Hide Project" : "Show Project"}</h3>
                     <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
                       Are you sure you want to {isActive ? "hide" : "show"} <strong className="text-slate-800">{title}</strong>? 
                       {isActive ? " It will no longer be visible to customers on the public website." : " It will become visible to customers on the public website."}

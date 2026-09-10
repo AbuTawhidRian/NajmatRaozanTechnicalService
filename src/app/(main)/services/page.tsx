@@ -7,6 +7,8 @@ export const metadata = {
   description: "Comprehensive rolling shutter and sunshade solutions in Dubai.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function ServicesPage() {
   return (
     <div className="pt-16">

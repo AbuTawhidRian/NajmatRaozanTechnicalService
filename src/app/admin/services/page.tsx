@@ -23,7 +23,7 @@ import SubmitButton from "./SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
 import { deleteLocalFile, cleanupOrphanedFiles } from "@/lib/file";
 
-export const metadata = { title: "Manage Services | Admin" };
+export const metadata = { title: "Manage Projects | Admin" };
 
 // ─── Server Actions ────────────────────────────────────────────────────────────
 
@@ -108,7 +108,7 @@ export default async function ServicesAdminPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Services</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Projects</h1>
           <p className="text-sm text-slate-500 mt-1">
             Manage the services shown on the public website.
           </p>
@@ -126,7 +126,7 @@ export default async function ServicesAdminPage() {
             <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
               <Layers className="w-4 h-4 text-amber-600" />
             </div>
-            <p className="text-sm font-semibold text-slate-800">All Services</p>
+            <p className="text-sm font-semibold text-slate-800">All Projects</p>
           </div>
 
           {services.length === 0 ? (
@@ -215,7 +215,7 @@ export default async function ServicesAdminPage() {
               <Plus className="w-4 h-4 text-green-600" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-800">Add New Service</p>
+              <p className="text-sm font-semibold text-slate-800">Add New Project</p>
               <p className="text-xs text-slate-400">It will appear last on the public site</p>
             </div>
           </div>
@@ -256,9 +256,9 @@ export default async function ServicesAdminPage() {
             <ImageUploader name="imageUrl" label="Card Image" />
 
             {/* Gallery Images */}
-            <MultiImageUploader name="gallery" label="Service Gallery Images" />
+            <MultiImageUploader name="gallery" label="Project Gallery Images" />
 
-            <SubmitButton label="Add Service" loadingLabel="Adding Service..." />
+            <SubmitButton label="Add Project" loadingLabel="Adding Project..." />
           </form>
         </div>
       </div>

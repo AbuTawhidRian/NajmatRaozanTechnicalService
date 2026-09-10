@@ -12,7 +12,7 @@ interface ImageUploaderProps {
   label?: string;
 }
 
-export default function ImageUploader({ name, defaultUrl = "", label = "Service Image" }: ImageUploaderProps) {
+export default function ImageUploader({ name, defaultUrl = "", label = "Project Image" }: ImageUploaderProps) {
   const [preview, setPreview] = useState<string>(defaultUrl);
   const [urlInput, setUrlInput] = useState<string>(defaultUrl);
   const [uploading, setUploading] = useState(false);

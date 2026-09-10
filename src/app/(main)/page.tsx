@@ -13,6 +13,8 @@ import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import MapSection from "@/components/MapSection";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>

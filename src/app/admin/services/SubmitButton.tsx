@@ -11,7 +11,7 @@ interface SubmitButtonProps {
 }
 
 export default function SubmitButton({ 
-  label = "Add Service", 
+  label = "Add Project", 
   loadingLabel = "Saving...",
   icon = <Plus className="w-4 h-4" />,
   className = "w-full"

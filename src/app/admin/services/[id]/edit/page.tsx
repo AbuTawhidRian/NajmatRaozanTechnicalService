@@ -8,7 +8,7 @@ import MultiImageUploader from "../../MultiImageUploader";
 import SubmitButton from "../../SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
 
-export const metadata = { title: "Edit Service | Admin" };
+export const metadata = { title: "Edit Project | Admin" };
 
 import { deleteLocalFile } from "@/lib/file";
 
@@ -64,7 +64,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Edit Service</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Edit Project</h1>
           <p className="text-sm text-slate-500 mt-0.5">Updating: {service.title}</p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
           <ImageUploader name="imageUrl" defaultUrl={service.imageUrl} label="Card Image" />
 
           {/* Gallery Images */}
-          <MultiImageUploader name="gallery" defaultUrls={service.gallery} label="Service Gallery Images" />
+          <MultiImageUploader name="gallery" defaultUrls={service.gallery} label="Project Gallery Images" />
 
           {/* Footer */}
           <div className="pt-2 flex items-center justify-between border-t border-slate-100">

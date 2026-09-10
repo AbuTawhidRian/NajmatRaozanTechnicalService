@@ -24,7 +24,7 @@ function SubmitButton() {
           Deleting...
         </>
       ) : (
-        "Yes, Delete Service"
+        "Yes, Delete Project"
       )}
     </button>
   );
@@ -55,7 +55,7 @@ export default function DeleteServiceForm({ id, title, action }: DeleteServiceFo
                     <AlertTriangle className="w-5 h-5 text-red-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">Delete Service</h3>
+                    <h3 className="text-lg font-bold text-slate-900">Delete Project</h3>
                     <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
                       Are you sure you want to delete <strong className="text-slate-800">{title}</strong>? 
                       This action cannot be undone and will permanently delete all associated images.
