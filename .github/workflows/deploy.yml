@@ -21,13 +21,13 @@ jobs:
           script: |
             # Set the directory where the app will be located on the VPS
             # Update this path to match your desired location on the server
-            APP_DIR="~/-NajmatRaozanTechnicalService"
+            APP_DIR="~/NajmatRaozanTechnicalService"
             
             # Check if directory exists, if not create it
             if [ ! -d "$APP_DIR" ]; then
               echo "Directory does not exist. Creating and cloning..."
               mkdir -p "$APP_DIR"
-              git clone https://github.com/${{ github.repository }}.git "$APP_DIR"
+              git clone https://github.com/AbuTawhidRian/NajmatRaozanTechnicalService.git "$APP_DIR"
             fi
             
             cd "$APP_DIR"
