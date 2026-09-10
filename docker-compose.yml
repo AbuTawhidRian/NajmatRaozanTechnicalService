@@ -13,6 +13,7 @@ services:
     environment:
       # Database connection string
       - DATABASE_URL=${DATABASE_URL}
+      - DIRECT_URL=${DATABASE_URL}
       # NextAuth configuration
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
