@@ -13,6 +13,7 @@ import {
   ArrowUp,
   ArrowDown,
   GripVertical,
+  Eye,
 } from "lucide-react";
 import ImageUploader from "./ImageUploader";
 import MultiImageUploader from "./MultiImageUploader";
@@ -179,9 +180,20 @@ export default async function ServicesAdminPage() {
                     {/* Toggle active */}
                     <ToggleServiceForm id={svc.id} title={svc.title} isActive={svc.isActive} action={toggleActive} />
 
+                    {/* View */}
+                    <Link
+                      href={`/services/${svc.slug}`}
+                      target="_blank"
+                      title="View public page"
+                      className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-green-600 hover:bg-green-50 transition-colors"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                    </Link>
+
                     {/* Edit */}
                     <Link
                       href={`/admin/services/${svc.id}/edit`}
+                      title="Edit service"
                       className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                     >
                       <Pencil className="w-3.5 h-3.5" />

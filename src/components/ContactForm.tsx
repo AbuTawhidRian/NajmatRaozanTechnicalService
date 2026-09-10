@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, MessageCircle, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Phone, MessageCircle, Mail, MapPin, Send, CheckCircle2, Sparkles } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import { useSettings } from "./SettingsContext";
 import { createQuoteRequest } from "@/lib/quote";
@@ -74,64 +74,71 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="py-12 md:py-16 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col lg:flex-row gap-16">
+    <section className="py-20 md:py-32 bg-slate-50 relative overflow-hidden">
+      {/* Background Decorators */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-accent/50 to-transparent"></div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 xl:gap-24 items-center">
           
           {/* Left: Contact Info */}
           <div className="lg:w-5/12">
-            <SectionHeading 
-              title="CONTACT US" 
-              heading="Get Your Free Quotation" 
-            />
-            <p className="text-brand-gray mt-6 mb-10 text-lg leading-relaxed">
-              Tell us what you need and our team will contact you within 30 minutes to provide a quotation or schedule a free site visit anywhere in Dubai.
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-accent/10 text-brand-accent text-sm font-bold tracking-wide uppercase mb-6">
+              <Sparkles className="w-4 h-4" /> Let's Connect
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-extrabold text-brand-primary mb-6 leading-tight">
+              Get Your Free <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-amber-600">Quotation</span> Today
+            </h2>
+            
+            <p className="text-slate-600 mb-10 text-lg leading-relaxed">
+              Tell us what you need and our expert team will contact you within 30 minutes to provide a quotation or schedule a free site visit anywhere in Dubai.
             </p>
 
-            <div className="space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-brand-light rounded-xl flex items-center justify-center shrink-0">
-                  <Phone className="w-6 h-6 text-brand-accent" />
+            <div className="space-y-6">
+              <div className="flex items-center gap-5 p-4 rounded-2xl hover:bg-white transition-all duration-300 group hover:shadow-xl hover:shadow-brand-accent/5">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-brand-accent transition-all duration-500">
+                  <Phone className="w-6 h-6 text-brand-accent group-hover:text-white transition-colors duration-500" />
                 </div>
                 <div>
-                  <h4 className="text-brand-primary font-bold text-lg mb-1">Phone</h4>
-                  <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                  <h4 className="text-slate-400 font-medium text-sm mb-1 uppercase tracking-wider">Call Us Directly</h4>
+                  <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="text-brand-primary font-bold text-xl hover:text-brand-accent transition-colors">
                     {settings.phone}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-6 h-6 text-green-500" />
+              <div className="flex items-center gap-5 p-4 rounded-2xl hover:bg-white transition-all duration-300 group hover:shadow-xl hover:shadow-green-500/5">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-green-500 transition-all duration-500">
+                  <MessageCircle className="w-6 h-6 text-green-500 group-hover:text-white transition-colors duration-500" />
                 </div>
                 <div>
-                  <h4 className="text-brand-primary font-bold text-lg mb-1">WhatsApp</h4>
-                  <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-brand-gray hover:text-green-600 transition-colors font-medium text-lg">
-                    {settings.phone}
+                  <h4 className="text-slate-400 font-medium text-sm mb-1 uppercase tracking-wider">Chat on WhatsApp</h4>
+                  <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-brand-primary font-bold text-xl hover:text-green-600 transition-colors">
+                    +{settings.whatsapp}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-brand-light rounded-xl flex items-center justify-center shrink-0">
-                  <Mail className="w-6 h-6 text-brand-accent" />
+              <div className="flex items-center gap-5 p-4 rounded-2xl hover:bg-white transition-all duration-300 group hover:shadow-xl hover:shadow-blue-500/5">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-500">
+                  <Mail className="w-6 h-6 text-blue-500 group-hover:text-white transition-colors duration-500" />
                 </div>
                 <div>
-                  <h4 className="text-brand-primary font-bold text-lg mb-1">Email</h4>
-                  <a href={`mailto:${settings.email}`} className="text-brand-gray hover:text-brand-accent transition-colors font-medium text-lg">
+                  <h4 className="text-slate-400 font-medium text-sm mb-1 uppercase tracking-wider">Email Address</h4>
+                  <a href={`mailto:${settings.email}`} className="text-brand-primary font-bold text-xl hover:text-blue-600 transition-colors break-all">
                     {settings.email}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-brand-light rounded-xl flex items-center justify-center shrink-0">
-                  <MapPin className="w-6 h-6 text-brand-accent" />
+              <div className="flex items-center gap-5 p-4 rounded-2xl hover:bg-white transition-all duration-300 group hover:shadow-xl hover:shadow-brand-primary/5">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 group-hover:bg-brand-primary transition-all duration-500">
+                  <MapPin className="w-6 h-6 text-brand-primary group-hover:text-white transition-colors duration-500" />
                 </div>
                 <div>
-                  <h4 className="text-brand-primary font-bold text-lg mb-1">Location</h4>
-                  <p className="text-brand-gray font-medium text-lg whitespace-pre-line">
+                  <h4 className="text-slate-400 font-medium text-sm mb-1 uppercase tracking-wider">Office Location</h4>
+                  <p className="text-brand-primary font-bold text-lg leading-snug">
                     {settings.location}
                   </p>
                 </div>
@@ -140,104 +147,106 @@ export default function ContactForm() {
           </div>
 
           {/* Right: Form */}
-          <div className="lg:w-7/12">
-            <div className="bg-white rounded-3xl p-8 md:p-12 premium-shadow border border-gray-100 relative overflow-hidden">
+          <div className="lg:w-7/12 w-full">
+            <div className="relative rounded-3xl p-8 md:p-10 shadow-2xl shadow-brand-primary/5 border border-white/60 bg-white/70 backdrop-blur-xl overflow-hidden group">
               
+              {/* Animated decorative blobs */}
+              <div className="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-brand-accent/20 to-transparent rounded-full blur-3xl group-hover:bg-brand-accent/30 transition-all duration-700 ease-in-out pointer-events-none"></div>
+              <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all duration-700 ease-in-out pointer-events-none"></div>
+
               {isSubmitted ? (
-                <div className="absolute inset-0 bg-white z-10 flex flex-col items-center justify-center text-center p-8 animate-in fade-in zoom-in duration-300">
-                  <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-8 animate-in fade-in zoom-in duration-500">
+                  <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                    <CheckCircle2 className="w-12 h-12 text-green-500 animate-bounce" />
                   </div>
-                  <h3 className="text-3xl font-bold text-brand-primary mb-4">Request Sent Successfully!</h3>
-                  <p className="text-brand-gray text-lg max-w-md">
-                    Thank you for reaching out. Our team will contact you shortly with your free quotation.
+                  <h3 className="text-3xl font-black text-brand-primary mb-4 tracking-tight">Request Received!</h3>
+                  <p className="text-slate-600 text-lg max-w-md leading-relaxed">
+                    Thank you for reaching out. Our team has received your details and will contact you shortly with your free quotation.
                   </p>
                 </div>
               ) : null}
 
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-0">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-bold text-brand-primary">Full Name *</label>
+                  <div className="space-y-2.5">
+                    <label htmlFor="name" className="text-sm font-bold text-brand-primary ml-1">Full Name <span className="text-red-500">*</span></label>
                     <input 
                       type="text" 
                       id="name" 
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
+                      className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 placeholder:text-gray-400 font-medium text-brand-primary"
                       placeholder="John Doe"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-bold text-brand-primary">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="phone" className="text-sm font-bold text-brand-primary">Phone Number *</label>
+                  <div className="space-y-2.5">
+                    <label htmlFor="phone" className="text-sm font-bold text-brand-primary ml-1">Phone Number <span className="text-red-500">*</span></label>
                     <input 
                       type="tel" 
                       id="phone" 
                       required
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
-                      placeholder="+971 56 588 2185"
+                      className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 placeholder:text-gray-400 font-medium text-brand-primary"
+                      placeholder="+971 50 123 4567"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="service" className="text-sm font-bold text-brand-primary">Required Service *</label>
-                    <select 
-                      id="service" 
-                      required
-                      value={formData.service}
+                  <div className="space-y-2.5">
+                    <label htmlFor="email" className="text-sm font-bold text-brand-primary ml-1">Email Address (Optional)</label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50 appearance-none"
-                    >
-                      <option value="" disabled>Select a service</option>
-                      <option value="Rolling Shutter Repair">Rolling Shutter Repair</option>
-                      <option value="Rolling Shutter Installation">Rolling Shutter Installation</option>
-                      <option value="Automatic Shutter Upgrade">Automatic Shutter Upgrade</option>
-                      <option value="Sunshade / Car Parking">Sunshade / Car Parking</option>
-                      <option value="Outdoor Curtains">Outdoor Curtains</option>
-                      <option value="Other">Other</option>
-                    </select>
+                      className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 placeholder:text-gray-400 font-medium text-brand-primary"
+                      placeholder="john@example.com"
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="location" className="text-sm font-bold text-brand-primary">Area in Dubai *</label>
+                  <div className="space-y-2.5">
+                    <label htmlFor="location" className="text-sm font-bold text-brand-primary ml-1">Area in Dubai <span className="text-red-500">*</span></label>
                     <input 
                       type="text" 
                       id="location" 
                       required
                       value={formData.location}
                       onChange={handleChange}
-                      className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50"
-                      placeholder="e.g. Al Quoz, Jumeirah..."
+                      className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 placeholder:text-gray-400 font-medium text-brand-primary"
+                      placeholder="e.g. Al Quoz, Business Bay..."
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-bold text-brand-primary">Message Details</label>
+                <div className="space-y-2.5">
+                  <label htmlFor="service" className="text-sm font-bold text-brand-primary ml-1">Required Service <span className="text-red-500">*</span></label>
+                  <select 
+                    id="service" 
+                    required
+                    value={formData.service}
+                    onChange={handleChange}
+                    className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 font-medium text-brand-primary appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled>Select a service</option>
+                    <option value="Rolling Shutter Repair">Rolling Shutter Repair</option>
+                    <option value="Rolling Shutter Installation">Rolling Shutter Installation</option>
+                    <option value="Automatic Shutter Upgrade">Automatic Shutter Upgrade</option>
+                    <option value="Sunshade / Car Parking">Sunshade / Car Parking</option>
+                    <option value="Outdoor Curtains">Outdoor Curtains</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2.5">
+                  <label htmlFor="message" className="text-sm font-bold text-brand-primary ml-1">Message Details</label>
                   <textarea 
                     id="message" 
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition-all bg-gray-50/50 resize-none"
+                    className="w-full px-5 py-4 rounded-xl border border-gray-200/80 bg-white/80 focus:bg-white focus:border-brand-accent focus:ring-4 focus:ring-brand-accent/10 outline-none transition-all duration-300 hover:border-gray-300 placeholder:text-gray-400 font-medium text-brand-primary resize-none"
                     placeholder="Briefly describe your requirements or the issue with your shutter..."
                   ></textarea>
                 </div>
@@ -245,10 +254,10 @@ export default function ContactForm() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full py-5 bg-brand-primary hover:bg-brand-secondary text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all premium-shadow disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full py-5 bg-gradient-to-r from-brand-primary to-[#1a3855] hover:to-[#22486d] text-white rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-brand-primary/20 hover:shadow-brand-primary/40 hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isSubmitting ? (
-                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
                   ) : (
                     <>
                       <Send className="w-5 h-5 text-brand-accent" />

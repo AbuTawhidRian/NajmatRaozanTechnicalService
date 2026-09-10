@@ -11,12 +11,23 @@ export async function createQuoteRequest(data: {
   message?: string;
 }) {
   try {
-    // Check if customer already exists by phone number
-    let customer = await prisma.user.findFirst({
-      where: { phone: data.phone, role: "CUSTOMER" },
-    });
+    let customer = null;
 
-    // If not, create a new customer record
+    // 1. Try to find by unique email first
+    if (data.email) {
+      customer = await prisma.user.findUnique({
+        where: { email: data.email },
+      });
+    }
+
+    // 2. If not found by email, try to find by phone
+    if (!customer) {
+      customer = await prisma.user.findFirst({
+        where: { phone: data.phone },
+      });
+    }
+
+    // 3. If still not found, create a new customer record
     if (!customer) {
       customer = await prisma.user.create({
         data: {
