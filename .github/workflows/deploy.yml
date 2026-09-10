@@ -49,7 +49,7 @@ jobs:
             
             # Run Prisma database migrations to update the database schema
             echo "Syncing database schema..."
-            docker-compose exec -T web sh -c 'npx prisma migrate deploy || npx prisma db push || true'
+            docker-compose exec -T web sh -c 'npx prisma@7 db push || true'
             
             # Optional: Prune unused Docker images to free up space
             docker image prune -f
