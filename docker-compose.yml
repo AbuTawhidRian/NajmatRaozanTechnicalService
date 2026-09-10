@@ -23,7 +23,12 @@ services:
       - AUTH_TRUST_HOST=true
     networks:
       - rxsheba_app-network
+    volumes:
+      - uploads-data:/app/public/uploads
 
 networks:
   rxsheba_app-network:
     external: true
+
+volumes:
+  uploads-data:
