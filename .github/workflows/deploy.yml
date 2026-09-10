@@ -21,7 +21,7 @@ jobs:
           script: |
             # Set the directory where the app will be located on the VPS
             # Update this path to match your desired location on the server
-            APP_DIR="/var/www/nextjs-app"
+            APP_DIR="~/-NajmatRaozanTechnicalService"
             
             # Check if directory exists, if not create it
             if [ ! -d "$APP_DIR" ]; then
