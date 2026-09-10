@@ -17,8 +17,8 @@ services:
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     networks:
-      - rxsheba_default
+      - rxsheba_app-network
 
 networks:
-  rxsheba_default:
+  rxsheba_app-network:
     external: true
