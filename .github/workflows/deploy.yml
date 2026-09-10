@@ -38,11 +38,14 @@ jobs:
             # Copy the .env file from the old folder so the database connection works
             cp ~/-NajmatRaozanTechnicalService/.env "$APP_DIR/.env" || true
             
-            # Rebuild the Docker container and start it
-            # The --build flag ensures the new code is built into the image
-            # The -d flag runs it in detached mode
-            docker rm -f rolling-shutter-web || true
-            docker-compose up -d --build
+            # Rebuild the Docker container (zero downtime during this 60s step)
+            docker-compose build
+            
+            # Safely clear old containers to prevent ContainerConfig bugs
+            docker-compose down --remove-orphans || true
+            
+            # Start the new container (only 1-2s of downtime)
+            docker-compose up -d
             
             # Run Prisma database migrations to update the NajmatRaozanTechnicalService database
             echo "Syncing database schema..."
