@@ -14,6 +14,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true, // Required for Docker: internal container hostname must be trusted
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   pages: {
