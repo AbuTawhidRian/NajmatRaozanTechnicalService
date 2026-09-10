@@ -4,7 +4,12 @@ import { getActiveServices } from "@/lib/services";
 
 export default async function ProjectGallery() {
   // Fetch the 6 most recent services from the database
-  const services = await getActiveServices(6, true);
+  let services: any[] = [];
+  try {
+    services = await getActiveServices(6, true);
+  } catch (error) {
+    console.error("Failed to fetch services during build:", error);
+  }
 
   // Map the database Service format to the ProjectCard format
   const projects = services.map((service) => ({
