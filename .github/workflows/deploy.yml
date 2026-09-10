@@ -35,6 +35,9 @@ jobs:
             # Pull latest code
             git pull origin main || git pull origin master
             
+            # Copy the .env file from the old folder so the database connection works
+            cp ~/-NajmatRaozanTechnicalService/.env "$APP_DIR/.env" || true
+            
             # Rebuild the Docker container and start it
             # The --build flag ensures the new code is built into the image
             # The -d flag runs it in detached mode
