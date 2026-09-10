@@ -14,9 +14,13 @@ services:
       # Database connection string
       - DATABASE_URL=${DATABASE_URL}
       - DIRECT_URL=${DATABASE_URL}
-      # NextAuth configuration
+      # NextAuth configuration (NextAuth v4)
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      # Auth.js configuration (NextAuth v5 beta)
+      - AUTH_URL=${NEXTAUTH_URL}
+      - AUTH_SECRET=${NEXTAUTH_SECRET}
+      - AUTH_TRUST_HOST=true
     networks:
       - rxsheba_app-network
 
