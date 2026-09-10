@@ -65,6 +65,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
+      // Allow NextAuth's own internal redirects (e.g. /api/auth/error, /api/auth/signout)
+      if (url.startsWith(`${baseUrl}/api/auth`)) {
+        return url;
+      }
+      // After a successful login, always go to the admin dashboard
+      if (url.startsWith(baseUrl)) {
+        return `${baseUrl}/admin`;
+      }
       return `${baseUrl}/admin`;
     }
   }
