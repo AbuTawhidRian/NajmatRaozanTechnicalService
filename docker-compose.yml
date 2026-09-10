@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nextjs-app
-    container_name: nextjs_web
+    image: rolling-shutter-web:latest
+    container_name: rolling-shutter-web
     restart: unless-stopped
     ports:
       - "3000:3000"
