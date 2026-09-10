@@ -16,8 +16,9 @@ services:
       # NextAuth configuration
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-      # Any other environment variables your app needs
-      # - NODE_ENV=production
-    # If the database is on the host network, you might need this to connect from the container
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
+    networks:
+      - rxsheba_default
+
+networks:
+  rxsheba_default:
+    external: true

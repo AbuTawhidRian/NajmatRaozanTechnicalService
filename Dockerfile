@@ -24,6 +24,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Generate prisma client before building
 RUN npx prisma generate
 
+# Use a dummy database URL during build so that SSG queries fail instantly (ECONNREFUSED)
+# instead of hanging and causing a Next.js 60-second build timeout.
+ENV DATABASE_URL="postgresql://dummy:dummy@127.0.0.1:5432/dummy"
 RUN npm run build
 
 # Production image, copy all the files and run next
