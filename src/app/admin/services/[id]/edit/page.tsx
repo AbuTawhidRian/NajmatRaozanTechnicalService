@@ -7,6 +7,7 @@ import ImageUploader from "../../ImageUploader";
 import MultiImageUploader from "../../MultiImageUploader";
 import SubmitButton from "../../SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
+import ClientActionForm from "../../../components/ClientActionForm";
 
 export const metadata = { title: "Edit Project | Admin" };
 
@@ -70,8 +71,13 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
       </div>
 
       {/* Form card */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-        <form action={updateService} className="p-6 space-y-5">
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <ClientActionForm 
+          action={updateService} 
+          successMessage="Project updated successfully"
+          errorMessage="Failed to update project"
+          className="p-6 space-y-5"
+        >
           <input type="hidden" name="id" value={service.id} />
 
           {/* Title */}
@@ -122,7 +128,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
               className=""
             />
           </div>
-        </form>
+        </ClientActionForm>
       </div>
     </div>
   );

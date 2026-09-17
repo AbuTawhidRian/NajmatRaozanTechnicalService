@@ -22,6 +22,7 @@ import ToggleServiceForm from "./ToggleServiceForm";
 import SubmitButton from "./SubmitButton";
 import RichTextEditor from "@/components/RichTextEditor";
 import { deleteLocalFile, cleanupOrphanedFiles } from "@/lib/file";
+import ClientActionForm from "../components/ClientActionForm";
 
 export const metadata = { title: "Manage Projects | Admin" };
 
@@ -137,7 +138,7 @@ export default async function ServicesAdminPage() {
           ) : (
             <div className="divide-y divide-slate-50 overflow-x-auto">
               {services.map((svc, idx) => (
-                <div key={svc.id} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50/50 transition-colors group min-w-max">
+                <div key={svc.id} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50/50 transition-all duration-300 hover:scale-[1.01] bg-white group min-w-max">
                   {/* Drag handle visual */}
                   <GripVertical className="w-4 h-4 text-slate-300 flex-shrink-0" />
 
@@ -160,22 +161,22 @@ export default async function ServicesAdminPage() {
                   {/* Actions */}
                   <div className="flex items-center gap-1">
                     {/* Move up */}
-                    <form action={moveService}>
+                    <ClientActionForm action={moveService} successMessage="Project moved up">
                       <input type="hidden" name="id" value={svc.id} />
                       <input type="hidden" name="direction" value="up" />
                       <button type="submit" disabled={idx === 0} className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 disabled:opacity-20 transition-colors">
                         <ArrowUp className="w-3.5 h-3.5" />
                       </button>
-                    </form>
+                    </ClientActionForm>
 
                     {/* Move down */}
-                    <form action={moveService}>
+                    <ClientActionForm action={moveService} successMessage="Project moved down">
                       <input type="hidden" name="id" value={svc.id} />
                       <input type="hidden" name="direction" value="down" />
                       <button type="submit" disabled={idx === services.length - 1} className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 disabled:opacity-20 transition-colors">
                         <ArrowDown className="w-3.5 h-3.5" />
                       </button>
-                    </form>
+                    </ClientActionForm>
 
                     {/* Toggle active */}
                     <ToggleServiceForm id={svc.id} title={svc.title} isActive={svc.isActive} action={toggleActive} />
@@ -220,7 +221,7 @@ export default async function ServicesAdminPage() {
             </div>
           </div>
 
-          <form action={createService} className="p-5 space-y-4">
+          <ClientActionForm action={createService} successMessage="Project added successfully!" resetOnSuccess className="p-5 space-y-4">
             {/* Title */}
             <div className="space-y-1.5">
               <label className="block text-sm font-medium text-slate-700">Title</label>
@@ -259,7 +260,7 @@ export default async function ServicesAdminPage() {
             <MultiImageUploader name="gallery" label="Project Gallery Images" />
 
             <SubmitButton label="Add Project" loadingLabel="Adding Project..." />
-          </form>
+          </ClientActionForm>
         </div>
       </div>
     </div>

@@ -5,20 +5,19 @@ import { createUser } from "../actions";
 import { ArrowLeft, Save, User, Mail, Lock } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function NewAdminUserPage() {
-  const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(formData: FormData) {
     setIsPending(true);
-    setError(null);
     try {
       await createUser(formData);
-      // Handled redirect in action
+      toast.success("Admin user created successfully!");
     } catch (e: any) {
-      setError(e.message || "Failed to create user");
+      toast.error(e.message || "Failed to create user");
       setIsPending(false);
     }
   }
@@ -40,13 +39,8 @@ export default function NewAdminUserPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
         <form action={handleSubmit} className="p-6 md:p-8 space-y-6">
-          {error && (
-            <div className="p-4 rounded-lg bg-red-50 text-red-600 text-sm font-medium border border-red-100">
-              {error}
-            </div>
-          )}
 
           <div className="space-y-1.5">
             <label

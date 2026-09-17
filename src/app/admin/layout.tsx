@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "../../auth";
 import { LogOut, Wrench } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 import AdminSidebar from "./AdminSidebar";
 
 export default async function AdminLayout({
@@ -20,6 +21,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen relative bg-[#F0F4F8] flex flex-col md:flex-row font-sans">
+      <Toaster position="top-center" />
       <AdminSidebar userName={userName} userInitial={userInitial} userEmail={userEmail} />
 
       {/* Main Content */}

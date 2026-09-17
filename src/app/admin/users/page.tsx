@@ -1,7 +1,8 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import { User, Plus, Trash2, Mail, Shield } from "lucide-react";
+import { User, Plus, Trash2, Mail, Shield, Pencil } from "lucide-react";
 import { deleteUser } from "./actions";
+import ClientActionForm from "../components/ClientActionForm";
 
 export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
@@ -42,7 +43,7 @@ export default async function AdminUsersPage() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {users.map((user) => (
-                <tr key={user.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={user.id} className="hover:bg-slate-50/50 transition-all duration-300 hover:scale-[1.01] bg-white group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-xs uppercase">
@@ -64,16 +65,29 @@ export default async function AdminUsersPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <form action={deleteUser.bind(null, user.id)}>
-                      <button 
-                        type="submit"
-                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                        title="Delete User"
-                        disabled={users.length <= 1} // Don't allow deleting the last admin
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/users/${user.id}/edit`}
+                        className="p-2 text-slate-400 hover:text-[#E59819] hover:bg-amber-50 rounded-lg transition-colors"
+                        title="Edit User"
                       >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </form>
+                        <Pencil className="w-4 h-4" />
+                      </Link>
+                      <ClientActionForm 
+                        action={deleteUser.bind(null, user.id)}
+                        successMessage="Admin user deleted successfully"
+                        errorMessage="Failed to delete admin user"
+                      >
+                        <button 
+                          type="submit"
+                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Delete User"
+                          disabled={users.length <= 1} // Don't allow deleting the last admin
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </ClientActionForm>
+                    </div>
                   </td>
                 </tr>
               ))}

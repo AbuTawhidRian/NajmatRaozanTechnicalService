@@ -20,18 +20,27 @@ export async function createQuoteRequest(data: {
 
   try {
     let customer = null;
+    
+    const normalizedEmail = data.email?.trim().toLowerCase() || null;
+    const normalizedPhone = data.phone.replace(/[\s-()]/g, '');
 
     // 1. Try to find by unique email first
-    if (data.email) {
+    if (normalizedEmail) {
       customer = await prisma.user.findUnique({
-        where: { email: data.email },
+        where: { email: normalizedEmail },
       });
     }
 
     // 2. If not found by email, try to find by phone
     if (!customer) {
       customer = await prisma.user.findFirst({
-        where: { phone: data.phone },
+        where: { 
+          // Search both raw and normalized phone just to be safe with existing data
+          OR: [
+            { phone: data.phone },
+            { phone: normalizedPhone }
+          ]
+        },
       });
     }
 
@@ -40,8 +49,8 @@ export async function createQuoteRequest(data: {
       customer = await prisma.user.create({
         data: {
           name: data.name,
-          email: data.email || null,
-          phone: data.phone,
+          email: normalizedEmail,
+          phone: normalizedPhone,
           address: data.location,
           role: "CUSTOMER",
         },

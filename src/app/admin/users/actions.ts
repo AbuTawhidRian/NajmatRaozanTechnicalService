@@ -55,3 +55,40 @@ export async function deleteUser(id: string) {
 
   revalidatePath("/admin/users");
 }
+
+export async function updateUser(formData: FormData) {
+  const id = formData.get("id") as string;
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  if (!id || !name || !email) {
+    throw new Error("Missing required fields");
+  }
+
+  // Check if email is taken by another user
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser && existingUser.id !== id) {
+    throw new Error("A user with this email already exists");
+  }
+
+  const data: any = {
+    name,
+    email,
+  };
+
+  if (password && password.length >= 6) {
+    data.password = await bcrypt.hash(password, 10);
+  }
+
+  await prisma.user.update({
+    where: { id },
+    data,
+  });
+
+  revalidatePath("/admin/users");
+  redirect("/admin/users");
+}

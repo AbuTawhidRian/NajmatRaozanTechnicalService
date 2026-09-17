@@ -13,6 +13,8 @@ import {
   Zap,
   Building,
 } from "lucide-react";
+import SettingsClientForm from "./SettingsClientForm";
+import SubmitButton from "../services/SubmitButton";
 
 export default async function SettingsPage() {
   const settings = await getSiteSettings();
@@ -163,7 +165,7 @@ export default async function SettingsPage() {
             </div>
 
             {/* Form */}
-            <form action={updateSettings} className="p-6">
+            <SettingsClientForm action={updateSettings}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {fields.map((field) => {
                   const Icon = field.icon;
@@ -198,15 +200,15 @@ export default async function SettingsPage() {
               {/* Footer */}
               <div className="mt-7 pt-5 border-t border-slate-100 flex items-center justify-between">
                 <p className="text-xs text-slate-400">All fields are required.</p>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0A2540] hover:bg-[#173A5E] text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
-                >
-                  <Save className="w-4 h-4" />
-                  Save Changes
-                </button>
+                <div className="w-48">
+                  <SubmitButton
+                    label="Save Changes"
+                    loadingLabel="Saving..."
+                    icon={<Save className="w-4 h-4" />}
+                  />
+                </div>
               </div>
-            </form>
+            </SettingsClientForm>
           </div>
         </div>
 

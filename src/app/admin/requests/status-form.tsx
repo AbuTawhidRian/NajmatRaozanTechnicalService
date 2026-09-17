@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import toast from "react-hot-toast";
 
 export function StatusForm({
   id,
@@ -18,11 +19,15 @@ export function StatusForm({
       action={updateAction}
       className="flex flex-col gap-2"
       onSubmit={(e) => {
-        // We use useTransition to avoid blocking the UI while the action runs
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        startTransition(() => {
-          updateAction(formData);
+        startTransition(async () => {
+          try {
+            await updateAction(formData);
+            toast.success("Status updated");
+          } catch (e: any) {
+            toast.error(e.message || "Failed to update status");
+          }
         });
       }}
     >

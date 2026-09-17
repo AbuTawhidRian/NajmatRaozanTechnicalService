@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { StatusForm } from "./status-form";
 import { RequestsClientControls } from "./requests-client-controls";
+import ClientActionForm from "../components/ClientActionForm";
 
 export const metadata = { title: "Customer Requests | Admin" };
 
@@ -91,8 +92,12 @@ export default async function RequestsAdminPage(
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
-            {requests.map((req) => (
-              <div key={req.id} className="p-6 hover:bg-slate-50/50 transition-colors flex flex-col xl:flex-row xl:items-start gap-6">
+            {requests.map((req, i) => (
+              <div 
+                key={req.id} 
+                className="p-6 hover:bg-slate-50/50 transition-all duration-300 flex flex-col xl:flex-row xl:items-start gap-6 animate-in fade-in slide-in-from-bottom-4"
+                style={{ animationFillMode: "both", animationDelay: `${i * 50}ms` }}
+              >
                 
                 {/* Left: Customer Info */}
                 <div className="flex-1 space-y-4">
@@ -147,7 +152,7 @@ export default async function RequestsAdminPage(
                   />
 
                   <div className="mt-auto pt-4 flex justify-end">
-                    <form action={deleteRequest}>
+                    <ClientActionForm action={deleteRequest} successMessage="Request deleted">
                       <input type="hidden" name="id" value={req.id} />
                       <button 
                         type="submit"
@@ -156,7 +161,7 @@ export default async function RequestsAdminPage(
                       >
                         <Trash2 className="w-4 h-4" /> Delete
                       </button>
-                    </form>
+                    </ClientActionForm>
                   </div>
 
                 </div>

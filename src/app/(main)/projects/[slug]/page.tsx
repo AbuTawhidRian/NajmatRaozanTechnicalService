@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, MessageCircle, CheckCircle2, ArrowLeft, Clock, MapPin, ShieldCheck } from "lucide-react";
 import ImageGallery from "@/components/ImageGallery";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -114,7 +114,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     [&_a]:text-brand-accent [&_a]:no-underline [&_a]:font-medium [&_a]:hover:underline
                     [&_blockquote]:border-l-4 [&_blockquote]:border-brand-accent [&_blockquote]:pl-5 [&_blockquote]:italic [&_blockquote]:text-slate-500 [&_blockquote]:my-6 [&_blockquote]:bg-brand-accent/5 [&_blockquote]:py-3 [&_blockquote]:rounded-r-lg
                   "
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(service.description, { allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']) }) }}
                 />
               </div>
 

@@ -3,6 +3,7 @@
 import { ToggleLeft, ToggleRight, Eye, EyeOff, X } from "lucide-react";
 import React, { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 
 interface ToggleServiceFormProps {
   id: string;
@@ -86,8 +87,13 @@ export default function ToggleServiceForm({ id, title, isActive, action }: Toggl
               <form 
                 ref={formRef} 
                 action={async (formData) => {
-                  await action(formData);
-                  setIsOpen(false);
+                  try {
+                    await action(formData);
+                    toast.success(isActive ? "Project hidden successfully" : "Project is now visible");
+                    setIsOpen(false);
+                  } catch (e: any) {
+                    toast.error(e.message || "Something went wrong");
+                  }
                 }}
               >
                 <input type="hidden" name="id" value={id} />

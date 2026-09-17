@@ -3,6 +3,7 @@
 import { Trash2, AlertTriangle, X } from "lucide-react";
 import React, { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 
 interface DeleteServiceFormProps {
   id: string;
@@ -83,8 +84,13 @@ export default function DeleteServiceForm({ id, title, action }: DeleteServiceFo
               <form 
                 ref={formRef} 
                 action={async (formData) => {
-                  await action(formData);
-                  setIsOpen(false);
+                  try {
+                    await action(formData);
+                    toast.success("Project deleted successfully");
+                    setIsOpen(false);
+                  } catch (e: any) {
+                    toast.error(e.message || "Failed to delete project");
+                  }
                 }}
               >
                 <input type="hidden" name="id" value={id} />

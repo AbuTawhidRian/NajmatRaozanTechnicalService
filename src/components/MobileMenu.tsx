@@ -15,18 +15,17 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
   const pathname = usePathname();
   const settings = useSettings();
 
-  if (!isOpen) return null;
-
+  // Remove the early return to allow CSS transitions to work
   return (
-    <div className="fixed inset-0 z-[60] lg:hidden">
+    <div className={`fixed inset-0 z-[60] lg:hidden ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-brand-primary/40 backdrop-blur-sm transition-opacity"
+        className={`fixed inset-0 bg-brand-primary/40 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
         onClick={onClose}
       />
       
       {/* Menu Content */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out">
+      <div className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <span className="font-bold text-xl text-brand-primary">Menu</span>
           <button
