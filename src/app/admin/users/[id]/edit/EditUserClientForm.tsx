@@ -15,6 +15,7 @@ export default function EditUserClientForm({ user }: { user: any }) {
     try {
       await updateUser(formData);
       toast.success("Admin user updated successfully!");
+      router.push("/admin/users");
     } catch (e: any) {
       toast.error(e.message || "Failed to update user");
       setIsPending(false);

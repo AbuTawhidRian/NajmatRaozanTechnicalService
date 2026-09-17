@@ -1,5 +1,5 @@
 import { getSiteSettings } from "@/lib/settings";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import {
   Phone,
@@ -42,7 +42,8 @@ export default async function SettingsPage() {
     }
 
     // Instantly purge the cache so the frontend updates immediately
-    revalidateTag("settings", "page");
+    revalidateTag("settings", "max");
+    revalidatePath("/admin/settings");
   }
 
   const fields = [

@@ -46,7 +46,6 @@ async function updateService(formData: FormData) {
 
   revalidatePath("/admin/services");
   revalidatePath("/projects");
-  redirect("/admin/services");
 }
 
 export default async function EditServicePage({ params }: { params: Promise<{ id: string }> }) {
@@ -77,6 +76,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
           successMessage="Project updated successfully"
           errorMessage="Failed to update project"
           className="p-6 space-y-5"
+          redirectTo="/admin/services"
         >
           <input type="hidden" name="id" value={service.id} />
 

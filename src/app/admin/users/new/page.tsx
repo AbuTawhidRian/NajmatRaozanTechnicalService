@@ -16,6 +16,7 @@ export default function NewAdminUserPage() {
     try {
       await createUser(formData);
       toast.success("Admin user created successfully!");
+      router.push("/admin/users");
     } catch (e: any) {
       toast.error(e.message || "Failed to create user");
       setIsPending(false);

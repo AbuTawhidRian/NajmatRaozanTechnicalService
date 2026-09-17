@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 export async function createUser(formData: FormData) {
   const name = formData.get("name") as string;
@@ -35,12 +36,28 @@ export async function createUser(formData: FormData) {
   });
 
   revalidatePath("/admin/users");
-  redirect("/admin/users");
 }
 
 export async function deleteUser(id: string) {
-  // Prevent deleting the last admin or yourself if we had the session here
-  // For simplicity, we just delete the user
+  const session = await auth();
+  
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  const userToDelete = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!userToDelete) {
+    throw new Error("User not found");
+  }
+
+  if (userToDelete.email === session.user.email) {
+    throw new Error("You cannot delete your own account");
+  }
+
+  // Prevent deleting the last admin
   const adminCount = await prisma.user.count({
     where: { role: "ADMIN" },
   });
@@ -90,5 +107,4 @@ export async function updateUser(formData: FormData) {
   });
 
   revalidatePath("/admin/users");
-  redirect("/admin/users");
 }

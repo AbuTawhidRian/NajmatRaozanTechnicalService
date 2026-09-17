@@ -3,8 +3,12 @@ import Link from "next/link";
 import { User, Plus, Trash2, Mail, Shield, Pencil } from "lucide-react";
 import { deleteUser } from "./actions";
 import ClientActionForm from "../components/ClientActionForm";
+import { auth } from "@/auth";
 
 export default async function AdminUsersPage() {
+  const session = await auth();
+  const currentUserEmail = session?.user?.email;
+
   const users = await prisma.user.findMany({
     where: { role: "ADMIN" },
     orderBy: { email: "asc" },
@@ -80,9 +84,9 @@ export default async function AdminUsersPage() {
                       >
                         <button 
                           type="submit"
-                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Delete User"
-                          disabled={users.length <= 1} // Don't allow deleting the last admin
+                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-30 disabled:hover:text-slate-400 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+                          title={user.email === currentUserEmail ? "You cannot delete yourself" : "Delete User"}
+                          disabled={users.length <= 1 || user.email === currentUserEmail} // Don't allow deleting the last admin or yourself
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
