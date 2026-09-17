@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { RequestStatus } from "@prisma/client";
 import { 
   ClipboardList, 
   Trash2,
@@ -17,7 +18,15 @@ export const metadata = { title: "Customer Requests | Admin" };
 async function updateRequestStatus(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
-  const status = formData.get("status") as any;
+  const rawStatus = formData.get("status") as string;
+
+  // Validate against the known enum values before writing to DB
+  const validStatuses = Object.values(RequestStatus);
+  if (!validStatuses.includes(rawStatus as RequestStatus)) {
+    throw new Error(`Invalid status value: "${rawStatus}"`);
+  }
+  const status = rawStatus as RequestStatus;
+
   await prisma.quoteRequest.update({ where: { id }, data: { status } });
   revalidatePath("/admin/requests");
 }

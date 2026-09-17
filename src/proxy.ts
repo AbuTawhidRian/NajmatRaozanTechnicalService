@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 // This proxy function runs on the server before every matched request.
 // It replaces the deprecated middleware.ts convention (renamed in Next.js v16).
@@ -7,6 +8,19 @@ import type { NextRequest } from "next/server";
 // database/env initialization issues in the proxy context.
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // ── Rate-limit login form submissions (POST only) ──────────────────────────
+  // Prevents brute-force password attacks. Max 10 attempts per minute per IP.
+  if (pathname === "/login" && request.method === "POST") {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+    const { allowed } = checkRateLimit(`login:${ip}`, 10, 60_000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many login attempts. Please wait a minute." },
+        { status: 429 }
+      );
+    }
+  }
 
   // NextAuth / Auth.js stores the session as a signed JWT cookie.
   // Check all possible cookie names (http vs https environments).

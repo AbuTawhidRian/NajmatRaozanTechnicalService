@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "./prisma";
+import { checkRateLimit } from "./rateLimit";
 
 export async function createQuoteRequest(data: {
   name: string;
@@ -10,6 +11,13 @@ export async function createQuoteRequest(data: {
   location: string;
   message?: string;
 }) {
+  // Rate limit: max 5 submissions per minute per phone number.
+  // Prevents form spam while allowing legitimate users.
+  const { allowed } = checkRateLimit(`quote:${data.phone}`, 5, 60_000);
+  if (!allowed) {
+    return { success: false, error: "Too many submissions. Please wait a moment before trying again." };
+  }
+
   try {
     let customer = null;
 

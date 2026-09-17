@@ -11,9 +11,15 @@ export async function deleteLocalFile(publicUrl: string) {
   if (!publicUrl || !publicUrl.startsWith("/uploads/")) return;
 
   try {
-    // Prevent directory traversal attacks
-    const safePath = path.normalize(publicUrl).replace(/^(\.\.[\/\\])+/, '');
-    const absolutePath = path.join(process.cwd(), "public", safePath);
+    // Resolve to absolute path and assert it stays inside public/uploads/
+    const normalized = path.normalize(publicUrl);
+    const absolutePath = path.resolve(process.cwd(), "public", normalized.replace(/^[\\/]/, ""));
+    const uploadRoot = path.resolve(process.cwd(), "public", "uploads");
+
+    if (!absolutePath.startsWith(uploadRoot + path.sep)) {
+      console.error(`Blocked path traversal attempt: ${publicUrl}`);
+      return;
+    }
 
     if (existsSync(absolutePath)) {
       await unlink(absolutePath);
