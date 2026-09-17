@@ -2,11 +2,11 @@ import SectionHeading from "./SectionHeading";
 import ProjectCard from "./ProjectCard";
 import { getActiveServices } from "@/lib/services";
 
-export default async function ProjectGallery() {
-  // Fetch the 6 most recent services from the database
+export default async function ProjectGallery({ limit }: { limit?: number } = {}) {
+  // Fetch the recent services from the database
   let services: any[] = [];
   try {
-    services = await getActiveServices(6, true);
+    services = await getActiveServices(limit, true);
   } catch (error) {
     console.error("Failed to fetch services during build:", error);
   }

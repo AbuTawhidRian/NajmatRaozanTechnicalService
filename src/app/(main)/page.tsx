@@ -24,7 +24,7 @@ export default function Home() {
       <CTASection />
       <WhyChooseUs />
       <ProcessSteps />
-      <ProjectGallery />
+      <ProjectGallery limit={6} />
       <BeforeAfter />
       <ServiceAreas />
       <AboutSection />      <EmergencyBanner />

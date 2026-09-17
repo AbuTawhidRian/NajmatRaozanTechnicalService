@@ -135,9 +135,9 @@ export default async function ServicesAdminPage() {
               <p className="text-sm">No services yet. Add one →</p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-50">
+            <div className="divide-y divide-slate-50 overflow-x-auto">
               {services.map((svc, idx) => (
-                <div key={svc.id} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50/50 transition-colors group">
+                <div key={svc.id} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50/50 transition-colors group min-w-max">
                   {/* Drag handle visual */}
                   <GripVertical className="w-4 h-4 text-slate-300 flex-shrink-0" />
 
