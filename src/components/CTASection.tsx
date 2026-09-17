@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { Phone, MessageCircle, MapPin, ArrowRight } from "lucide-react";
+import { useSettings } from "./SettingsContext";
 
 export default function CTASection() {
+  const settings = useSettings();
   return (
     <section className="py-16 md:py-24 bg-brand-light overflow-hidden relative z-10">
       <div className="container mx-auto px-4 md:px-6">
@@ -50,15 +54,15 @@ export default function CTASection() {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <a 
-                  href="tel:+971565882185" 
+                  href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} 
                   className="group px-7 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-brand-primary rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_25px_rgba(229,152,25,0.3)] hover:shadow-[0_0_35px_rgba(229,152,25,0.5)] hover:-translate-y-0.5"
                 >
                   <Phone className="w-4 h-4" />
-                  Call Now
+                  Call {settings.phone}
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/971565882185" 
+                  href={`https://wa.me/${settings.whatsapp}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-7 py-3.5 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"

@@ -1,8 +1,12 @@
+"use client";
+
 import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SectionHeading from "./SectionHeading";
+import { useSettings } from "./SettingsContext";
 
 export default function ServiceAreas() {
+  const settings = useSettings();
   const areas = [
     "Deira",
     "Bur Dubai",
@@ -74,7 +78,7 @@ export default function ServiceAreas() {
                 <p className="text-gray-400 text-sm">Contact us to confirm availability in your location.</p>
               </div>
               <a 
-                href="https://wa.me/971565882185" 
+                href={`https://wa.me/${settings.whatsapp}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="shrink-0 px-6 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white rounded-lg font-bold transition-colors whitespace-nowrap"

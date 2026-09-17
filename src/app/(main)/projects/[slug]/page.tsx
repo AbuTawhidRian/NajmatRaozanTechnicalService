@@ -1,5 +1,6 @@
 import CTASection from "@/components/CTASection";
 import { getServiceBySlug } from "@/lib/services";
+import { getSiteSettings } from "@/lib/settings";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,10 @@ const WHY_US = [
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const [service, settings] = await Promise.all([
+    getServiceBySlug(slug),
+    getSiteSettings(),
+  ]);
   if (!service) notFound();
 
   return (
@@ -71,11 +75,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <a href={`https://wa.me/971565882185?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
+            <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white text-xs font-bold transition-all shadow-sm">
               <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
             </a>
-            <a href="tel:+971565882185"
+            <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all">
               <Phone className="w-3.5 h-3.5" /> Call Now
             </a>
@@ -152,13 +156,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <h3 className="text-white font-bold text-base mb-1">Get a Free Quote</h3>
                 <p className="text-white/50 text-xs mb-5">We respond within minutes, 7 days a week.</p>
-                <a href={`https://wa.me/971565882185?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
+                <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-colors mb-2.5 shadow-sm">
                   <MessageCircle className="w-4 h-4" /> WhatsApp Us Now
                 </a>
-                <a href="tel:+971565882185"
+                <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-sm font-bold transition-colors">
-                  <Phone className="w-4 h-4" /> +971 56 588 2185
+                  <Phone className="w-4 h-4" /> {settings.phone}
                 </a>
               </div>
             </div>

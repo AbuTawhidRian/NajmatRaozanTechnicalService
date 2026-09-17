@@ -48,7 +48,7 @@ export default async function ServicesGrid({ limit, latest }: ServicesGridProps 
       <div className="container mx-auto px-4 md:px-6">
         <div className="fade-up">
           <SectionHeading
-            title="Our Projects"
+            title="OUR SERVICES"
             heading="Complete Rolling Shutter & Sunshade Solutions"
             subtitle="One team for installation, repair, motorisation and shading — for shops, villas, garages and warehouses across Dubai."
             centered={true}

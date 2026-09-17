@@ -2,8 +2,10 @@
 
 import { MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSettings } from "./SettingsContext";
 
 export default function FloatingWhatsApp() {
+  const settings = useSettings();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function FloatingWhatsApp() {
       }`}
     >
       <a
-        href="https://wa.me/971565882185"
+        href={`https://wa.me/${settings.whatsapp}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300"

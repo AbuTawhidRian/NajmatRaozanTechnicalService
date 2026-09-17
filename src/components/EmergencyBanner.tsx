@@ -1,6 +1,10 @@
+"use client";
+
 import { Phone, MessageCircle } from "lucide-react";
+import { useSettings } from "./SettingsContext";
 
 export default function EmergencyBanner() {
+  const settings = useSettings();
   return (
     <section className="relative bg-brand-primary text-white py-16 overflow-hidden">
       {/* Radial glow from center */}
@@ -41,14 +45,14 @@ export default function EmergencyBanner() {
 
           <div className="md:w-2/5 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <a 
-              href="tel:+971565882185" 
+              href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} 
               className="flex-1 px-6 py-4 bg-white text-brand-primary rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition-all shadow-xl hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-0.5"
             >
               <Phone className="w-5 h-5 text-brand-primary" />
               Call Now
             </a>
             <a 
-              href="https://wa.me/971565882185" 
+              href={`https://wa.me/${settings.whatsapp}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex-1 px-6 py-4 bg-[#25D366] text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-[#1ebd5a] transition-all shadow-xl hover:shadow-[0_0_30px_rgba(37,211,102,0.35)] hover:-translate-y-0.5"

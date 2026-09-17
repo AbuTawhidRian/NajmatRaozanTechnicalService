@@ -7,10 +7,10 @@ import { getSiteSettings } from "@/lib/settings";
 export default async function AboutSection() {
   const settings = await getSiteSettings();
   const highlights = [
-    "Professional & Certified Team",
-    "High-Quality Materials",
-    "On-Time Service Delivery",
-    "100% Customer Satisfaction",
+    "Licensed Dubai Contractor",
+    "1-Year Comprehensive Warranty",
+    "Direct In-House Technicians",
+    "Genuine OEM Replacement Parts",
   ];
 
   return (

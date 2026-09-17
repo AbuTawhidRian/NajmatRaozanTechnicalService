@@ -1,14 +1,13 @@
 import Hero from "@/components/Hero";
 import TrustStats from "@/components/TrustStats";
 import ServicesGrid from "@/components/ServicesGrid";
-import CTASection from "@/components/CTASection";
 import WhyChooseUs from "@/components/FeatureCard";
-import ProcessSteps from "@/components/ProcessSteps";
-import ProjectGallery from "@/components/ProjectGallery";
 import BeforeAfter from "@/components/BeforeAfter";
+import ProjectGallery from "@/components/ProjectGallery";
+import ProcessSteps from "@/components/ProcessSteps";
+import CTASection from "@/components/CTASection";
 import ServiceAreas from "@/components/ServiceAreas";
 import AboutSection from "@/components/AboutSection";
-import EmergencyBanner from "@/components/EmergencyBanner";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import MapSection from "@/components/MapSection";
@@ -21,13 +20,13 @@ export default function Home() {
       <Hero />
       <TrustStats />
       <ServicesGrid limit={8} latest={true} />
-      <CTASection />
       <WhyChooseUs />
-      <ProcessSteps />
-      <ProjectGallery limit={6} />
       <BeforeAfter />
+      <ProjectGallery limit={6} />
+      <ProcessSteps />
+      <CTASection />
       <ServiceAreas />
-      <AboutSection />      <EmergencyBanner />
+      <AboutSection />
       <FAQ />
       <ContactForm />
       <MapSection />
