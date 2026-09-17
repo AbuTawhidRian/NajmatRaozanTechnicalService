@@ -9,6 +9,7 @@ const navItems = [
   { href: "/admin/requests", label: "Requests", icon: ClipboardList, exact: false },
   { href: "/admin/customers", label: "Customers", icon: Users, exact: false },
   { href: "/admin/services", label: "Projects", icon: Layers, exact: false },
+  { href: "/admin/users", label: "Admin Users", icon: Users, exact: false },
   { href: "/admin/settings", label: "Settings", icon: Settings, exact: false },
 ];
 

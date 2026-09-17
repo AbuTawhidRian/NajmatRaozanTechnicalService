@@ -91,7 +91,7 @@ export default async function MapSection() {
       {/* Center custom marker */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center">
         <div className="bg-white px-4 py-2 rounded-lg font-bold text-brand-primary shadow-xl mb-2 flex flex-col items-center gap-1 text-center min-w-[200px]">
-          <span>Najmat Raozan Technical Service</span>
+          <span>{settings.companyName}</span>
           <span className="text-[10px] text-slate-500 font-normal">{settings.location}</span>
           <a 
             href={settings.mapLink || `https://www.google.com/maps?q=${encodeURIComponent(settings.location)}`} 

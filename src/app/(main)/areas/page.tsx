@@ -3,7 +3,7 @@ import MapSection from "@/components/MapSection";
 import CTASection from "@/components/CTASection";
 
 export const metadata = {
-  title: "Service Areas | Najmat Raozan Technical Service",
+  title: "Service Areas",
   description: "We provide rolling shutter and sunshade services across all Dubai areas.",
 };
 

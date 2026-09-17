@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache';
 import prisma from './prisma';
 
 export interface SettingsType {
+  companyName: string;
   phone: string;
   whatsapp: string;
   email: string;
@@ -10,6 +11,7 @@ export interface SettingsType {
 }
 
 const DEFAULT_SETTINGS: SettingsType = {
+  companyName: "Najmat Raozan Technical Service",
   phone: "+971 56 588 2185",
   whatsapp: "971565882185",
   email: "info@najmatraozan.com",
@@ -26,6 +28,7 @@ export const getSiteSettings = unstable_cache(
         return DEFAULT_SETTINGS;
       }
       return {
+        companyName: settings.companyName,
         phone: settings.phone,
         whatsapp: settings.whatsapp,
         email: settings.email,

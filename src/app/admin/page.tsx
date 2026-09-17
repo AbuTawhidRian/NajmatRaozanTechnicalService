@@ -1,10 +1,12 @@
 import { auth } from "../../auth";
 import prisma from "@/lib/prisma";
+import { getSiteSettings } from "@/lib/settings";
 import { ClipboardList, Clock, CheckCircle2, TrendingUp, ArrowRight } from "lucide-react";
 
 export default async function AdminDashboard() {
   const session = await auth();
   const userName = session?.user?.name || "Admin";
+  const settings = await getSiteSettings();
 
   const totalRequests = await prisma.quoteRequest.count();
   const pendingRequests = await prisma.quoteRequest.count({ where: { status: 'PENDING' } });
@@ -89,7 +91,7 @@ export default async function AdminDashboard() {
         <div className="absolute -bottom-12 -right-4 w-56 h-56 bg-[#E59819]/10 rounded-full" />
 
         <div className="relative z-10">
-          <h2 className="text-xl font-bold">Rolling Shutter Repair — Admin</h2>
+          <h2 className="text-xl font-bold">{settings.companyName} — Admin</h2>
           <p className="text-slate-300 text-sm mt-2 max-w-md">
             This is your central hub for managing service requests, contact settings, and business operations.
           </p>

@@ -3,7 +3,7 @@ import ProcessSteps from "@/components/ProcessSteps";
 import CTASection from "@/components/CTASection";
 
 export const metadata = {
-  title: "Our Projects | Najmat Raozan Technical Service",
+  title: "Our Projects",
   description: "View our portfolio of rolling shutter and sunshade installations in Dubai.",
 };
 

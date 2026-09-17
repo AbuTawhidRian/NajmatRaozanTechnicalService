@@ -24,7 +24,7 @@ export default function Footer() {
               <div className="absolute inset-0 m-3">
                 <Image
                   src="/images/logo.png"
-                  alt="Najmat Raozan Technical Service Logo"
+                  alt={`${settings.companyName} Logo`}
                   fill
                   sizes="(max-width: 768px) 176px, 176px"
                   className="object-contain"
@@ -132,7 +132,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-brand-gray text-xs">
-          <p>© {new Date().getFullYear()} Najmat Raozan Technical Service &amp; Sunshade Repair. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} {settings.companyName}. All Rights Reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-brand-accent transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-brand-accent transition-colors">Terms &amp; Conditions</Link>

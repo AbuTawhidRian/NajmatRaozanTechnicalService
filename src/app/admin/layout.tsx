@@ -19,7 +19,7 @@ export default async function AdminLayout({
   const userEmail = session.user?.email;
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen relative bg-[#F0F4F8] flex flex-col md:flex-row font-sans">
       <AdminSidebar userName={userName} userInitial={userInitial} userEmail={userEmail} />
 
       {/* Main Content */}

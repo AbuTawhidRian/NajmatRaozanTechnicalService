@@ -5,7 +5,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const title = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   return {
-    title: `Rolling Shutter Repair in ${title} | Najmat Raozan Technical Service`,
+    title: `Rolling Shutter Repair in ${title}`,
   };
 }
 

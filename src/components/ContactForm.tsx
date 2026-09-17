@@ -40,7 +40,7 @@ export default function ContactForm() {
 
       // 2. Prepare WhatsApp message
       const text = [
-        `*Hello Najmat Raozan Technical Service!*`,
+        `*Hello ${settings.companyName}!*`,
         `I'd like to request a free quotation.`,
         ``,
         `---------------------------`,

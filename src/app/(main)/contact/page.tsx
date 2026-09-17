@@ -3,7 +3,7 @@ import MapSection from "@/components/MapSection";
 import EmergencyBanner from "@/components/EmergencyBanner";
 
 export const metadata = {
-  title: "Contact Us | Najmat Raozan Technical Service",
+  title: "Contact Us",
   description: "Get in touch for rolling shutter repair and installation in Dubai.",
 };
 

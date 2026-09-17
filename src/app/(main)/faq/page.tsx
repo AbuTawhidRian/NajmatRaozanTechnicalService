@@ -2,7 +2,7 @@ import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "FAQ | Najmat Raozan Technical Service",
+  title: "FAQ",
   description: "Frequently asked questions about rolling shutters and sunshades.",
 };
 

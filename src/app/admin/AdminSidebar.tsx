@@ -36,8 +36,8 @@ export default function AdminSidebar({
       {/* Sidebar */}
       <aside
         className={`${
-          isOpen ? "flex" : "hidden"
-        } md:flex flex-col w-full md:w-64 bg-[#0A2540] text-white flex-shrink-0 shadow-2xl md:min-h-screen`}
+          isOpen ? "flex absolute top-[64px] left-0 right-0 bottom-0 z-50" : "hidden"
+        } md:flex flex-col md:static md:w-64 bg-[#0A2540] text-white flex-shrink-0 shadow-2xl md:min-h-screen`}
       >
         {/* Logo / Brand (Desktop) */}
         <div className="hidden md:block px-6 py-5 border-b border-white/10">

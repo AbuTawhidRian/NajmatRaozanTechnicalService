@@ -118,6 +118,7 @@ model QuoteRequest {
 model SiteSettings {
   id        String   @id @default(cuid()) // Will just use a single row for global settings
   
+  companyName String @default("Najmat Raozan Technical Service")
   phone     String   @default("+971 56 588 2185")
   whatsapp  String   @default("971565882185")
   email     String   @default("info@najmatraozan.com")

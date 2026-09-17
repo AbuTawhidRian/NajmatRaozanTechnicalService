@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import SectionHeading from "./SectionHeading";
+import { getSiteSettings } from "@/lib/settings";
 
-export default function AboutSection() {
+export default async function AboutSection() {
+  const settings = await getSiteSettings();
   const highlights = [
     "Professional & Certified Team",
     "High-Quality Materials",
@@ -46,7 +48,7 @@ export default function AboutSection() {
             
             <div className="mt-8 space-y-6 text-brand-gray text-lg leading-relaxed">
               <p>
-                Najmat Raozan Technical Service is a premier installation and repair company serving residential, commercial, and industrial clients across Dubai. We specialize in providing high-quality rolling shutters, automatic doors, sunshades, and outdoor curtains.
+                {settings.companyName} is a premier installation and repair company serving residential, commercial, and industrial clients across Dubai. We specialize in providing high-quality rolling shutters, automatic doors, sunshades, and outdoor curtains.
               </p>
               <p>
                 With over a decade of experience, our professional team is equipped to handle everything from emergency motor repairs to large-scale warehouse shutter installations. We take pride in our fast response times, quality workmanship, and customer-focused approach.

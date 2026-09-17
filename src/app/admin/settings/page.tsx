@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Eye,
   Zap,
+  Building,
 } from "lucide-react";
 
 export default async function SettingsPage() {
@@ -19,6 +20,7 @@ export default async function SettingsPage() {
   async function updateSettings(formData: FormData) {
     "use server";
 
+    const companyName = formData.get("companyName") as string;
     const phone = formData.get("phone") as string;
     const whatsapp = formData.get("whatsapp") as string;
     const email = formData.get("email") as string;
@@ -29,11 +31,11 @@ export default async function SettingsPage() {
     if (existing) {
       await prisma.siteSettings.update({
         where: { id: existing.id },
-        data: { phone, whatsapp, email, location, mapLink },
+        data: { companyName, phone, whatsapp, email, location, mapLink },
       });
     } else {
       await prisma.siteSettings.create({
-        data: { phone, whatsapp, email, location, mapLink },
+        data: { companyName, phone, whatsapp, email, location, mapLink },
       });
     }
 
@@ -42,6 +44,16 @@ export default async function SettingsPage() {
   }
 
   const fields = [
+    {
+      id: "companyName",
+      name: "companyName",
+      label: "Company Name",
+      type: "text",
+      placeholder: "Najmat Raozan Technical Service",
+      defaultValue: settings.companyName,
+      icon: Building,
+      hint: "Displayed on the website header, footer, and page titles.",
+    },
     {
       id: "phone",
       name: "phone",
@@ -95,6 +107,7 @@ export default async function SettingsPage() {
   ];
 
   const previewItems = [
+    { icon: Building, label: "Company", value: settings.companyName },
     { icon: Phone, label: "Phone", value: settings.phone },
     { icon: MessageCircle, label: "WhatsApp", value: `wa.me/${settings.whatsapp}` },
     { icon: Mail, label: "Email", value: settings.email },

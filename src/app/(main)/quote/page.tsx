@@ -1,7 +1,7 @@
 import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
-  title: "Get a Free Quote | Najmat Raozan Technical Service",
+  title: "Get a Free Quote",
   description: "Request a free quotation for your rolling shutter or sunshade project.",
 };
 

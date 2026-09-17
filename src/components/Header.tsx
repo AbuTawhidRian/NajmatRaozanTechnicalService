@@ -61,7 +61,7 @@ export default function Header() {
               <div className="relative w-20 h-10 md:w-28 md:h-12">
                 <Image
                   src="/images/logo.png"
-                  alt="Najmat Raozan Technical Service Logo"
+                  alt={`${settings.companyName} Logo`}
                   fill
                   sizes="(max-width: 768px) 80px, 112px"
                   className="object-contain object-left"

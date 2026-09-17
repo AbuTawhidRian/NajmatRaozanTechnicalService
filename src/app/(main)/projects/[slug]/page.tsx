@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: "Project Not Found" };
   const plain = service.description.replace(/<[^>]*>?/gm, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
   return {
-    title: `${service.title} | Najmat Raozan Technical Service`,
+    title: service.title,
     description: plain.slice(0, 160),
   };
 }

@@ -1,11 +1,13 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useSettings } from "./SettingsContext";
 
 const SLAT_H = 34;
 
 export default function ShutterLoader() {
+  const settings = useSettings();
   const [phase, setPhase] = useState<"visible" | "opening" | "done">("visible");
   const [slatCount, setSlatCount] = useState(40);
 
@@ -157,30 +159,27 @@ export default function ShutterLoader() {
               background: "white", borderRadius: "12px",
               position: "relative", flexShrink: 0, boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
             }}>
-              <Image src="/images/logo.png" alt="Najmat Raozan" fill sizes="100px" style={{ objectFit: "contain", padding: "8px" }} priority />
+              <Image src="/images/logo.png" alt={settings.companyName} fill sizes="100px" style={{ objectFit: "contain", padding: "8px" }} priority />
             </div>
 
             {/* Info on Right */}
-            <div className="banner-text" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <div className="banner-text" style={{ display: "flex", flexDirection: "column", gap: "6px", maxWidth: "70%" }}>
               <div>
                 <p className="banner-title" style={{ color: "white", fontWeight: 900, letterSpacing: "0.05em", textTransform: "uppercase", margin: 0, lineHeight: 1.1 }}>
-                  NAJMAT RAOZAN
-                </p>
-                <p className="banner-subtitle" style={{ color: "#E59819", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", margin: 0, marginTop: "4px" }}>
-                  Technical Service
+                  {settings.companyName.toUpperCase()}
                 </p>
               </div>
 
               {/* Contact Info */}
               <div className="banner-contact" style={{ display: "flex", flexWrap: "wrap", columnGap: "16px", rowGap: "6px", color: "rgba(255,255,255,0.8)", fontWeight: 500, letterSpacing: "0.02em", marginTop: "2px" }}>
-                <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span>📍</span> 78G5+8VG - 18th St - Dubai
+                <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "6px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "250px" }}>
+                  <span>📍</span> {settings.location}
                 </p>
                 <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span>📞</span> +971 56 588 2185
+                  <span>📞</span> {settings.phone}
                 </p>
                 <p style={{ margin: 0, display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span>✉️</span> info@najmatraozan.com
+                  <span>✉️</span> {settings.email}
                 </p>
               </div>
             </div>

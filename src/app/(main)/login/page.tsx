@@ -74,7 +74,7 @@ export default function LoginPage() {
           </h1>
 
           <p className="text-lg text-gray-300 leading-relaxed fade-up fade-up-delay-2">
-            Manage service requests, track jobs, and oversee operations for Najmat Raozan Technical Service.
+            Manage service requests, track jobs, and oversee operations.
           </p>
 
           <div className="flex items-center gap-3 text-sm font-semibold text-gray-300 fade-up fade-up-delay-3">
