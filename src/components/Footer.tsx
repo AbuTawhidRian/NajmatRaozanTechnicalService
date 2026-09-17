@@ -55,7 +55,6 @@ export default function Footer() {
               {[
                 { name: "Home", href: "/" },
                 { name: "About Us", href: "/about" },
-                { name: "Services", href: "/services" },
                 { name: "Projects", href: "/projects" },
                 { name: "Contact", href: "/contact" },
                 { name: "Admin Login", href: "/login" }
@@ -72,7 +71,7 @@ export default function Footer() {
 
           {/* Services */}
           <div className="flex flex-col gap-5">
-            <h3 className="text-sm font-bold text-white uppercase tracking-[0.18em] border-b border-white/10 pb-3">Our Services</h3>
+            <h3 className="text-sm font-bold text-white uppercase tracking-[0.18em] border-b border-white/10 pb-3">Our Projects</h3>
             <ul className="flex flex-col gap-2.5">
               {[
                 "Rolling Shutter Repair",
@@ -82,7 +81,7 @@ export default function Footer() {
                 "Outdoor Curtain"
               ].map((item) => (
                 <li key={item}>
-                  <Link href="/services" className="text-brand-gray hover:text-brand-accent transition-colors flex items-center gap-2 group text-sm">
+                  <Link href="/projects" className="text-brand-gray hover:text-brand-accent transition-colors flex items-center gap-2 group text-sm">
                     <ChevronRight className="w-3.5 h-3.5 text-brand-accent/50 group-hover:text-brand-accent group-hover:translate-x-1 transition-all" />
                     {item}
                   </Link>

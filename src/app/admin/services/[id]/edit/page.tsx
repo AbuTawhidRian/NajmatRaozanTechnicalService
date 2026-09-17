@@ -44,7 +44,7 @@ async function updateService(formData: FormData) {
   }
 
   revalidatePath("/admin/services");
-  revalidatePath("/services");
+  revalidatePath("/projects");
   redirect("/admin/services");
 }
 

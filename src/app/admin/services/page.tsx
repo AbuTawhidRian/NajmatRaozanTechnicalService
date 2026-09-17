@@ -42,7 +42,7 @@ async function createService(formData: FormData) {
     data: { title, description, imageUrl, slug, order, isActive: true, gallery },
   });
   revalidatePath("/admin/services");
-  revalidatePath("/services");
+  revalidatePath("/projects");
 }
 
 async function deleteService(formData: FormData) {
@@ -66,7 +66,7 @@ async function deleteService(formData: FormData) {
 
   await prisma.service.delete({ where: { id } });
   revalidatePath("/admin/services");
-  revalidatePath("/services");
+  revalidatePath("/projects");
 }
 
 async function toggleActive(formData: FormData) {
@@ -75,7 +75,7 @@ async function toggleActive(formData: FormData) {
   const current = formData.get("current") === "true";
   await prisma.service.update({ where: { id }, data: { isActive: !current } });
   revalidatePath("/admin/services");
-  revalidatePath("/services");
+  revalidatePath("/projects");
 }
 
 async function moveService(formData: FormData) {
@@ -92,7 +92,7 @@ async function moveService(formData: FormData) {
     prisma.service.update({ where: { id: services[swapIdx].id }, data: { order: services[idx].order } }),
   ]);
   revalidatePath("/admin/services");
-  revalidatePath("/services");
+  revalidatePath("/projects");
 }
 
 // ─── Page ───────────────────────────────────────────────────────────────────────

@@ -19,7 +19,7 @@ export default async function ProjectGallery() {
     category: "PROJECT",
     subtitle: service.title.toUpperCase(),
     imageUrl: service.imageUrl,
-    href: `/services/${service.slug}`
+    href: `/projects/${service.slug}`
   }));
 
   return (

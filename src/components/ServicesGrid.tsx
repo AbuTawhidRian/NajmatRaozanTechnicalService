@@ -48,7 +48,7 @@ export default async function ServicesGrid({ limit, latest }: ServicesGridProps 
       <div className="container mx-auto px-4 md:px-6">
         <div className="fade-up">
           <SectionHeading
-            title="Our Services"
+            title="Our Projects"
             heading="Complete Rolling Shutter & Sunshade Solutions"
             subtitle="One team for installation, repair, motorisation and shading — for shops, villas, garages and warehouses across Dubai."
             centered={true}
@@ -62,7 +62,7 @@ export default async function ServicesGrid({ limit, latest }: ServicesGridProps 
               title={service.title}
               description={service.description}
               imageUrl={service.imageUrl}
-              href={`/services/${service.slug}`}
+              href={`/projects/${service.slug}`}
               icon={getIcon(service.slug)}
               index={index}
             />
