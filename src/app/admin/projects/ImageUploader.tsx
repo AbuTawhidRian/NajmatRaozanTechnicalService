@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
+import toast from "react-hot-toast";
 
 interface ImageUploaderProps {
   name: string;
@@ -68,15 +69,23 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
         console.error("Failed to delete previous image", err);
       }
     }
-
     const fd = new FormData();
-    fd.append("file", compressedFile, file.name);
-    const res = await fetch("/api/admin/projects/upload", { method: "POST", body: fd });
-    const data = await res.json();
-    setUploading(false);
-    if (data.url) {
-      setPreview(data.url);
-      setUrlInput(data.url);
+    fd.append("file", compressedFile);
+
+    try {
+      const res = await fetch("/api/admin/projects/upload", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      if (data.url) {
+        setPreview(data.url);
+        setUrlInput(data.url);
+        toast.success("Image uploaded successfully!");
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      toast.error("Failed to upload image.");
+    } finally {
+      setUploading(false);
     }
   }
 
