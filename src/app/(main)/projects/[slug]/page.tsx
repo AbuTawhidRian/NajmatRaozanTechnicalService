@@ -111,7 +111,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <div className="px-8 py-8">
                 <div
                   className="
-                    text-slate-600 leading-relaxed
+                    text-slate-600 leading-relaxed break-words
                     [&_p]:mb-4 [&_p]:text-[15px] [&_p]:leading-[1.9] [&_p]:text-slate-600
                     [&_strong]:font-semibold [&_strong]:text-slate-800
                     [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:text-slate-900 [&_h1]:mb-3 [&_h1]:mt-8

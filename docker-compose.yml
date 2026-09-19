@@ -13,7 +13,6 @@ services:
     env_file:
       - .env
     environment:
-      # This is hardcoded (not from .env) so no substitution needed
       - AUTH_TRUST_HOST=true
     networks:
       - rxsheba_app-network
