@@ -48,7 +48,7 @@ jobs:
             docker-compose up -d
             
             # Apply any database schema changes using the dedicated migrate image
-            # Wait a moment for the network to be fully ready
+            # This will fail the deploy if destructive changes are detected (protects data)
             sleep 3
             docker-compose run --rm migrate
             

@@ -36,7 +36,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY prisma ./prisma
 COPY prisma.config.ts ./
 RUN npx prisma generate
-CMD ["./node_modules/.bin/prisma", "db", "push", "--accept-data-loss"]
+CMD ["./node_modules/.bin/prisma", "db", "push"]
 
 # Production image, copy all the files and run next
 FROM base AS runner
