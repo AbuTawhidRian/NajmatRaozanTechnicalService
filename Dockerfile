@@ -29,6 +29,15 @@ RUN npx prisma generate
 ENV DATABASE_URL="postgresql://dummy:dummy@127.0.0.1:5432/dummy"
 RUN npm run build
 
+# Migration image — has node_modules + prisma schema, used only to run DB migrations
+FROM base AS migrate
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY prisma ./prisma
+COPY prisma.config.ts ./
+RUN npx prisma generate
+CMD ["./node_modules/.bin/prisma", "db", "push", "--accept-data-loss"]
+
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app

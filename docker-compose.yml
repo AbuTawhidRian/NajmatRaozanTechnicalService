@@ -20,6 +20,19 @@ services:
     volumes:
       - uploads-data:/app/public/uploads
 
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrate
+    image: rolling-shutter-migrate:latest
+    container_name: rolling-shutter-migrate
+    env_file:
+      - .env
+    networks:
+      - rxsheba_app-network
+    restart: "no"
+
 networks:
   rxsheba_app-network:
     external: true
