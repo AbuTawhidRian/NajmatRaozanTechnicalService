@@ -17,7 +17,7 @@ services:
     networks:
       - rxsheba_app-network
     volumes:
-      - uploads-data:/app/public/uploads
+      - ./public/uploads:/app/public/uploads
 
   migrate:
     build:
@@ -35,6 +35,3 @@ services:
 networks:
   rxsheba_app-network:
     external: true
-
-volumes:
-  uploads-data:
