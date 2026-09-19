@@ -77,7 +77,7 @@ async function main() {
 
   // Seed services (upsert by slug so re-running is safe)
   for (const service of services) {
-    await prisma.service.upsert({
+    await prisma.project.upsert({
       where: { slug: service.slug },
       update: {
         title: service.title,

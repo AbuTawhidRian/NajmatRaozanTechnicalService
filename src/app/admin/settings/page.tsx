@@ -14,7 +14,7 @@ import {
   Building,
 } from "lucide-react";
 import SettingsClientForm from "./SettingsClientForm";
-import SubmitButton from "../services/SubmitButton";
+import SubmitButton from "../projects/SubmitButton";
 
 export default async function SettingsPage() {
   const settings = await getSiteSettings();
@@ -28,16 +28,20 @@ export default async function SettingsPage() {
     const email = formData.get("email") as string;
     const location = formData.get("location") as string;
     const mapLink = formData.get("mapLink") as string;
+    const serviceAreasStr = formData.get("serviceAreas") as string;
+    const serviceAreas = serviceAreasStr 
+      ? serviceAreasStr.split(',').map(s => s.trim()).filter(Boolean) 
+      : [];
 
     const existing = await prisma.siteSettings.findFirst();
     if (existing) {
       await prisma.siteSettings.update({
         where: { id: existing.id },
-        data: { companyName, phone, whatsapp, email, location, mapLink },
+        data: { companyName, phone, whatsapp, email, location, mapLink, serviceAreas },
       });
     } else {
       await prisma.siteSettings.create({
-        data: { companyName, phone, whatsapp, email, location, mapLink },
+        data: { companyName, phone, whatsapp, email, location, mapLink, serviceAreas },
       });
     }
 
@@ -106,6 +110,16 @@ export default async function SettingsPage() {
       defaultValue: settings.mapLink,
       icon: MapPin,
       hint: "Paste the 'Share' link from Google Maps. Used for 'Get Directions' buttons.",
+    },
+    {
+      id: "serviceAreas",
+      name: "serviceAreas",
+      label: "Service Areas",
+      type: "textarea",
+      placeholder: "Deira, Bur Dubai, Al Quoz...",
+      defaultValue: (settings.serviceAreas || []).join(', '),
+      icon: MapPin,
+      hint: "Comma separated list of areas (e.g. Deira, Bur Dubai, Al Quoz).",
     },
   ];
 
@@ -182,15 +196,27 @@ export default async function SettingsPage() {
                         <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                           <Icon className="w-4 h-4 text-slate-400" />
                         </div>
-                        <input
-                          type={field.type}
-                          id={field.id}
-                          name={field.name}
-                          defaultValue={field.defaultValue}
-                          placeholder={field.placeholder}
-                          required
-                          className="w-full pl-10 pr-4 py-2.5 text-sm text-slate-900 bg-slate-50 border border-slate-200 rounded-lg placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819] hover:border-slate-300 transition-colors"
-                        />
+                        {field.type === 'textarea' ? (
+                          <textarea
+                            id={field.id}
+                            name={field.name}
+                            defaultValue={field.defaultValue}
+                            placeholder={field.placeholder}
+                            required
+                            rows={3}
+                            className="w-full pl-10 pr-4 py-2.5 text-sm text-slate-900 bg-slate-50 border border-slate-200 rounded-lg placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819] hover:border-slate-300 transition-colors"
+                          />
+                        ) : (
+                          <input
+                            type={field.type}
+                            id={field.id}
+                            name={field.name}
+                            defaultValue={field.defaultValue}
+                            placeholder={field.placeholder}
+                            required
+                            className="w-full pl-10 pr-4 py-2.5 text-sm text-slate-900 bg-slate-50 border border-slate-200 rounded-lg placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819] hover:border-slate-300 transition-colors"
+                          />
+                        )}
                       </div>
                       <p className="text-xs text-slate-400 pl-1">{field.hint}</p>
                     </div>

@@ -5,7 +5,7 @@ import prisma from "./prisma";
 
 /**
  * Safely deletes a file from the public directory given its public URL.
- * Example: "/uploads/services/123.jpg" -> deletes "public/uploads/services/123.jpg"
+ * Example: "/uploads/projects/123.jpg" -> deletes "public/uploads/projects/123.jpg"
  */
 export async function deleteLocalFile(publicUrl: string) {
   if (!publicUrl || !publicUrl.startsWith("/uploads/")) return;
@@ -35,7 +35,7 @@ export async function deleteLocalFile(publicUrl: string) {
  * AND are older than 2 hours (to prevent deleting files currently being uploaded).
  */
 export async function cleanupOrphanedFiles() {
-  const uploadDir = path.join(process.cwd(), "public", "uploads", "services");
+  const uploadDir = path.join(process.cwd(), "public", "uploads", "projects");
   if (!existsSync(uploadDir)) return;
 
   try {
@@ -43,14 +43,14 @@ export async function cleanupOrphanedFiles() {
     if (files.length === 0) return;
 
     // Fetch all active URLs from DB
-    const services = await prisma.service.findMany({
+    const projects = await prisma.project.findMany({
       select: { imageUrl: true, gallery: true }
     });
     
     const activeUrls = new Set<string>();
-    services.forEach(s => {
-      if (s.imageUrl) activeUrls.add(s.imageUrl);
-      if (s.gallery) s.gallery.forEach(url => activeUrls.add(url));
+    projects.forEach(p => {
+      if (p.imageUrl) activeUrls.add(p.imageUrl);
+      if (p.gallery) p.gallery.forEach(url => activeUrls.add(url));
     });
 
     const now = Date.now();
@@ -60,7 +60,7 @@ export async function cleanupOrphanedFiles() {
 
     for (const file of files) {
       const filePath = path.join(uploadDir, file);
-      const publicUrl = `/uploads/services/${file}`;
+      const publicUrl = `/uploads/projects/${file}`;
 
       if (!activeUrls.has(publicUrl)) {
         const fileStat = await stat(filePath);

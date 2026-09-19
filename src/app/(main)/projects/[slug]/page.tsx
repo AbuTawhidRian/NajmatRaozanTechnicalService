@@ -1,5 +1,5 @@
 import CTASection from "@/components/CTASection";
-import { getServiceBySlug } from "@/lib/services";
+import { getProjectBySlug } from "@/lib/projects";
 import { getSiteSettings } from "@/lib/settings";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -10,11 +10,11 @@ import sanitizeHtml from "sanitize-html";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
-  if (!service) return { title: "Project Not Found" };
-  const plain = service.description.replace(/<[^>]*>?/gm, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  const project = await getProjectBySlug(slug);
+  if (!project) return { title: "Project Not Found" };
+  const plain = project.description.replace(/<[^>]*>?/gm, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
   return {
-    title: service.title,
+    title: project.title,
     description: plain.slice(0, 160),
   };
 }
@@ -30,19 +30,19 @@ const WHY_US = [
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [service, settings] = await Promise.all([
-    getServiceBySlug(slug),
+  const [project, settings] = await Promise.all([
+    getProjectBySlug(slug),
     getSiteSettings(),
   ]);
-  if (!service) notFound();
+  if (!project) notFound();
 
   return (
     <div className="pt-16 bg-[#F8FAFC] min-h-screen">
 
       {/* ── HERO ── */}
       <div className="relative w-full h-[420px] md:h-[520px] overflow-hidden">
-        {service.imageUrl && (
-          <Image src={service.imageUrl} alt={service.title} fill priority className="object-cover" sizes="100vw" />
+        {project.imageUrl && (
+          <Image src={project.imageUrl} alt={project.title} fill priority className="object-cover" sizes="100vw" />
         )}
         {/* Gradient layers */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
@@ -57,12 +57,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </Link>
             <p className="text-brand-accent text-xs font-bold tracking-[0.2em] uppercase mb-3">Rolling Shutter Projects</p>
             <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white leading-tight tracking-tight max-w-2xl">
-              {service.title}
+              {project.title}
             </h1>
-            {service.location && (
+            {project.location && (
               <p className="flex items-center gap-1.5 mt-4 text-white/80 text-sm font-medium">
                 <MapPin className="w-4 h-4 text-brand-accent" />
-                {service.location}
+                {project.location}
               </p>
             )}
           </div>
@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
+            <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${project.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white text-xs font-bold transition-all shadow-sm">
               <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
             </a>
@@ -124,18 +124,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     [&_a]:text-brand-accent [&_a]:no-underline [&_a]:font-medium [&_a]:hover:underline
                     [&_blockquote]:border-l-4 [&_blockquote]:border-brand-accent [&_blockquote]:pl-5 [&_blockquote]:italic [&_blockquote]:text-slate-500 [&_blockquote]:my-6 [&_blockquote]:bg-brand-accent/5 [&_blockquote]:py-3 [&_blockquote]:rounded-r-lg
                   "
-                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(service.description, { allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']) }) }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(project.description, { allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']) }) }}
                 />
               </div>
 
               {/* Gallery */}
-              {service.gallery && service.gallery.length > 0 && (
+              {project.gallery && project.gallery.length > 0 && (
                 <div className="px-8 pb-8">
                   <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
                     Project Gallery
                   </h3>
-                  <ImageGallery images={service.gallery} title={service.title} />
+                  <ImageGallery images={project.gallery} title={project.title} />
                 </div>
               )}
             </div>
@@ -145,9 +145,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="w-full lg:w-[320px] flex-shrink-0 space-y-5 lg:sticky lg:top-[112px]">
 
             {/* Project image */}
-            {service.imageUrl && (
+            {project.imageUrl && (
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image src={service.imageUrl} alt={service.title} fill className="object-cover" sizes="320px" />
+                <Image src={project.imageUrl} alt={project.title} fill className="object-cover" sizes="320px" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/50 to-transparent" />
               </div>
             )}
@@ -162,7 +162,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <h3 className="text-white font-bold text-base mb-1">Get a Free Quote</h3>
                 <p className="text-white/50 text-xs mb-5">We respond within minutes, 7 days a week.</p>
-                <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${service.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
+                <a href={`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hello, I'm interested in your ${project.title} project. Please provide more details.`)}`} target="_blank" rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-colors mb-2.5 shadow-sm">
                   <MessageCircle className="w-4 h-4" /> WhatsApp Us Now
                 </a>

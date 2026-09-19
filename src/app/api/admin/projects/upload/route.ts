@@ -36,7 +36,7 @@ function detectMimeFromBuffer(buf: Buffer): string | null {
 /** Resolve a public URL to an absolute path and assert it's inside uploadRoot. */
 function safeResolvePath(publicUrl: string, uploadRoot: string): string | null {
   // Must start with the expected prefix
-  if (!publicUrl.startsWith('/uploads/services/')) return null;
+  if (!publicUrl.startsWith('/uploads/projects/')) return null;
   // Strip any directory traversal sequences
   const normalized = path.normalize(publicUrl);
   const absolute = path.resolve(process.cwd(), 'public', normalized.replace(/^[\\/]/, ''));
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No files provided' }, { status: 400 });
   }
 
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'services');
+  const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'projects');
   if (!existsSync(uploadDir)) {
     await mkdir(uploadDir, { recursive: true });
   }
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     const uploadPath = path.join(uploadDir, safeName);
 
     await writeFile(uploadPath, buffer);
-    uploadedUrls.push(`/uploads/services/${safeName}`);
+    uploadedUrls.push(`/uploads/projects/${safeName}`);
   }
 
   if (uploadedUrls.length === 0) {
@@ -133,14 +133,14 @@ export async function DELETE(req: NextRequest) {
     const { url } = await req.json();
 
     // ── Path traversal prevention ────────────────────────────────────────────
-    const uploadRoot = path.resolve(process.cwd(), 'public', 'uploads', 'services');
+    const uploadRoot = path.resolve(process.cwd(), 'public', 'uploads', 'projects');
     const absolutePath = safeResolvePath(url, uploadRoot);
     if (!absolutePath) {
       return NextResponse.json({ error: 'Invalid URL' }, { status: 400 });
     }
 
     // ── Check if the URL is still in use in the database ────────────────────
-    const inUse = await prisma.service.findFirst({
+    const inUse = await prisma.project.findFirst({
       where: {
         OR: [
           { imageUrl: url },

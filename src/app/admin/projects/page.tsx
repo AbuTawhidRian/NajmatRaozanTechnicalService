@@ -1,4 +1,4 @@
-import { getAllServices } from "@/lib/services";
+import { getAllProjects } from "@/lib/projects";
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
@@ -37,13 +37,13 @@ async function createService(formData: FormData) {
   const location = formData.get("location") as string;
   const gallery = formData.getAll("gallery") as string[];
 
-  const last = await prisma.service.findFirst({ orderBy: { order: "desc" } });
+  const last = await prisma.project.findFirst({ orderBy: { order: "desc" } });
   const order = (last?.order ?? 0) + 1;
 
-  await prisma.service.create({
+  await prisma.project.create({
     data: { title, description, imageUrl, slug, location, order, isActive: true, gallery },
   });
-  revalidatePath("/admin/services");
+  revalidatePath("/admin/projects");
   revalidatePath("/projects");
 }
 
@@ -52,22 +52,22 @@ async function deleteService(formData: FormData) {
   const id = formData.get("id") as string;
   
   // Find the service to get its image URLs
-  const service = await prisma.service.findUnique({ where: { id } });
-  if (service) {
+  const project = await prisma.project.findUnique({ where: { id } });
+  if (project) {
     // Delete main image
-    if (service.imageUrl) {
-      await deleteLocalFile(service.imageUrl);
+    if (project.imageUrl) {
+      await deleteLocalFile(project.imageUrl);
     }
     // Delete gallery images
-    if (service.gallery && service.gallery.length > 0) {
-      for (const url of service.gallery) {
+    if (project.gallery && project.gallery.length > 0) {
+      for (const url of project.gallery) {
         await deleteLocalFile(url);
       }
     }
   }
 
-  await prisma.service.delete({ where: { id } });
-  revalidatePath("/admin/services");
+  await prisma.project.delete({ where: { id } });
+  revalidatePath("/admin/projects");
   revalidatePath("/projects");
 }
 
@@ -75,8 +75,8 @@ async function toggleActive(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
   const current = formData.get("current") === "true";
-  await prisma.service.update({ where: { id }, data: { isActive: !current } });
-  revalidatePath("/admin/services");
+  await prisma.project.update({ where: { id }, data: { isActive: !current } });
+  revalidatePath("/admin/projects");
   revalidatePath("/projects");
 }
 
@@ -84,26 +84,26 @@ async function moveService(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
   const direction = formData.get("direction") as "up" | "down";
-  const services = await prisma.service.findMany({ orderBy: { order: "asc" } });
-  const idx = services.findIndex((s) => s.id === id);
+  const projects = await prisma.project.findMany({ orderBy: { order: "asc" } });
+  const idx = projects.findIndex((s) => s.id === id);
   const swapIdx = direction === "up" ? idx - 1 : idx + 1;
-  if (swapIdx < 0 || swapIdx >= services.length) return;
+  if (swapIdx < 0 || swapIdx >= projects.length) return;
 
   await prisma.$transaction([
-    prisma.service.update({ where: { id: services[idx].id }, data: { order: services[swapIdx].order } }),
-    prisma.service.update({ where: { id: services[swapIdx].id }, data: { order: services[idx].order } }),
+    prisma.project.update({ where: { id: projects[idx].id }, data: { order: projects[swapIdx].order } }),
+    prisma.project.update({ where: { id: projects[swapIdx].id }, data: { order: projects[idx].order } }),
   ]);
-  revalidatePath("/admin/services");
+  revalidatePath("/admin/projects");
   revalidatePath("/projects");
 }
 
 // ─── Page ───────────────────────────────────────────────────────────────────────
 
-export default async function ServicesAdminPage() {
+export default async function ProjectsAdminPage() {
   // Fire and forget orphan cleanup in the background
   cleanupOrphanedFiles();
 
-  const services = await getAllServices();
+  const projects = await getAllProjects();
 
   return (
     <div className="space-y-6">
@@ -117,7 +117,7 @@ export default async function ServicesAdminPage() {
         </div>
         <span className="inline-flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-full text-xs font-medium text-slate-600">
           <Layers className="w-3.5 h-3.5" />
-          {services.length} services
+          {projects.length} services
         </span>
       </div>
 
@@ -131,14 +131,14 @@ export default async function ServicesAdminPage() {
             <p className="text-sm font-semibold text-slate-800">All Projects</p>
           </div>
 
-          {services.length === 0 ? (
+          {projects.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-slate-400">
               <Layers className="w-10 h-10 mb-3 opacity-30" />
               <p className="text-sm">No services yet. Add one →</p>
             </div>
           ) : (
             <div className="divide-y divide-slate-50 overflow-x-auto">
-              {services.map((svc, idx) => (
+              {projects.map((svc, idx) => (
                 <div key={svc.id} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50/50 transition-all duration-300 hover:scale-[1.01] bg-white group min-w-max">
                   {/* Drag handle visual */}
                   <GripVertical className="w-4 h-4 text-slate-300 flex-shrink-0" />
@@ -174,7 +174,7 @@ export default async function ServicesAdminPage() {
                     <ClientActionForm action={moveService} successMessage="Project moved down">
                       <input type="hidden" name="id" value={svc.id} />
                       <input type="hidden" name="direction" value="down" />
-                      <button type="submit" disabled={idx === services.length - 1} className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 disabled:opacity-20 transition-colors">
+                      <button type="submit" disabled={idx === projects.length - 1} className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 disabled:opacity-20 transition-colors">
                         <ArrowDown className="w-3.5 h-3.5" />
                       </button>
                     </ClientActionForm>
@@ -194,7 +194,7 @@ export default async function ServicesAdminPage() {
 
                     {/* Edit */}
                     <Link
-                      href={`/admin/services/${svc.id}/edit`}
+                      href={`/admin/projects/${svc.id}/edit`}
                       title="Edit service"
                       className="w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                     >

@@ -124,14 +124,15 @@ model SiteSettings {
   email     String   @default("info@najmatraozan.com")
   location  String   @default("Al Quoz Industrial Area, Dubai, UAE")
   mapLink   String   @default("https://maps.app.goo.gl/") // The pasted Google Maps link
+  serviceAreas String[] @default(["Deira", "Bur Dubai", "Al Quoz", "Al Barsha", "Jumeirah", "Business Bay", "Dubai Marina", "JVC", "Al Nahda", "Al Qusais", "International City", "Muhaisnah"])
 
   updatedAt DateTime @updatedAt
 }
 
 // ------------------------------------------------------
-// Services Model (admin-managed)
+// Projects Model (admin-managed)
 // ------------------------------------------------------
-model Service {
+model Project {
   id          String   @id @default(cuid())
 
   title       String
@@ -145,5 +146,7 @@ model Service {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@map("Service")
 }
 

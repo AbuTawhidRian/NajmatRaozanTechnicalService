@@ -27,7 +27,7 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
       const newlyUploaded = urls.filter((u) => !defaultUrls.includes(u));
       newlyUploaded.forEach((url) => {
         if (url.startsWith("/uploads/")) {
-          fetch("/api/admin/services/upload", {
+          fetch("/api/admin/projects/upload", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url }),
@@ -65,7 +65,7 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
         fd.append("file", compressedFile, compressedFile.name);
       }
 
-      const res = await fetch("/api/admin/services/upload", { method: "POST", body: fd });
+      const res = await fetch("/api/admin/projects/upload", { method: "POST", body: fd });
       const data = await res.json();
       
       if (data.urls) {
@@ -90,7 +90,7 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
     // Delete immediately if it was uploaded just now (not an existing saved image)
     if (!defaultUrls.includes(urlToRemove)) {
       try {
-        await fetch("/api/admin/services/upload", {
+        await fetch("/api/admin/projects/upload", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: urlToRemove }),

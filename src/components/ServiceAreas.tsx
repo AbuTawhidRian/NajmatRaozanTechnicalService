@@ -7,7 +7,7 @@ import { useSettings } from "./SettingsContext";
 
 export default function ServiceAreas() {
   const settings = useSettings();
-  const areas = [
+  const areas = settings.serviceAreas?.length ? settings.serviceAreas : [
     "Deira",
     "Bur Dubai",
     "Al Quoz",

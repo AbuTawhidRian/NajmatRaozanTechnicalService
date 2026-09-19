@@ -1,4 +1,4 @@
-import { getActiveServices } from "@/lib/services";
+import { getActiveProjects } from "@/lib/projects";
 import ServiceCard from "./ServiceCard";
 import SectionHeading from "./SectionHeading";
 import {
@@ -36,11 +36,11 @@ interface ServicesGridProps {
 }
 
 export default async function ServicesGrid({ limit, latest }: ServicesGridProps = {}) {
-  let services: any[] = [];
+  let projects: any[] = [];
   try {
-    services = await getActiveServices(limit, latest);
+    projects = await getActiveProjects(limit, latest);
   } catch (error) {
-    console.error("Failed to fetch services during build:", error);
+    console.error("Failed to fetch projects during build:", error);
   }
 
   return (
@@ -56,14 +56,14 @@ export default async function ServicesGrid({ limit, latest }: ServicesGridProps 
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
-          {services.map((service, index) => (
+          {projects.map((project, index) => (
             <ServiceCard
-              key={service.id}
-              title={service.title}
-              description={service.description}
-              imageUrl={service.imageUrl}
-              href={`/projects/${service.slug}`}
-              icon={getIcon(service.slug)}
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              imageUrl={project.imageUrl}
+              href={`/projects/${project.slug}`}
+              icon={getIcon(project.slug)}
               index={index}
             />
           ))}

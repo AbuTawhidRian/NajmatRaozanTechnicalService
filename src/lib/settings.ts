@@ -8,6 +8,7 @@ export interface SettingsType {
   email: string;
   location: string;
   mapLink?: string;
+  serviceAreas?: string[];
 }
 
 const DEFAULT_SETTINGS: SettingsType = {
@@ -17,6 +18,7 @@ const DEFAULT_SETTINGS: SettingsType = {
   email: "info@najmatraozan.com",
   location: "Al Quoz Industrial Area, Dubai, UAE",
   mapLink: "https://maps.app.goo.gl/",
+  serviceAreas: ["Deira", "Bur Dubai", "Al Quoz", "Al Barsha", "Jumeirah", "Business Bay", "Dubai Marina", "JVC", "Al Nahda", "Al Qusais", "International City", "Muhaisnah"],
 };
 
 // Next.js caches this query heavily so it doesn't hit the DB on every page load
@@ -34,6 +36,7 @@ export const getSiteSettings = unstable_cache(
         email: settings.email,
         location: settings.location,
         mapLink: settings.mapLink,
+        serviceAreas: settings.serviceAreas,
       };
     } catch (error) {
       console.error("Failed to fetch site settings, using defaults:", error);

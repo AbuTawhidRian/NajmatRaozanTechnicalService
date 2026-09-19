@@ -23,7 +23,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
   useEffect(() => {
     const handleUnload = () => {
       if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
-        fetch("/api/admin/services/upload", {
+        fetch("/api/admin/projects/upload", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: preview }),
@@ -59,7 +59,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
     // Delete previously uploaded image if it exists and is not the default
     if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
       try {
-        await fetch("/api/admin/services/upload", {
+        await fetch("/api/admin/projects/upload", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url: preview }),
@@ -71,7 +71,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
 
     const fd = new FormData();
     fd.append("file", compressedFile, file.name);
-    const res = await fetch("/api/admin/services/upload", { method: "POST", body: fd });
+    const res = await fetch("/api/admin/projects/upload", { method: "POST", body: fd });
     const data = await res.json();
     setUploading(false);
     if (data.url) {
@@ -142,7 +142,7 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
             onClick={async () => {
               if (preview && preview !== defaultUrl && preview.startsWith("/uploads/")) {
                 try {
-                  await fetch("/api/admin/services/upload", {
+                  await fetch("/api/admin/projects/upload", {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ url: preview }),
