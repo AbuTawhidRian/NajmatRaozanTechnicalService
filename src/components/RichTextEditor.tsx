@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 
@@ -14,10 +14,19 @@ interface RichTextEditorProps {
 
 export default function RichTextEditor({ name, defaultValue = "" }: RichTextEditorProps) {
   const [value, setValue] = useState(defaultValue);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const form = inputRef.current?.closest("form");
+    if (!form) return;
+    const onReset = () => setValue(defaultValue);
+    form.addEventListener("reset", onReset);
+    return () => form.removeEventListener("reset", onReset);
+  }, [defaultValue]);
 
   return (
     <>
-      <input type="hidden" name={name} value={value} />
+      <input ref={inputRef} type="hidden" name={name} value={value} />
       <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
         <ReactQuill 
           theme="snow" 

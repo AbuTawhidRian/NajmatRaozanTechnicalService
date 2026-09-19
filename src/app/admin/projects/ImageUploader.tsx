@@ -40,6 +40,18 @@ export default function ImageUploader({ name, defaultUrl = "", label = "Project 
     };
   }, [preview, defaultUrl]);
 
+  useEffect(() => {
+    const form = fileRef.current?.closest("form");
+    if (!form) return;
+    const onReset = () => {
+      setPreview(defaultUrl);
+      setUrlInput(defaultUrl);
+      setMode("url");
+    };
+    form.addEventListener("reset", onReset);
+    return () => form.removeEventListener("reset", onReset);
+  }, [defaultUrl]);
+
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;

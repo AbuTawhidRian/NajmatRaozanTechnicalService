@@ -45,6 +45,16 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
     };
   }, [urls, defaultUrls]);
 
+  useEffect(() => {
+    const form = fileRef.current?.closest("form");
+    if (!form) return;
+    const onReset = () => {
+      setUrls(defaultUrls);
+    };
+    form.addEventListener("reset", onReset);
+    return () => form.removeEventListener("reset", onReset);
+  }, [defaultUrls?.join(',')]);
+
   async function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
