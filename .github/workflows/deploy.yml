@@ -50,7 +50,7 @@ jobs:
             # Apply any database schema changes automatically
             # Wait a moment for the container to be fully ready
             sleep 5
-            docker-compose exec -T web npx prisma db push --accept-data-loss
+            docker-compose exec -T web ./node_modules/.bin/prisma db push --accept-data-loss
             
             # Optional: Prune unused Docker images to free up space
             docker image prune -f
