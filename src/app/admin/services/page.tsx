@@ -34,13 +34,14 @@ async function createService(formData: FormData) {
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
   const slug = formData.get("slug") as string;
+  const location = formData.get("location") as string;
   const gallery = formData.getAll("gallery") as string[];
 
   const last = await prisma.service.findFirst({ orderBy: { order: "desc" } });
   const order = (last?.order ?? 0) + 1;
 
   await prisma.service.create({
-    data: { title, description, imageUrl, slug, order, isActive: true, gallery },
+    data: { title, description, imageUrl, slug, location, order, isActive: true, gallery },
   });
   revalidatePath("/admin/services");
   revalidatePath("/projects");
@@ -245,6 +246,16 @@ export default async function ServicesAdminPage() {
                 className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819] placeholder:text-slate-300"
               />
               <p className="text-xs text-slate-400">Lowercase, hyphens only. Used in the URL.</p>
+            </div>
+
+            {/* Location */}
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-slate-700">Location (Optional)</label>
+              <input
+                name="location"
+                placeholder="e.g. Al Quoz, Dubai"
+                className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819] placeholder:text-slate-300"
+              />
             </div>
 
             {/* Description */}

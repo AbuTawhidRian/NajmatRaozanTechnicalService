@@ -59,6 +59,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <h1 className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-white leading-tight tracking-tight max-w-2xl">
               {service.title}
             </h1>
+            {service.location && (
+              <p className="flex items-center gap-1.5 mt-4 text-white/80 text-sm font-medium">
+                <MapPin className="w-4 h-4 text-brand-accent" />
+                {service.location}
+              </p>
+            )}
           </div>
         </div>
       </div>

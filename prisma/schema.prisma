@@ -138,6 +138,7 @@ model Service {
   description String
   imageUrl    String
   slug        String   @unique // URL slug, also used for icon mapping
+  location    String?
   order       Int      @default(0)
   isActive    Boolean  @default(true)
   gallery     String[] @default([]) // Array of compressed image URLs

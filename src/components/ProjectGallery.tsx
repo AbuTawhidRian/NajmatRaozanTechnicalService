@@ -74,7 +74,7 @@ export default async function ProjectGallery({ limit }: { limit?: number } = {})
     return {
       id: service.id,
       title: meta.title,
-      location: meta.location,
+      location: service.location || meta.location,
       category: meta.category,
       subtitle: meta.subtitle,
       imageUrl: service.imageUrl,

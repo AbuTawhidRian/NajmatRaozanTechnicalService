@@ -20,6 +20,7 @@ async function updateService(formData: FormData) {
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
   const slug = formData.get("slug") as string;
+  const location = formData.get("location") as string;
   const gallery = formData.getAll("gallery") as string[];
 
   // Fetch the old service to see if any images were removed
@@ -27,7 +28,7 @@ async function updateService(formData: FormData) {
 
   await prisma.service.update({
     where: { id },
-    data: { title, description, imageUrl, slug, gallery },
+    data: { title, description, imageUrl, slug, location, gallery },
   });
 
   // If update succeeded, delete orphaned files
@@ -102,6 +103,17 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
               className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819]"
             />
             <p className="text-xs text-slate-400">Changing the slug will break existing /services/[slug] links.</p>
+          </div>
+
+          {/* Location */}
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-slate-700">Location (Optional)</label>
+            <input
+              name="location"
+              defaultValue={service.location || ""}
+              placeholder="e.g. Al Quoz, Dubai"
+              className="w-full px-3 py-2.5 text-sm border border-slate-200 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#E59819]/40 focus:border-[#E59819]"
+            />
           </div>
 
             {/* Description */}
