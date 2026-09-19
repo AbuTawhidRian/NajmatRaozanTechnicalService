@@ -47,8 +47,10 @@ jobs:
             # Start the new container (only 1-2s of downtime)
             docker-compose up -d
             
-            # NOTE: To run schema migrations manually, SSH into the VPS and run:
-            # docker-compose exec web npx prisma@7 db push
+            # Apply any database schema changes automatically
+            # Wait a moment for the container to be fully ready
+            sleep 5
+            docker-compose exec -T web npx prisma db push --accept-data-loss
             
             # Optional: Prune unused Docker images to free up space
             docker image prune -f
