@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
+import toast from "react-hot-toast";
 
 interface MultiImageUploaderProps {
   name: string;
@@ -66,16 +67,19 @@ export default function MultiImageUploader({ name, defaultUrls = [], label = "Ga
       }
 
       const res = await fetch("/api/admin/projects/upload", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Upload failed");
       const data = await res.json();
       
       if (data.urls) {
         setUrls((prev) => [...prev, ...data.urls]);
+        toast.success("Images uploaded successfully!");
       } else if (data.url) {
         setUrls((prev) => [...prev, data.url]);
+        toast.success("Image uploaded successfully!");
       }
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Failed to upload images.");
+      toast.error("Failed to upload images.");
     } finally {
       setUploading(false);
       // Reset input
